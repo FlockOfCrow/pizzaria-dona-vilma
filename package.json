@@ -23,5 +23,12 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
     "@eslint/eslintrc": "^3"
-  }
+  },
+  "author": "wfabi0",
+  "contributors": [
+    {
+      "name": "João Pedro Dupim",
+      "url": "https://github.com/JoaoPedroDupim"
+    }
+  ]
 }
