@@ -1,6 +1,6 @@
 {
-  "name": "vovo",
-  "version": "0.1.0",
+  "name": "pizzaria-dona-vilma",
+  "version": "0.2.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@prisma/client": "^6.2.1",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-separator": "^1.1.1",
@@ -33,6 +34,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.23",
     "postcss": "^8",
+    "prisma": "^6.2.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
