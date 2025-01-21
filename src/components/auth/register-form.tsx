@@ -1,5 +1,6 @@
 "use client";
 
+import { registerUser } from "@/services/auth/auth-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
 import { useState } from "react";
@@ -15,8 +16,9 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { cryptoPassword } from "@/services/auth/auth-service";
 
-const formSchema = z
+export const formSchema = z
   .object({
     email: z
       .string()
@@ -113,7 +115,6 @@ export default function RegisterForm() {
           `https://brasilapi.com.br/api/cep/v2/${zip}`
         );
         const data = await response.json();
-        console.log(data);
         if (!data.erro) {
           form.setValue("address.street", data.street || "");
           form.setValue("address.city", data.city || "");
@@ -144,9 +145,12 @@ export default function RegisterForm() {
     }
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const hashedPassword = await cryptoPassword(values.password);
+    const user = await registerUser({ ...values, password: hashedPassword });
+    console.log(user);
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
