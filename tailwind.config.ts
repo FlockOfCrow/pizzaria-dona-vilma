@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,11 +10,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#FAF2E1",
-        fbg: "#F9E1AE",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        bg: "#FAF2E1",
+        fbg: "#F9E1AE",
         "orange-pizza": "#CE441E",
+        "button-pizza": "#CA8010",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -63,4 +64,5 @@ export default {
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+export default config;
