@@ -9,10 +9,10 @@ import { FcGoogle } from "react-icons/fc";
 export default function Login() {
   return (
     <div className="flex flex-row items-center min-h-screen justify-between bg-bg w-screen">
-      <div className="w-[70vw] h-screen border-r-[1px] border-r-[#CFBB90] flex justify-center items-center">
+      <div className="w-[70vw] min-h-screen border-r-[1px] border-r-[#CFBB90] flex justify-center items-center">
         <Image src="/logo02.png" alt="logo02" width={500} height={500} />
       </div>
-      <div className="w-[30vw] h-screen bg-fbg py-6 px-16 flex flex-col">
+      <div className="w-[30vw] min-h-screen bg-fbg py-6 px-16 flex flex-col">
         <div className="flex items-center justify-center text-orange-pizza text-[3rem]">
           <div className="-mr-[0.7rem]">Dona</div>
           <Image src="/pizza02.png" alt="pizza02" width={106} height={97} />
@@ -25,7 +25,7 @@ export default function Login() {
         <div>
           <LoginForm />
         </div>
-        <div className="flex flex-col mt-auto mb-16 justify-center items-center space-y-10">
+        <div className="flex flex-col lg:mt-10 md:mt-auto justify-center items-center space-y-10">
           <LoginCard>
             <div className="flex gap-1 items-center">
               <div>Não tem uma conta?</div>
