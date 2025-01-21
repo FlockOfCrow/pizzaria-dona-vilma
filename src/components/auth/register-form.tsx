@@ -220,7 +220,7 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           <FormField
             control={form.control}
             name="address.zip"
@@ -343,7 +343,7 @@ export default function RegisterForm() {
             className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
           >
-            Entrar
+            Registrar
             <Pizza className="flex items-end justify-end text-end" />
           </Button>
         </div>

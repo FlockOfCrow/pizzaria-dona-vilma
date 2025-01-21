@@ -17,7 +17,7 @@ export default function Register() {
           <span>Crie sua</span>
           <span>Conta</span>
         </div>
-        <div>
+        <div className="mt-4">
           <RegisterForm />
         </div>
       </div>
