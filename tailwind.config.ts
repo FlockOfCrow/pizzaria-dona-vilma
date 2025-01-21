@@ -16,6 +16,9 @@ const config: Config = {
         fbg: "#F9E1AE",
         "orange-pizza": "#CE441E",
         "button-pizza": "#CA8010",
+        "button-hover-pizza": "#9c6e1e",
+        "border-pizza": "#CFBB90",
+        "separator-pizza": "#6A5C3C",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

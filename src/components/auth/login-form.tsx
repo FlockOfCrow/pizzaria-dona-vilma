@@ -87,7 +87,7 @@ export default function LoginForm() {
         />
         <div className="flex justify-end">
           <Button
-            className="bg-button-pizza hover:bg-[#9c6e1e] w-1/3"
+            className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
           >
             Entrar
