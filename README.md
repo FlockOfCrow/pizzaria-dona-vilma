@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍕 Pizzaria Dona Vilma👩‍🍳
 
-## Getting Started
+Onde cada fatia é feita com amor e tradição. Desfrute de nossas pizzas artesanais, preparadas com os ingredientes mais frescos e um toque especial que só a Dona Vilma sabe fazer. Venha viver uma experiência única de sabor e qualidade!
 
-First, run the development server:
+## 🚀 Começando
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📋 Desenvolvimento
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para iniciar o servidor de desenvolvimento, siga os passos abaixo:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone o repositório:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/FlockOfCrow/pizzaria-dona-vilma.git
+   cd pizzaria-dona-vilma
+   ```
 
-## Learn More
+2. Instale as dependências:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    pnpm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Execute o servidor de desenvolvimento:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    pnpm dev
+    ```
 
-## Deploy on Vercel
+4. Abra http://localhost:3000 (o servidor pode estar rodando em outra porta, atente-se no terminal) no seu navegador para ver o resultado.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔧 Produção
+
+Para criar uma build de produção, siga os passos abaixo:
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/FlockOfCrow/pizzaria-dona-vilma.git
+   cd pizzaria-dona-vilma
+   ```
+
+2. Instale as dependências:
+
+    ```bash
+    pnpm install
+    ```
+
+3. Crie a build de produção:
+
+    ```bash
+    pnpm build
+    ```
+
+4. Inicie o servidor de produção:
+
+    ```bash
+    pnpm start
+    ```
+
+5. Abra http://localhost:3000 (o servidor pode estar rodando em outra porta, atente-se no terminal) no seu navegador para ver o resultado.
+
+## 🛠️ Tecnologias Utilizadas
+- Next.js
+- React
+- Tailwind CSS
+- TypeScript
+
+## 🚀 Deploy na Vercel
+Nós utilizamos a [Vercel](https://vercel.com) para hospedar e gerenciar nosso aplicativo temporariamente para desenvolvimento.
+
+---
+
+## Desenvolvedores
+
+| [<img src="https://github.com/wfabi0.png" width="100px;"/><br /><sub><b>Fábio Milagres</b></sub>](https://github.com/wfabi0) | [<img src="https://github.com/JoaoPedroDupim.png" width="100px;"/><br /><sub><b>João Pedro</b></sub>](https://github.com/JoaoPedroDupim) |
+| :---: | :---: |
