@@ -5,7 +5,7 @@ import { cryptoPassword } from "@/services/auth/auth-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import {
@@ -18,6 +18,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const formSchema = z
   .object({
@@ -81,6 +82,9 @@ export const formSchema = z
   });
 
 export default function RegisterForm() {
+  const router = useRouter();
+
+  const [isSubmitting, setSubmit] = useState(false);
   const [isAutoFilled, setIsAutoFilled] = useState({
     street: false,
     city: false,
@@ -147,6 +151,7 @@ export default function RegisterForm() {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setSubmit(true);
     const { confirmPassword, ...filteredValues } = values;
     const hashedPassword = await cryptoPassword(values.password);
     const registerPromise = registerUser({
@@ -156,8 +161,17 @@ export default function RegisterForm() {
     toast.promise(registerPromise, {
       loading: "Criando sua conta...",
       success: "Conta criada com sucesso!",
-      error: "Erro ao cadastrar usuário.",
+      error: () => {
+        setSubmit(false);
+        return "Erro ao cadastrar usuário.";
+      },
     });
+    try {
+      await registerPromise;
+      router.push("/login");
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -355,7 +369,7 @@ export default function RegisterForm() {
           <Button
             className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
-            disabled={form.formState.isSubmitting}
+            disabled={isSubmitting}
           >
             Registrar
             <Pizza className="flex items-end justify-end text-end" />
