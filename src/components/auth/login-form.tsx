@@ -16,8 +16,10 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import Link from "next/link";
+import { loginUser } from "@/services/auth/auth-action";
+import { toast } from "sonner";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   email: z
     .string()
     .email({
@@ -41,7 +43,12 @@ export default function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const loginPromise = loginUser(values);
+    toast.promise(loginPromise, {
+      loading: "Logando...",
+      success: "Você foi logado com sucesso!",
+      error: "Sua senha está incorreta.",
+    });
   }
   return (
     <Form {...form}>
