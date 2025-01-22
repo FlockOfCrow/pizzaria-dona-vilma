@@ -1,4 +1,4 @@
-import LoginCard from "@/components/auth/login-card";
+import InfoCard from "@/components/auth/info-card";
 import LoginForm from "@/components/auth/login-form";
 import { Separator } from "@/components/ui/separator";
 import { UtensilsCrossed } from "lucide-react";
@@ -26,7 +26,7 @@ export default function Login() {
           <LoginForm />
         </div>
         <div className="flex flex-col mt-20 justify-center items-center space-y-10">
-          <LoginCard>
+          <InfoCard>
             <div className="flex gap-1 items-center">
               <div>Não tem uma conta?</div>
               <UtensilsCrossed className="w-5 h-5" />
@@ -34,15 +34,15 @@ export default function Login() {
             <div className="text-button-pizza hover:text-button-hover-pizza">
               <Link href="/register">Se inscreva GRATUITAMENTE</Link>
             </div>
-          </LoginCard>
+          </InfoCard>
           <Separator className="bg-separator-pizza" />
-          <LoginCard>
+          <InfoCard>
             <Link href={"/auth/google"}>
               <div className="flex group-hover:hover:text-button-hover-pizza justify-center items-center gap-x-2">
                 Conecte-se pelo Google: <FcGoogle className="w-8 h-8" />
               </div>
             </Link>
-          </LoginCard>
+          </InfoCard>
         </div>
       </div>
     </div>

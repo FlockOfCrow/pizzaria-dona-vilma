@@ -1,5 +1,8 @@
+import InfoCard from "@/components/auth/info-card";
 import RegisterForm from "@/components/auth/register-form";
+import { UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Register() {
   return (
@@ -19,6 +22,17 @@ export default function Register() {
         </div>
         <div className="lg:mt-4 md:mt-auto">
           <RegisterForm />
+        </div>
+        <div className="flex flex-col mt-10 justify-center items-center space-y-10">
+          <InfoCard>
+            <div className="flex gap-1 items-center">
+              <div>Já possui uma conta?</div>
+              <UtensilsCrossed className="w-5 h-5" />
+            </div>
+            <div className="text-button-pizza hover:text-button-hover-pizza">
+              <Link href="/login">Faça login CLICANDO AQUI</Link>
+            </div>
+          </InfoCard>
         </div>
       </div>
     </div>
