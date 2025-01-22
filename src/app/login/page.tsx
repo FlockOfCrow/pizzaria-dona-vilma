@@ -25,7 +25,7 @@ export default function Login() {
         <div>
           <LoginForm />
         </div>
-        <div className="flex flex-col lg:mt-10 md:mt-auto justify-center items-center space-y-10">
+        <div className="flex flex-col mt-20 justify-center items-center space-y-10">
           <LoginCard>
             <div className="flex gap-1 items-center">
               <div>Não tem uma conta?</div>
