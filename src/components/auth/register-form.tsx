@@ -156,7 +156,7 @@ export default function RegisterForm() {
     toast.promise(registerPromise, {
       loading: "Criando sua conta...",
       success: "Conta criada com sucesso!",
-      error: (err) => err.message,
+      error: "Erro ao cadastrar usuário.",
     });
   }
 

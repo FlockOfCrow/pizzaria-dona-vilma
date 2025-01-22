@@ -27,8 +27,8 @@ export async function registerUser(
       },
     });
     return { status: "success" };
-  } catch (error) {
-    console.log(error.code);
+  } catch (error: any) {
+    console.log(error.message);
     if (error.code === "P2002") {
       throw new Error("Esse email já está cadastrado.");
     } else {
@@ -46,17 +46,18 @@ export async function loginUser(formData: z.infer<typeof loginFormSchema>) {
       },
     });
     if (!user) {
-      throw new Error("Email ou senha inválidos");
+      throw new Error("Email ou senha inválidos.");
     }
     const confirmPassword = await comparePassword(
       formData.password,
       user.password
     );
     if (!confirmPassword) {
-      throw new Error("Email ou senha inválidos");
+      throw new Error("Email ou senha inválidos.");
     }
     return { status: "success" };
-  } catch (error) {
-    throw new Error(error.message);
+  } catch (error: any) {
+    console.error(error.message);
+    throw new Error("Email ou senha inválidos.");
   }
 }

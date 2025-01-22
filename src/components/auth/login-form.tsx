@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 
 export const formSchema = z.object({
   email: z
@@ -34,6 +35,7 @@ export const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,13 +44,19 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const loginPromise = loginUser(values);
     toast.promise(loginPromise, {
       loading: "Logando...",
       success: "Você foi logado com sucesso!",
-      error: (err) => err.message, // "Sua senha está incorreta."
+      error: "Email ou senha inválidos.", // "Sua senha está incorreta."
     });
+    try {
+      await loginPromise;
+      router.push("/");
+    } catch (err) {
+      console.error(err);
+    }
   }
   return (
     <Form {...form}>
