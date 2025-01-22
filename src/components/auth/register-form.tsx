@@ -48,14 +48,9 @@ export const formSchema = z
       street: z.string().min(1, {
         message: "Rua inválida",
       }),
-      number: z
-        .string()
-        .min(1, {
-          message: "Número inválido",
-        })
-        .max(10, {
-          message: "Número inválido",
-        }),
+      number: z.string().regex(/^[0-9A-Za-z]{1,10}$/, {
+        message: "Número inválido",
+      }),
       city: z.string().min(1, {
         message: "Cidade inválida",
       }),
