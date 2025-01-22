@@ -156,7 +156,7 @@ export default function RegisterForm() {
     toast.promise(registerPromise, {
       loading: "Criando sua conta...",
       success: "Conta criada com sucesso!",
-      error: "Erro ao criar sua conta.",
+      error: (err) => err.message,
     });
   }
 
@@ -355,6 +355,7 @@ export default function RegisterForm() {
           <Button
             className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
+            disabled={form.formState.isSubmitting}
           >
             Registrar
             <Pizza className="flex items-end justify-end text-end" />

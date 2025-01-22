@@ -1,8 +1,11 @@
 "use client";
 
+import { loginUser } from "@/services/auth/auth-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import {
@@ -15,9 +18,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import Link from "next/link";
-import { loginUser } from "@/services/auth/auth-action";
-import { toast } from "sonner";
 
 export const formSchema = z.object({
   email: z
@@ -47,7 +47,7 @@ export default function LoginForm() {
     toast.promise(loginPromise, {
       loading: "Logando...",
       success: "Você foi logado com sucesso!",
-      error: "Sua senha está incorreta.",
+      error: (err) => err.message, // "Sua senha está incorreta."
     });
   }
   return (
@@ -96,6 +96,7 @@ export default function LoginForm() {
           <Button
             className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
+            disabled={form.formState.isSubmitting}
           >
             Entrar
             <Pizza className="flex items-end justify-end text-end" />
