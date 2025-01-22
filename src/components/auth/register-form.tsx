@@ -1,6 +1,7 @@
 "use client";
 
 import { registerUser } from "@/services/auth/auth-action";
+import { cryptoPassword } from "@/services/auth/auth-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
 import { useState } from "react";
@@ -16,7 +17,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { cryptoPassword } from "@/services/auth/auth-service";
+import { toast } from "sonner";
 
 export const formSchema = z
   .object({
@@ -146,9 +147,17 @@ export default function RegisterForm() {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { confirmPassword, ...filteredValues } = values;
     const hashedPassword = await cryptoPassword(values.password);
-    const user = await registerUser({ ...values, password: hashedPassword });
-    console.log(user);
+    const registerPromise = registerUser({
+      ...filteredValues,
+      password: hashedPassword,
+    });
+    toast.promise(registerPromise, {
+      loading: "Criando sua conta...",
+      success: "Conta criada com sucesso!",
+      error: "Erro ao criar sua conta.",
+    });
   }
 
   return (
