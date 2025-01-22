@@ -18,11 +18,11 @@ export default function Login() {
           <Image src="/pizza02.png" alt="pizza02" width={106} height={97} />
           <div>Vilma</div>
         </div>
-        <div className="text-[2rem] text-orange-pizza flex flex-col">
+        <div className="text-[2rem] my-2 text-orange-pizza flex flex-col">
           <span>Acesse sua</span>
           <span>Conta</span>
         </div>
-        <div>
+        <div className="lg:mt-4 md:mt-auto">
           <LoginForm />
         </div>
         <div className="flex flex-col mt-20 justify-center items-center space-y-10">
