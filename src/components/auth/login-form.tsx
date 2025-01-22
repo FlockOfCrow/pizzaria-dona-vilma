@@ -1,8 +1,11 @@
 "use client";
 
+import { loginUser } from "@/services/auth/auth-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import {
@@ -15,9 +18,9 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   email: z
     .string()
     .email({
@@ -32,6 +35,7 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,8 +44,19 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const loginPromise = loginUser(values);
+    toast.promise(loginPromise, {
+      loading: "Logando...",
+      success: "Você foi logado com sucesso!",
+      error: "Email ou senha inválidos.", // "Sua senha está incorreta."
+    });
+    try {
+      await loginPromise;
+      router.push("/");
+    } catch (err) {
+      console.error(err);
+    }
   }
   return (
     <Form {...form}>
@@ -89,6 +104,7 @@ export default function LoginForm() {
           <Button
             className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
+            disabled={form.formState.isSubmitting}
           >
             Entrar
             <Pizza className="flex items-end justify-end text-end" />

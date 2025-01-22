@@ -1,5 +1,7 @@
 "use client";
 
+import { registerUser } from "@/services/auth/auth-action";
+import { cryptoPassword } from "@/services/auth/auth-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
 import { useState } from "react";
@@ -15,8 +17,9 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { toast } from "sonner";
 
-const formSchema = z
+export const formSchema = z
   .object({
     email: z
       .string()
@@ -113,7 +116,6 @@ export default function RegisterForm() {
           `https://brasilapi.com.br/api/cep/v2/${zip}`
         );
         const data = await response.json();
-        console.log(data);
         if (!data.erro) {
           form.setValue("address.street", data.street || "");
           form.setValue("address.city", data.city || "");
@@ -144,9 +146,20 @@ export default function RegisterForm() {
     }
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { confirmPassword, ...filteredValues } = values;
+    const hashedPassword = await cryptoPassword(values.password);
+    const registerPromise = registerUser({
+      ...filteredValues,
+      password: hashedPassword,
+    });
+    toast.promise(registerPromise, {
+      loading: "Criando sua conta...",
+      success: "Conta criada com sucesso!",
+      error: "Erro ao cadastrar usuário.",
+    });
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -342,6 +355,7 @@ export default function RegisterForm() {
           <Button
             className="bg-button-pizza hover:bg-button-hover-pizza w-1/3"
             type="submit"
+            disabled={form.formState.isSubmitting}
           >
             Registrar
             <Pizza className="flex items-end justify-end text-end" />
