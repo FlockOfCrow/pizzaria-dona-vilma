@@ -8,7 +8,7 @@ import NavMenu from "./menu/nav-menu";
 export default function NavBar() {
   return (
     <nav className="flex flex-wrap flex-row items-center bg-fbg justify-between w-full xl:py-8 xl:px-5 2xl:py-8 2xl:px-20 p-8">
-      <div className="lg:flex lg:flex-wrap lg:gap-x-5 md:hidden hidden">
+      <div className="lg:flex lg:flex-wrap lg:gap-x-5 hidden">
         <NavItem href={"#"}>
           <House /> Inicio
         </NavItem>
@@ -21,7 +21,7 @@ export default function NavBar() {
       </div>
       <Link
         href={"/"}
-        className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2 flex flex-row items-center text-orange-pizza text-[1.7rem] xl:text-[2.3rem] 2xl:text-[3rem] font-bold italic"
+        className="lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 flex flex-row items-center text-orange-pizza text-[1.4rem] xl:text-[2.3rem] 2xl:text-[3rem] font-bold italic"
       >
         <div className="-mr-[0.7rem]">Dona</div>
         <Image
@@ -33,13 +33,13 @@ export default function NavBar() {
         />
         <div>Vilma</div>
       </Link>
-      <div className="lg:flex lg:flex-wrap lg:gap-x-5 md:hidden hidden">
+      <div className="lg:flex lg:flex-wrap lg:gap-x-5 hidden">
         <NavCart />
         <NavItem href={"/login"}>
           Acessar Conta <CircleUserRound />
         </NavItem>
       </div>
-      <div className="flex items-center space-x-3 md:hidden">
+      <div className="flex items-center space-x-3 lg:hidden">
         <Link href={"/login"}>
           <CircleUserRound className="h-7 w-7" />
         </Link>
