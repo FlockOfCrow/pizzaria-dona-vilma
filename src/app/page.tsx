@@ -5,6 +5,7 @@ import HomeLocation from "@/components/home/home-location";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
 import { Flame, PiggyBank, Search } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -51,7 +52,17 @@ export default function Home() {
           </div>
           <div className="w-1/2 h-full space-y-6">
             <HomeLocation />
-            {/* <div className="relative w-full h-full bg-red-500">Image</div> */}
+            <div className="flex justify-center">
+              <div className="relative w-[80%] aspect-video shadow-xl rounded-md">
+                <Image
+                  src={"/cupons/super_cupom.png"}
+                  alt="Cupom de desconto"
+                  fill={true}
+                  className="object-cover rounded-md border-2 border-border-pizza"
+                  quality={100}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </main>
