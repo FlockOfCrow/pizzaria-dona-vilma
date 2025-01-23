@@ -16,21 +16,22 @@ export default function PromotionCarouselCard({
   description,
 }: ICarouselCard) {
   return (
-    <Card key={index}>
+    <Card className="bg-fbg shadow-md" key={index}>
       <CardContent className="items-center justify-center p-6">
         <div className="relative w-full h-40">
           <Image
             src={image}
             alt={title}
             className="object-cover"
-            layout="fill"
+            fill={true}
+            quality={100}
           />
         </div>
         <div className="flex flex-col space-y-2 mt-2 items-center">
-          <span className="text-xl font-semibold truncate w-full text-center">
+          <span className="text-lg font-semibold truncate w-full text-center">
             {title}
           </span>
-          <Separator />
+          <Separator className="bg-border-pizza" />
           <span className="font-normal truncate w-full text-center">
             {description}
           </span>

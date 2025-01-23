@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Carousel,
   CarouselContent,
@@ -6,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import PromotionCarouselCard from "./promo-carousel-card";
+import Autoplay from "embla-carousel-autoplay";
 
 interface IPizza {
   name: string;
@@ -54,6 +57,11 @@ export default function PromotionCarousel() {
         align: "start",
         loop: true,
       }}
+      plugins={[
+        Autoplay({
+          delay: 5000,
+        }),
+      ]}
       className="w-full max-w-full mt-5"
     >
       <CarouselContent>
@@ -74,8 +82,8 @@ export default function PromotionCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md" />
+      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md" />
     </Carousel>
   );
 }
