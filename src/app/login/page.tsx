@@ -12,11 +12,11 @@ export default function Login() {
     <div className="flex flex-row items-center min-h-screen justify-between bg-bg w-screen">
       <Link
         href="/"
-        className="w-[70vw] min-h-screen justify-center items-center md:flex hidden"
+        className="md:w-[70vw] lg:w-[65vw] xl:w-[65vw] 2xl:w-[70vw] min-h-screen justify-center items-center md:flex hidden"
       >
         <Image src="/logo02.png" alt="logo02" width={500} height={500} />
       </Link>
-      <div className="md:w-[30vw] w-full min-h-screen border-l-[1px] border-l-[#CFBB90] bg-fbg py-6 px-16 flex flex-col">
+      <div className="w-full md:w-[35vw] lg:w-[35vw] xl:w-[35vw] 2xl:w-[30vw] min-h-screen border-l-[1px] border-l-[#CFBB90] bg-fbg py-6 px-8 md:px-16 flex flex-col">
         <AuthTitle />
         <div className="text-[2rem] my-2 text-orange-pizza flex flex-col">
           <span>Acesse sua</span>
