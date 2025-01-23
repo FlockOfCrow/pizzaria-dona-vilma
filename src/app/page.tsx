@@ -1,6 +1,31 @@
+import HomeCategories from "@/components/home/categories/home-categories";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { CupSoda, IceCream, Pizza, Search } from "lucide-react";
+
+interface ICategory {
+  value: string;
+  label: string;
+  icon: any;
+}
+
+export const categories: ICategory[] = [
+  {
+    value: "pizzas",
+    label: "Pizzas",
+    icon: Pizza,
+  },
+  {
+    value: "bebidas",
+    label: "Bebidas",
+    icon: CupSoda,
+  },
+  {
+    value: "sobremesas",
+    label: "Sobremesas",
+    icon: IceCream,
+  },
+];
 
 export default function Home() {
   return (
@@ -10,7 +35,7 @@ export default function Home() {
         <div className="flex flex-1 flex-row w-full h-full py-20 px-28 gap-x-44">
           <div className="w-1/2 h-full">
             <div className="flex flex-row justify-between">
-              <div className="relative w-2/3">
+              <div className="relative w-1/2">
                 <Input
                   type="search"
                   className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg pl-10"
@@ -18,7 +43,7 @@ export default function Home() {
                 />
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
               </div>
-              <div>Listar Categorias</div>
+              <HomeCategories />
             </div>
           </div>
           <div className="w-1/2 h-full">c</div>
