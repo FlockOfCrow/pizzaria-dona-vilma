@@ -21,7 +21,7 @@ export default function NavBar() {
       </div>
       <Link
         href={"/"}
-        className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2 flex flex-row items-center text-orange-pizza text-[1.7rem] xl:text-[2.3rem] 2xl:text-[3rem] font-bold italic"
+        className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2 flex flex-row items-center text-orange-pizza text-[1.4rem] xl:text-[2.3rem] 2xl:text-[3rem] font-bold italic"
       >
         <div className="-mr-[0.7rem]">Dona</div>
         <Image

@@ -12,9 +12,9 @@ export default function Home() {
     <div className="flex flex-col items-center justify-between min-h-screen bg-[url(/background2.png)] bg-repeat bg-center">
       <NavBar />
       <main className="flex flex-col items-center justify-center w-full flex-grow">
-        <div className="flex flex-1 flex-row w-full h-full py-20 px-28 gap-x-44">
-          <div className="w-1/2 h-full space-y-8">
-            <div className="flex flex-row justify-between">
+        <div className="flex flex-1 w-full h-full lg:py-20 lg:px-28 lg:gap-x-44 lg:flex-row py-8 px-4 ">
+          <div className="space-y-8 lg:w-1/2 lg:h-full w-full h-full">
+            <div className="flex flex-row justify-between truncate gap-x-2">
               <div className="relative w-1/2">
                 <Input
                   type="search"
@@ -24,6 +24,20 @@ export default function Home() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
               </div>
               <HomeCategories />
+            </div>
+            <div className="xl:w-1/2 xl:h-full xl:space-y-6 sm:hidden block">
+              <HomeLocation />
+              <div className="flex justify-center">
+                <div className="relative w-[80%] aspect-video shadow-xl rounded-md hidden">
+                  <Image
+                    src={"/cupons/super_cupom.png"}
+                    alt="Cupom de desconto"
+                    fill={true}
+                    className="object-cover rounded-md border-2 border-border-pizza"
+                    quality={100}
+                  />
+                </div>
+              </div>
             </div>
             <div id="promocoes">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
@@ -35,7 +49,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <PromotionCarousel />
+              {/* <PromotionCarousel /> */}
             </div>
             <div id="mais-vendidas">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
@@ -47,10 +61,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <BestSellingCarousel />
+              {/* <BestSellingCarousel /> */}
             </div>
           </div>
-          <div className="w-1/2 h-full space-y-6">
+          <div className="xl:w-1/2 xl:h-full xl:space-y-6 hidden xl:block">
             <HomeLocation />
             <div className="flex justify-center">
               <div className="relative w-[80%] aspect-video shadow-xl rounded-md">
