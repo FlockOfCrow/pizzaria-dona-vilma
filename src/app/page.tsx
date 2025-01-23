@@ -23,7 +23,7 @@ export default function Home() {
               </div>
               <HomeCategories />
             </div>
-            <div>
+            <div id="promocoes">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
                 <h1>Promoções em</h1>
                 <div>
@@ -35,7 +35,7 @@ export default function Home() {
               </div>
               <PromotionCarousel />
             </div>
-            <div>
+            <div id="mais-vendidas">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
                 <h1>Pizzas mais</h1>
                 <div>
