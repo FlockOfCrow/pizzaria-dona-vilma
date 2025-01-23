@@ -1,4 +1,4 @@
-import HomeCarousel from "@/components/home/carousel/home-carousel";
+import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
@@ -32,7 +32,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <HomeCarousel />
+              <PromotionCarousel />
             </div>
           </div>
           <div className="w-1/2 h-full">c</div>

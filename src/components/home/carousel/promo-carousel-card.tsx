@@ -9,7 +9,7 @@ interface ICarouselCard {
   description: string;
 }
 
-export default function HomeCarouselCard({
+export default function PromotionCarouselCard({
   index,
   image,
   title,

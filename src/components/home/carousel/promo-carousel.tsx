@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import HomeCarouselCard from "./home-carousel-card";
+import PromotionCarouselCard from "./promo-carousel-card";
 
 interface IPizza {
   name: string;
@@ -47,7 +47,7 @@ const pizzas: IPizza[] = [
   },
 ];
 
-export default function HomeCarousel() {
+export default function PromotionCarousel() {
   return (
     <Carousel
       opts={{
@@ -63,7 +63,7 @@ export default function HomeCarousel() {
             className="md:basis-2/2 lg:basis-1/3 w-full"
           >
             <div className="p-1">
-              <HomeCarouselCard
+              <PromotionCarouselCard
                 index={index}
                 title={pizza.name}
                 description={pizza.ingredients}
