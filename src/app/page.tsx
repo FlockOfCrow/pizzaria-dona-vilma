@@ -49,7 +49,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              {/* <PromotionCarousel /> */}
+              <PromotionCarousel />
             </div>
             <div id="mais-vendidas">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
@@ -61,7 +61,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              {/* <BestSellingCarousel /> */}
+              <BestSellingCarousel />
             </div>
           </div>
           <div className="xl:w-1/2 xl:h-full xl:space-y-6 hidden xl:block">

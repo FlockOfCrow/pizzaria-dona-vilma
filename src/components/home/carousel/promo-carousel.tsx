@@ -62,7 +62,7 @@ export default function PromotionCarousel() {
         {pizzas.map((pizza, index) => (
           <CarouselItem
             key={index}
-            className="md:basis-2/2 lg:basis-1/3 w-full"
+            className="md:basis-2/2 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
           >
             <div className="p-1">
               <PromotionCarouselCard
@@ -76,8 +76,8 @@ export default function PromotionCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md" />
-      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md" />
+      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md border-border-pizza md:flex hidden" />
+      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md border-border-pizza md:flex hidden" />
     </Carousel>
   );
 }
