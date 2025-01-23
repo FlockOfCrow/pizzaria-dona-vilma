@@ -9,7 +9,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-bg">
+    <div className="flex flex-col items-center justify-between min-h-screen bg-[url(/background2.png)] bg-repeat bg-center">
       <NavBar />
       <main className="flex flex-col items-center justify-center w-full flex-grow">
         <div className="flex flex-1 flex-row w-full h-full py-20 px-28 gap-x-44">
