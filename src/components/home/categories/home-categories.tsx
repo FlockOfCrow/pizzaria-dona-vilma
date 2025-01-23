@@ -42,7 +42,7 @@ export default function HomeCategories() {
           <button
             role="combobox"
             aria-expanded={open}
-            className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg pl-5 py-1 flex items-center justify-between "
+            className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg pl-3 py-1 flex items-center justify-between "
           >
             {selectedCategory ? (
               <div className="flex items-center gap-x-1">
@@ -56,12 +56,12 @@ export default function HomeCategories() {
           </button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-f">
+      <PopoverContent className="w-full bg-bg border-2 border-border-pizza">
         <ul>
           {categories.map((category) => (
             <li
               key={category.value}
-              className="cursor-pointer p-2 hover:bg-gray-200"
+              className="cursor-pointer p-2 hover:bg-fbg rounded-lg"
               onClick={() => {
                 setValue(category.value);
                 setOpen(false);
