@@ -1,8 +1,9 @@
 import { CircleUserRound, Flame, House, Menu, PiggyBank } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Cart from "./cart/cart";
+import NavCart from "./cart/nav-cart";
 import NavItem from "./nav-item";
+import NavMenu from "./menu/nav-menu";
 
 export default function NavBar() {
   return (
@@ -33,14 +34,12 @@ export default function NavBar() {
         <div>Vilma</div>
       </Link>
       <div className="lg:flex lg:flex-wrap lg:gap-x-5 md:hidden hidden">
-        <Cart />
+        <NavCart />
         <NavItem href={"/login"}>
           Acessar Conta <CircleUserRound />
         </NavItem>
       </div>
-      <button className="md:hidden">
-        <Menu className="h-8 w-8" />
-      </button>
+      <NavMenu />
     </nav>
   );
 }
