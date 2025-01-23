@@ -27,7 +27,6 @@ export default function Home() {
             </div>
             <div className="sm:w-full md:w-full h-full md:space-y-6 lg:hidden block">
               <HomeLocation />
-              teste
             </div>
             <div id="promocoes">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
@@ -54,10 +53,10 @@ export default function Home() {
               <BestSellingCarousel />
             </div>
           </div>
-          <div className="xl:w-1/2 xl:h-full xl:space-y-6 hidden lg:block">
+          <div className="lg:w-1/2 lg:h-full lg:space-y-6 hidden lg:block">
             <HomeLocation />
             <div className="flex justify-center">
-              <div className="relative w-[80%] aspect-video shadow-xl rounded-md">
+              <div className="relative w-[90%] aspect-video shadow-xl rounded-md">
                 <Image
                   src={"/cupons/super_cupom.png"}
                   alt="Cupom de desconto"
