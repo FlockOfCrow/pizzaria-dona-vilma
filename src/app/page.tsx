@@ -12,7 +12,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-between min-h-screen bg-[url(/background2.png)] bg-repeat bg-center">
       <NavBar />
       <main className="flex flex-col items-center justify-center w-full flex-grow">
-        <div className="flex flex-1 w-full h-full 2xl:py-20 2xl:px-28 2xl:gap-x-44 2xl:flex-row py-8 px-4 ">
+        <div className="flex flex-1 w-full h-full 2xl:py-20 2xl:px-28 2xl:gap-x-44 2xl:flex-row xl:px-8 py-8 px-4 ">
           <div className="space-y-8 lg:w-1/2 lg:h-full w-full h-full">
             <div className="flex flex-row justify-between truncate gap-x-2">
               <div className="relative w-1/2">
@@ -56,7 +56,7 @@ export default function Home() {
           <div className="lg:w-1/2 lg:h-full lg:space-y-6 hidden lg:block">
             <HomeLocation />
             <div className="flex justify-center">
-              <div className="relative w-[80%] aspect-video shadow-xl rounded-md">
+              <div className="relative 2xl:[90%] w-[80%] aspect-video shadow-xl rounded-md">
                 <Image
                   src={"/cupons/super_cupom.png"}
                   alt="Cupom de desconto"
