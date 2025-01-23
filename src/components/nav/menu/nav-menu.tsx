@@ -13,12 +13,12 @@ export default function NavMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="md:hidden">
+        <button>
           <Menu className="h-8 w-8" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40">
-        <DropdownMenuLabel>Menu</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-center">Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="space-y-2 p-1">
           <DropdownMenuGroup asChild className="flex items-center gap-x-1">
