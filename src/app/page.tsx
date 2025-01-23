@@ -25,26 +25,16 @@ export default function Home() {
               </div>
               <HomeCategories />
             </div>
-            <div className="xl:w-1/2 xl:h-full xl:space-y-6 sm:hidden block">
+            <div className="sm:w-full md:w-full h-full md:space-y-6 lg:hidden block">
               <HomeLocation />
-              <div className="flex justify-center">
-                <div className="relative w-[80%] aspect-video shadow-xl rounded-md hidden">
-                  <Image
-                    src={"/cupons/super_cupom.png"}
-                    alt="Cupom de desconto"
-                    fill={true}
-                    className="object-cover rounded-md border-2 border-border-pizza"
-                    quality={100}
-                  />
-                </div>
-              </div>
+              teste
             </div>
             <div id="promocoes">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
                 <h1>Promoções em</h1>
                 <div>
                   <div className="flex items-center gap-x-1">
-                    <h1>Destaque</h1>{" "}
+                    <h1>Destaque</h1>
                     <Flame className="fill-orange-pizza stroke-none h-8 w-8" />
                   </div>
                 </div>
@@ -56,7 +46,7 @@ export default function Home() {
                 <h1>Pizzas mais</h1>
                 <div>
                   <div className="flex items-center gap-x-1">
-                    <h1>Vendidas</h1>{" "}
+                    <h1>Vendidas</h1>
                     <PiggyBank className="fill-orange-pizza stroke-none h-8 w-8" />
                   </div>
                 </div>
@@ -64,7 +54,7 @@ export default function Home() {
               <BestSellingCarousel />
             </div>
           </div>
-          <div className="xl:w-1/2 xl:h-full xl:space-y-6 hidden xl:block">
+          <div className="xl:w-1/2 xl:h-full xl:space-y-6 hidden lg:block">
             <HomeLocation />
             <div className="flex justify-center">
               <div className="relative w-[80%] aspect-video shadow-xl rounded-md">

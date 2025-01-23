@@ -34,7 +34,7 @@ export default function HomeLocation() {
 
   return (
     <div className="justify-center items-center flex">
-      <div className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg px-5 py-5 space-y-2 xl:w-2/3 w-[80%]">
+      <div className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg px-5 py-5 space-y-2 lg:w-2/3 w-[80%]">
         <div className="flex flex-wrap items-center xl:justify-between xl:text-lg text-md justify-center">
           <div className="flex flex-row gap-x-0.5 items-center">
             <MapPin className="w-6 h-6 stroke-[1.5px]" />

@@ -42,7 +42,7 @@ export default function HomeCategories() {
           <button
             role="combobox"
             aria-expanded={open}
-            className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg pl-3 py-1 flex items-center justify-between "
+            className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg pl-3 py-1 flex items-center justify-between"
           >
             {selectedCategory ? (
               <div className="flex items-center gap-x-1">
