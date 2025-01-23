@@ -1,8 +1,11 @@
-import HomeCarousel from "@/components/home/carousel/home-carousel";
+import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
+import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
+import HomeLocation from "@/components/home/home-location";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
-import { Flame, Search } from "lucide-react";
+import { Flame, PiggyBank, Search } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -22,7 +25,7 @@ export default function Home() {
               </div>
               <HomeCategories />
             </div>
-            <div>
+            <div id="promocoes">
               <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
                 <h1>Promoções em</h1>
                 <div>
@@ -32,10 +35,35 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <HomeCarousel />
+              <PromotionCarousel />
+            </div>
+            <div id="mais-vendidas">
+              <div className="flex flex-col -space-y-2 font-bold text-[2rem]">
+                <h1>Pizzas mais</h1>
+                <div>
+                  <div className="flex items-center gap-x-1">
+                    <h1>Vendidas</h1>{" "}
+                    <PiggyBank className="fill-orange-pizza stroke-none h-8 w-8" />
+                  </div>
+                </div>
+              </div>
+              <BestSellingCarousel />
             </div>
           </div>
-          <div className="w-1/2 h-full">c</div>
+          <div className="w-1/2 h-full space-y-6">
+            <HomeLocation />
+            <div className="flex justify-center">
+              <div className="relative w-[80%] aspect-video shadow-xl rounded-md">
+                <Image
+                  src={"/cupons/super_cupom.png"}
+                  alt="Cupom de desconto"
+                  fill={true}
+                  className="object-cover rounded-md border-2 border-border-pizza"
+                  quality={100}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       <footer className="flex flex-col items-center justify-center w-full">

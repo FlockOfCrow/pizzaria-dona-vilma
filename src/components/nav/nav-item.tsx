@@ -1,9 +1,5 @@
 import Link from "next/link";
-
-interface INavItem {
-  children: React.ReactNode;
-  href: string;
-}
+import { INavItem } from "../../../@types/types";
 
 export default function NavItem({ children, href }: INavItem) {
   return (

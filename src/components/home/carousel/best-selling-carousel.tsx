@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Carousel,
   CarouselContent,
@@ -5,55 +7,43 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import HomeCarouselCard from "./home-carousel-card";
-
-interface IPizza {
-  name: string;
-  ingredients: string;
-  price: string;
-  image: string;
-}
+import Autoplay from "embla-carousel-autoplay";
+import { IPizza } from "../../../../@types/types";
+import PromotionCarouselCard from "./promo-carousel-card";
 
 const pizzas: IPizza[] = [
   {
     name: "Margherita",
-    ingredients: "Tomate, Mussarela, Manjericão",
+    description: "Tomate, Mussarela, Manjericão",
     price: "R$ 12,00",
     image: "/pizzas/pizza_icon01.png",
   },
   {
-    name: "Pepperoni",
-    ingredients: "Tomate, Mussarela, Pepperoni",
-    price: "R$ 14,00",
-    image: "/pizzas/pizza_icon02.png",
-  },
-  {
     name: "Frango com Barbecue",
-    ingredients: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
+    description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
     price: "R$ 16,00",
     image: "/pizzas/pizza_icon03.png",
   },
   {
-    name: "Havaiana",
-    ingredients: "Tomate, Mussarela, Presunto, Abacaxi",
-    price: "R$ 15,00",
-    image: "/pizzas/pizza_icon04.png",
-  },
-  {
-    name: "Vegetariana",
-    ingredients: "Tomate, Mussarela, Pimentão, Azeitonas, Cebola",
-    price: "R$ 13,00",
-    image: "/pizzas/pizza_icon05.png",
+    name: "Calabresa",
+    description: "Tomate, Calabresa, Queijo, Orégano",
+    price: "R$ 24,00",
+    image: "/pizzas/pizza_icon02.png",
   },
 ];
 
-export default function HomeCarousel() {
+export default function BestSellingCarousel() {
   return (
     <Carousel
       opts={{
         align: "start",
         loop: true,
       }}
+      plugins={[
+        Autoplay({
+          delay: 5000,
+        }),
+      ]}
       className="w-full max-w-full mt-5"
     >
       <CarouselContent>
@@ -63,10 +53,10 @@ export default function HomeCarousel() {
             className="md:basis-2/2 lg:basis-1/3 w-full"
           >
             <div className="p-1">
-              <HomeCarouselCard
+              <PromotionCarouselCard
                 index={index}
                 title={pizza.name}
-                description={pizza.ingredients}
+                description={pizza.description}
                 image={pizza.image}
                 key={index}
               />
@@ -74,8 +64,8 @@ export default function HomeCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md" />
+      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md" />
     </Carousel>
   );
 }
