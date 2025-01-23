@@ -62,7 +62,7 @@ export default function PromotionCarousel() {
         {pizzas.map((pizza, index) => (
           <CarouselItem
             key={index}
-            className="md:basis-2/2 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
+            className="md:basis-1/3 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
           >
             <div className="p-1">
               <PromotionCarouselCard
