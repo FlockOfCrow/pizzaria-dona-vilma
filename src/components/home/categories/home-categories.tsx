@@ -1,13 +1,36 @@
 "use client";
 
-import { categories } from "@/app/page";
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, CupSoda, IceCream, Pizza } from "lucide-react";
 import { useState } from "react";
+
+interface ICategory {
+  value: string;
+  label: string;
+  icon: any;
+}
+
+const categories: ICategory[] = [
+  {
+    value: "pizzas",
+    label: "Pizzas",
+    icon: Pizza,
+  },
+  {
+    value: "bebidas",
+    label: "Bebidas",
+    icon: CupSoda,
+  },
+  {
+    value: "sobremesas",
+    label: "Sobremesas",
+    icon: IceCream,
+  },
+];
 
 export default function HomeCategories() {
   const [open, setOpen] = useState(false);

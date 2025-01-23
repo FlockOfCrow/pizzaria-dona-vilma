@@ -2,31 +2,7 @@ import HomeCarousel from "@/components/home/carousel/home-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
-import { CupSoda, Flame, IceCream, Pizza, Search } from "lucide-react";
-
-interface ICategory {
-  value: string;
-  label: string;
-  icon: any;
-}
-
-export const categories: ICategory[] = [
-  {
-    value: "pizzas",
-    label: "Pizzas",
-    icon: Pizza,
-  },
-  {
-    value: "bebidas",
-    label: "Bebidas",
-    icon: CupSoda,
-  },
-  {
-    value: "sobremesas",
-    label: "Sobremesas",
-    icon: IceCream,
-  },
-];
+import { Flame, Search } from "lucide-react";
 
 export default function Home() {
   return (
