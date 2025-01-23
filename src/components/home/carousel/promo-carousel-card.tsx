@@ -1,13 +1,7 @@
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-
-interface ICarouselCard {
-  index: number;
-  image: string;
-  title: string;
-  description: string;
-}
+import Image from "next/image";
+import { ICarouselCard } from "../../../../@types/types";
 
 export default function PromotionCarouselCard({
   index,

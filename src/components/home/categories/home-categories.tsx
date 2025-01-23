@@ -7,12 +7,7 @@ import {
 } from "@/components/ui/popover";
 import { ChevronDown, CupSoda, IceCream, Pizza } from "lucide-react";
 import { useState } from "react";
-
-interface ICategory {
-  value: string;
-  label: string;
-  icon: any;
-}
+import { ICategory } from "../../../../@types/types";
 
 const categories: ICategory[] = [
   {

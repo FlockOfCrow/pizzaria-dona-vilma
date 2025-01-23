@@ -7,44 +7,38 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import PromotionCarouselCard from "./promo-carousel-card";
 import Autoplay from "embla-carousel-autoplay";
-
-interface IPizza {
-  name: string;
-  ingredients: string;
-  price: string;
-  image: string;
-}
+import { IPizza } from "../../../../@types/types";
+import PromotionCarouselCard from "./promo-carousel-card";
 
 const pizzas: IPizza[] = [
   {
     name: "Margherita",
-    ingredients: "Tomate, Mussarela, Manjericão",
+    description: "Tomate, Mussarela, Manjericão",
     price: "R$ 12,00",
     image: "/pizzas/pizza_icon01.png",
   },
   {
     name: "Pepperoni",
-    ingredients: "Tomate, Mussarela, Pepperoni",
+    description: "Tomate, Mussarela, Pepperoni",
     price: "R$ 14,00",
     image: "/pizzas/pizza_icon02.png",
   },
   {
     name: "Frango com Barbecue",
-    ingredients: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
+    description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
     price: "R$ 16,00",
     image: "/pizzas/pizza_icon03.png",
   },
   {
     name: "Havaiana",
-    ingredients: "Tomate, Mussarela, Presunto, Abacaxi",
+    description: "Tomate, Mussarela, Presunto, Abacaxi",
     price: "R$ 15,00",
     image: "/pizzas/pizza_icon04.png",
   },
   {
     name: "Vegetariana",
-    ingredients: "Tomate, Mussarela, Pimentão, Azeitonas, Cebola",
+    description: "Tomate, Mussarela, Pimentão, Azeitonas, Cebola",
     price: "R$ 13,00",
     image: "/pizzas/pizza_icon05.png",
   },
@@ -74,7 +68,7 @@ export default function PromotionCarousel() {
               <PromotionCarouselCard
                 index={index}
                 title={pizza.name}
-                description={pizza.ingredients}
+                description={pizza.description}
                 image={pizza.image}
                 key={index}
               />
