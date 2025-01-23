@@ -8,9 +8,12 @@ import Link from "next/link";
 export default function Register() {
   return (
     <div className="flex flex-row items-center min-h-screen justify-between bg-bg w-screen">
-      <div className="w-[70vw] min-h-screen flex justify-center items-center">
+      <Link
+        href="/"
+        className="w-[70vw] min-h-screen flex justify-center items-center"
+      >
         <Image src="/logo02.png" alt="logo02" width={500} height={500} />
-      </div>
+      </Link>
       <div className="w-[30vw] min-h-screen border-l-[1px] border-l-[#CFBB90] bg-fbg py-6 px-16 flex flex-col">
         <AuthTitle />
         <div className="text-[2rem] my-2 text-orange-pizza flex flex-col">

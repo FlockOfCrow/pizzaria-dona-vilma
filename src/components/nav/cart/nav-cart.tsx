@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -9,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
 
-export default function Cart() {
+export default function NavCart() {
   return (
     <Sheet>
       <SheetTrigger asChild>

@@ -1,8 +1,9 @@
 import { CircleUserRound, Flame, House, Menu, PiggyBank } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Cart from "./cart/cart";
+import NavCart from "./cart/nav-cart";
 import NavItem from "./nav-item";
+import NavMenu from "./menu/nav-menu";
 
 export default function NavBar() {
   return (
@@ -20,7 +21,7 @@ export default function NavBar() {
       </div>
       <Link
         href={"/"}
-        className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2 flex flex-row items-center text-orange-pizza text-[2rem] xl:text-[2.3rem] 2xl:text-[3rem] font-bold italic"
+        className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2 flex flex-row items-center text-orange-pizza text-[1.7rem] xl:text-[2.3rem] 2xl:text-[3rem] font-bold italic"
       >
         <div className="-mr-[0.7rem]">Dona</div>
         <Image
@@ -33,14 +34,17 @@ export default function NavBar() {
         <div>Vilma</div>
       </Link>
       <div className="lg:flex lg:flex-wrap lg:gap-x-5 md:hidden hidden">
-        <Cart />
+        <NavCart />
         <NavItem href={"/login"}>
           Acessar Conta <CircleUserRound />
         </NavItem>
       </div>
-      <button className="md:hidden">
-        <Menu className="h-8 w-8" />
-      </button>
+      <div className="flex items-center space-x-3 md:hidden">
+        <Link href={"/login"}>
+          <CircleUserRound className="h-7 w-7" />
+        </Link>
+        <NavMenu />
+      </div>
     </nav>
   );
 }
