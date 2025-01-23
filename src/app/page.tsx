@@ -1,9 +1,10 @@
 import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
 import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
+import HomeLocation from "@/components/home/home-location";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
-import { Flame, MapPin, PiggyBank, Search } from "lucide-react";
+import { Flame, PiggyBank, Search } from "lucide-react";
 
 export default function Home() {
   return (
@@ -49,21 +50,7 @@ export default function Home() {
             </div>
           </div>
           <div className="w-1/2 h-full space-y-6">
-            <div className="justify-center items-center flex">
-              <div className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg px-5 py-5 space-y-2 w-2/3">
-                <div className="flex flex-wrap items-center justify-between text-lg">
-                  <div className="flex flex-row gap-x-0.5 items-center">
-                    <MapPin className="w-6 h-6 stroke-[1.5px]" />
-                    <div>Ipatinga - MG</div>
-                  </div>
-                  <div>*Mais informações</div>
-                </div>
-                <div className="space-x-1 text-center">
-                  <button className="underline text-green-600">Aberto</button>
-                  <span>* Terça a domingo das 18:30 às 00:00</span>
-                </div>
-              </div>
-            </div>
+            <HomeLocation />
             {/* <div className="relative w-full h-full bg-red-500">Image</div> */}
           </div>
         </div>
