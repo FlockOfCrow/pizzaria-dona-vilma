@@ -1,8 +1,21 @@
+"use client";
+
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function NotFound() {
+  const router = useRouter();
+  function goHome() {
+    setTimeout(() => {
+      router.push("/");
+    }, 5000);
+  }
+  useEffect(() => {
+    goHome();
+  }, []);
   return (
     <div className="bg-bg min-h-screen lg:items-stretch items-center justify-center flex bg-[url(/background2.png)] bg-repeat bg-center">
       <div className="flex lg:flex-row flex-col items-center p-10">
