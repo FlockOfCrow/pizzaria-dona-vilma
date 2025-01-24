@@ -1,6 +1,6 @@
 "use client";
 
-import { loginUser } from "@/services/auth/auth-action";
+import { loginUser } from "@/modules/auth/auth-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
 import Link from "next/link";
