@@ -4,17 +4,19 @@ import { formSchema as loginFormSchema } from "@/components/auth/login-form";
 import { formSchema as registerFormSchema } from "@/components/auth/register-form";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
-import { comparePassword } from "./auth-service";
+import { comparePassword, cryptoPassword, generateToken } from "./auth-service";
+import { cookies } from "next/headers";
 
 export async function registerUser(
   formData: Omit<z.infer<typeof registerFormSchema>, "confirmPassword">
 ) {
+  const hashedPassword = await cryptoPassword(formData.password);
   try {
     await prisma.user.create({
       data: {
         email: formData.email,
         name: formData.name,
-        password: formData.password,
+        password: hashedPassword,
         address: {
           city: formData.address.city,
           street: formData.address.street,
@@ -55,9 +57,19 @@ export async function loginUser(formData: z.infer<typeof loginFormSchema>) {
     if (!confirmPassword) {
       throw new Error("Email ou senha inválidos.");
     }
+    const token = await generateToken({
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+    });
+    cookies().set("session", token, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
     return { status: "success" };
   } catch (error: any) {
-    console.error(error.message);
+    console.error(error);
     throw new Error("Email ou senha inválidos.");
   }
 }
