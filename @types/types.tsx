@@ -25,3 +25,16 @@ export interface ICategory {
   label: string;
   icon: any;
 }
+
+export interface ICarouselSizeCartButton {
+  size: string;
+}
+
+export type PizzaSize = "P" | "M" | "G" | "GG";
+
+export interface ISizeContext {
+  itemSize: PizzaSize | null;
+  setItemSize: (size: PizzaSize) => void;
+  quantity: number;
+  setQuantity: (quantity: number) => void;
+}
