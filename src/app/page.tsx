@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/footer";
 import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
 import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
@@ -69,9 +70,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <footer className="flex flex-col items-center justify-center w-full">
-        <h1>footer</h1>
-      </footer>
+      <Footer />
     </div>
   );
 }
