@@ -62,7 +62,6 @@ export async function loginUser(formData: z.infer<typeof loginFormSchema>) {
       email: user.email,
       name: user.name,
     });
-    // console.log(token);
     cookies().set("session", token, {
       httpOnly: true,
       secure: true,
