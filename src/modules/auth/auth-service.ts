@@ -14,3 +14,8 @@ export async function comparePassword(
   const isMatch = await compare(password, hashedPassword);
   return isMatch;
 }
+
+export async function generateToken(password: string) {
+  const token = await cryptoPassword(Date.now().toString());
+  return token;
+}

@@ -1,7 +1,7 @@
 "use client";
 
-import { registerUser } from "@/services/auth/auth-action";
-import { cryptoPassword } from "@/services/auth/auth-service";
+import { registerUser } from "@/modules/auth/auth-action";
+import { cryptoPassword } from "@/modules/auth/auth-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pizza } from "lucide-react";
 import { useState } from "react";
