@@ -3,9 +3,9 @@
 import { formSchema as loginFormSchema } from "@/components/auth/login-form";
 import { formSchema as registerFormSchema } from "@/components/auth/register-form";
 import prisma from "@/lib/prisma";
+import { cookies } from "next/headers";
 import { z } from "zod";
 import { comparePassword, cryptoPassword, generateToken } from "./auth-service";
-import { cookies } from "next/headers";
 
 export async function registerUser(
   formData: Omit<z.infer<typeof registerFormSchema>, "confirmPassword">
@@ -62,6 +62,7 @@ export async function loginUser(formData: z.infer<typeof loginFormSchema>) {
       email: user.email,
       name: user.name,
     });
+    // console.log(token);
     cookies().set("session", token, {
       httpOnly: true,
       secure: true,
