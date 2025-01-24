@@ -15,31 +15,31 @@ const pizzas: IPizza[] = [
   {
     name: "Margherita",
     description: "Tomate, Mussarela, Manjericão",
-    price: "R$ 12,00",
+    price: 12.0,
     image: "/pizzas/pizza_icon01.png",
   },
   {
     name: "Pepperoni",
     description: "Tomate, Mussarela, Pepperoni",
-    price: "R$ 14,00",
+    price: 14.0,
     image: "/pizzas/pizza_icon02.png",
   },
   {
     name: "Frango com Barbecue",
     description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
-    price: "R$ 16,00",
+    price: 16.0,
     image: "/pizzas/pizza_icon03.png",
   },
   {
     name: "Havaiana",
     description: "Tomate, Mussarela, Presunto, Abacaxi",
-    price: "R$ 15,00",
+    price: 15.0,
     image: "/pizzas/pizza_icon04.png",
   },
   {
     name: "Vegetariana",
     description: "Tomate, Mussarela, Pimentão, Azeitonas, Cebola",
-    price: "R$ 13,00",
+    price: 13.0,
     image: "/pizzas/pizza_icon05.png",
   },
 ];
@@ -70,6 +70,7 @@ export default function PromotionCarousel() {
                 title={pizza.name}
                 description={pizza.description}
                 image={pizza.image}
+                price={pizza.price}
                 key={index}
               />
             </div>

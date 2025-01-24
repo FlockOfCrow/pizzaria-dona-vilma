@@ -10,6 +10,7 @@ export default function CarouselCard({
   image,
   title,
   description,
+  price,
 }: ICarouselCard) {
   return (
     <SizeProvider>
@@ -37,6 +38,7 @@ export default function CarouselCard({
               image={image}
               title={title}
               description={description}
+              price={price}
             />
           </div>
         </CardContent>

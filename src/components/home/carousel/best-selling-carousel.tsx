@@ -15,19 +15,19 @@ const pizzas: IPizza[] = [
   {
     name: "Margherita",
     description: "Tomate, Mussarela, Manjericão",
-    price: "R$ 12,00",
+    price: 12.2,
     image: "/pizzas/pizza_icon01.png",
   },
   {
     name: "Frango com Barbecue",
     description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
-    price: "R$ 16,00",
+    price: 16.5,
     image: "/pizzas/pizza_icon03.png",
   },
   {
     name: "Calabresa",
     description: "Tomate, Calabresa, Queijo, Orégano",
-    price: "R$ 24,00",
+    price: 24.3,
     image: "/pizzas/pizza_icon02.png",
   },
 ];
@@ -58,6 +58,7 @@ export default function BestSellingCarousel() {
                 title={pizza.name}
                 description={pizza.description}
                 image={pizza.image}
+                price={pizza.price}
                 key={index}
               />
             </div>

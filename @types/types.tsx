@@ -3,12 +3,13 @@ export interface ICarouselCard {
   image: string;
   title: string;
   description: string;
+  price: number;
 }
 
 export interface IProduct {
   name: string;
   image: string;
-  price: string;
+  price: number;
 }
 
 export interface IPizza extends IProduct {

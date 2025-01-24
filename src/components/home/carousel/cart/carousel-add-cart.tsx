@@ -11,13 +11,14 @@ import { useSize } from "@/context/carousel/size-context";
 import Image from "next/image";
 import { ICarouselCard } from "../../../../../@types/types";
 import CarouselSizeCartButton from "./carousel-size-cart-button";
-import { Input } from "@/components/ui/input";
+import formatNumber from "@/utils/format-numer";
 
 export default function CarouselAddCart({
   index,
   description,
   title,
   image,
+  price,
 }: ICarouselCard) {
   const { itemSize } = useSize();
 
@@ -37,17 +38,14 @@ export default function CarouselAddCart({
       </DialogTrigger>
       <DialogContent className="bg-bg">
         <DialogHeader>
-          <DialogTitle className="text-center">
-            Adicionar ao Carrinho
-          </DialogTitle>
+          <DialogTitle className="text-center">{title}</DialogTitle>
           <DialogDescription className="text-center">
-            Selecione o tamanho e a quantidade desejada.
+            {description}
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-x-4">
           <div className="space-y-2">
-            <div className="font-semibold text-center">{title}</div>
-            <div className="relative rounded-full aspect-square">
+            <div className="relative rounded-full aspect-square border-2 border-separator-pizza">
               <Image
                 src={image}
                 alt={title}
@@ -67,23 +65,28 @@ export default function CarouselAddCart({
                 <CarouselSizeCartButton size="GG" />
               </div>
             </div>
-            <div>
-              <div className="font-semibold text-center">Descrição</div>
-              <p>{description}</p>
+            <div className="space-y-2">
+              <div className="font-semibold text-center">Preço</div>
+              <div className="grid xl:grid-cols-2 grid-cols-1 items-center gap-y-2">
+                <div className="text-2xl underline items-center xl:text-start text-center">
+                  {formatNumber(price)}
+                </div>
+                <div className="flex items-center justify-center">
+                  <Button className="rounded-r-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza">
+                    -
+                  </Button>
+                  <Button className="pointer-events-none rounded-l-none rounded-r-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza">
+                    0
+                  </Button>
+                  <Button className="rounded-l-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza">
+                    +
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="flex justify-end gap-x-2">
-          <div className="flex gap-x-1">
-            <Button>-</Button>
-            <Input
-              // type="number"
-              className="w-10"
-              placeholder="0"
-              defaultValue={0}
-            />
-            <Button>+</Button>
-          </div>
           <Button className="bg-button-pizza text-white border border-border-pizza hover:bg-separator-pizza">
             Confirmar
           </Button>
