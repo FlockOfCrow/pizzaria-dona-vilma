@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { ICarouselCard } from "../../../../@types/types";
 
-export default function PromotionCarouselCard({
+export default function CarouselCard({
   index,
   image,
   title,

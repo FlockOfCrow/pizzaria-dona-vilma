@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { IPizza } from "../../../../@types/types";
-import PromotionCarouselCard from "./promo-carousel-card";
+import CarouselCard from "./carousel-card";
 
 const pizzas: IPizza[] = [
   {
@@ -65,7 +65,7 @@ export default function PromotionCarousel() {
             className="md:basis-1/3 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
           >
             <div className="p-1">
-              <PromotionCarouselCard
+              <CarouselCard
                 index={index}
                 title={pizza.name}
                 description={pizza.description}
