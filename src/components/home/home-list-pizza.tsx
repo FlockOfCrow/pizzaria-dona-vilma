@@ -5,40 +5,71 @@ import CarouselCard from "./carousel/carousel-card";
 
 const pizzas: IPizza[] = [
   {
-    name: "Baiana",
-    description: "Calabresa moída, ovos, cebola e pimenta",
+    name: "Moda",
+    description:
+      "Molho de tomate, muçarela, frango, tomate, presunto, calabresa, milho verde, cebola e orégano",
     price: 45,
-    image: "/pizzas/pizza_icon01.png",
+    image: "/pizzas/pizza_01.png",
   },
   {
     name: "Frango com Catupiry",
-    description: "Frango desfiado com catupiry e orégano",
+    description: "Molho de tomate, muçarela, frango com catupiry e orégano",
     price: 45,
-    image: "/pizzas/pizza_icon02.png",
+    image: "/pizzas/pizza_02.png",
   },
   {
-    name: "Portuguesa",
-    description: "Presunto, ovo, cebola, ervilha e orégano",
+    name: "Calabresa",
+    description:
+      "Molho de tomate, muçarela, tomate, calabresa, cebola, pimentão e orégano",
     price: 45,
-    image: "/pizzas/pizza_icon03.png",
+    image: "/pizzas/pizza_03.png",
+  },
+  {
+    name: "Bauru",
+    description:
+      "Molho de tomate, muçarela, tomate, presunto, cebola, pimentão e orégano",
+    price: 45,
+    image: "/pizzas/pizza_04.png",
+  },
+  {
+    name: "Franbacon",
+    description:
+      "Molho de tomate, muçarela, calabresa, presunto, tomate, pimentão, pimenta, cebola e orégano",
+    price: 45,
+    image: "/pizzas/pizza_06.png",
+  },
+  {
+    name: "Palmito",
+    description: "Molho de tomate, muçarela, palmito, tomate, cebola e orégano",
+    price: 45,
+    image: "/pizzas/pizza_07.png",
+  },
+  {
+    name: "Marguerita",
+    description:
+      "Molho de tomate, tomate, muçarela, manjericão, palmito e orégano",
+    price: 45,
+    image: "/pizzas/pizza_08.png",
+  },
+  {
+    name: "Pizza Vegetariana",
+    description:
+      "Molho de tomate, tomate, muçarela, pimentão, milho verde, cebola e orégano",
+    price: 45,
+    image: "/pizzas/pizza_09.png",
   },
   {
     name: "Quatro Queijos",
-    description: "Mussarela, provolone, catupiry e parmesão",
+    description:
+      "Molho de tomate, muçarela, cheddar, queijo defumado, parmesão, catupiry e orégano",
     price: 45,
-    image: "/pizzas/pizza_icon04.png",
+    image: "/pizzas/pizza_10.png",
   },
   {
-    name: "Vegetariana",
-    description: "Mussarela, tomate, cebola, champignon e orégano",
+    name: "Banana",
+    description: "Leite condensado, mussarela , banana e canela",
     price: 45,
-    image: "/pizzas/pizza_icon05.png",
-  },
-  {
-    name: "Pizza Doce",
-    description: "Banana, chocolate ao leite, açúcar e canela",
-    price: 45,
-    image: "/pizzas/pizza_icon03.png",
+    image: "/pizzas/pizza_11.png",
   },
 ];
 
