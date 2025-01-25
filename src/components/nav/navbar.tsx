@@ -1,9 +1,9 @@
-import { CircleUserRound, Flame, House, Menu, PiggyBank } from "lucide-react";
+import { CircleUserRound, Flame, House, PiggyBank } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import NavCart from "./cart/nav-cart";
-import NavItem from "./nav-item";
 import NavMenu from "./menu/nav-menu";
+import NavItem from "./nav-item";
 
 export default function NavBar() {
   return (

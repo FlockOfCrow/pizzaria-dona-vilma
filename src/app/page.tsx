@@ -2,6 +2,7 @@ import Footer from "@/components/footer/footer";
 import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
 import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
+import HomeCardMobileButton from "@/components/home/home-cart-mobile-button";
 import HomeLocation from "@/components/home/home-location";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
@@ -71,6 +72,7 @@ export default function Home() {
         </div>
       </main>
       <Footer />
+      <HomeCardMobileButton />
     </div>
   );
 }
