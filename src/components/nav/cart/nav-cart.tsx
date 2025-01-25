@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -7,16 +9,16 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import { IChildren } from "../../../../@types/types";
+import NavCartItem from "./nav-cart-item";
 
-export default function NavCart() {
+export default function NavCart({ children }: IChildren) {
+  const [open, setOpen] = useState(false);
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <button className="bg-bg px-3 py-2 flex items-center gap-x-1 rounded-2xl border-[3px] border-border-pizza shadow-lg hover:bg-orange-pizza hover:bg-opacity-70 transition duration-300 text-center justify-center md:text-[1rem]">
-          Carrinho <ShoppingCart />
-        </button>
-      </SheetTrigger>
-      <SheetContent>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>{children}</SheetTrigger>
+      <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="flex gap-1.5 items-center">
             <ShoppingCart />
@@ -25,10 +27,7 @@ export default function NavCart() {
           <SheetDescription>Veja seu conteúdo no carrinho.</SheetDescription>
         </SheetHeader>
         <div className="mt-3">
-          <div>item1</div>
-          <div>item2</div>
-          <div>item3</div>
-          <div className="text-end mt-5">Total: R$0.00</div>
+          <NavCartItem />
         </div>
       </SheetContent>
     </Sheet>

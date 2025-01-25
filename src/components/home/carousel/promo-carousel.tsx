@@ -9,39 +9,45 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { IPizza } from "../../../../@types/types";
-import PromotionCarouselCard from "./promo-carousel-card";
+import CarouselCard from "./carousel-card";
 
 const pizzas: IPizza[] = [
   {
-    name: "Margherita",
-    description: "Tomate, Mussarela, Manjericão",
-    price: "R$ 12,00",
+    name: "Baiana",
+    description: "Calabresa moída, ovos, cebola e pimenta",
+    price: 45,
     image: "/pizzas/pizza_icon01.png",
   },
   {
-    name: "Pepperoni",
-    description: "Tomate, Mussarela, Pepperoni",
-    price: "R$ 14,00",
+    name: "Frango com Catupiry",
+    description: "Frango desfiado com catupiry e orégano",
+    price: 45,
     image: "/pizzas/pizza_icon02.png",
   },
   {
-    name: "Frango com Barbecue",
-    description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
-    price: "R$ 16,00",
+    name: "Portuguesa",
+    description: "Presunto, ovo, cebola, ervilha e orégano",
+    price: 45,
     image: "/pizzas/pizza_icon03.png",
   },
   {
-    name: "Havaiana",
-    description: "Tomate, Mussarela, Presunto, Abacaxi",
-    price: "R$ 15,00",
+    name: "Quatro Queijos",
+    description: "Mussarela, provolone, catupiry e parmesão",
+    price: 45,
     image: "/pizzas/pizza_icon04.png",
   },
   {
     name: "Vegetariana",
-    description: "Tomate, Mussarela, Pimentão, Azeitonas, Cebola",
-    price: "R$ 13,00",
+    description: "Mussarela, tomate, cebola, champignon e orégano",
+    price: 45,
     image: "/pizzas/pizza_icon05.png",
   },
+  // {
+  //   name: "Pizza Doce",
+  //   description: "Banana, chocolate ao leite, açúcar e canela",
+  //   price: 0,
+  //   image: "",
+  // },
 ];
 
 export default function PromotionCarousel() {
@@ -65,19 +71,20 @@ export default function PromotionCarousel() {
             className="md:basis-1/3 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
           >
             <div className="p-1">
-              <PromotionCarouselCard
+              <CarouselCard
                 index={index}
                 title={pizza.name}
                 description={pizza.description}
                 image={pizza.image}
+                price={pizza.price}
                 key={index}
               />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md border-border-pizza md:flex hidden" />
-      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md border-border-pizza md:flex hidden" />
+      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md border-border-pizza lg:flex hidden" />
+      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md border-border-pizza lg:flex hidden" />
     </Carousel>
   );
 }
