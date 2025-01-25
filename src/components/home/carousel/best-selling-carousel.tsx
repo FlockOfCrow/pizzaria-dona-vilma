@@ -65,8 +65,8 @@ export default function BestSellingCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md border-border-pizza md:flex hidden" />
-      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md border-border-pizza md:flex hidden" />
+      <CarouselPrevious className="bg-transparent hover:bg-fbg shadow-md border-border-pizza lg:flex hidden" />
+      <CarouselNext className="bg-transparent hover:bg-fbg shadow-md border-border-pizza lg:flex hidden" />
     </Carousel>
   );
 }
