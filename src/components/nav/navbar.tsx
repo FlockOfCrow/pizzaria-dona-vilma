@@ -10,6 +10,7 @@ import Link from "next/link";
 import NavCart from "./cart/nav-cart";
 import NavMenu from "./menu/nav-menu";
 import NavItem from "./nav-item";
+import HomeCartMobileAmount from "../home/cart-mobile/home-cart-mobile-amount";
 
 export default function NavBar() {
   return (
@@ -41,8 +42,9 @@ export default function NavBar() {
       </Link>
       <div className="lg:flex lg:flex-wrap lg:gap-x-5 hidden">
         <NavCart>
-          <button className="bg-bg px-3 py-2 flex items-center gap-x-1 rounded-2xl border-[3px] border-border-pizza shadow-lg hover:bg-orange-pizza hover:bg-opacity-70 transition duration-300 text-center justify-center md:text-[1rem]">
+          <button className="relative bg-bg px-3 py-2 flex items-center gap-x-1 rounded-2xl border-[3px] border-border-pizza shadow-lg hover:bg-orange-pizza hover:bg-opacity-70 transition duration-300 text-center justify-center md:text-[1rem]">
             Carrinho <ShoppingCart />
+            <HomeCartMobileAmount />
           </button>
         </NavCart>
         <NavItem href={"/login"}>
