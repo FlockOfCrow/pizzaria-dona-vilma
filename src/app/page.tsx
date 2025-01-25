@@ -2,7 +2,7 @@ import Footer from "@/components/footer/footer";
 import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
 import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
-import HomeCardMobileButton from "@/components/home/home-cart-mobile-button";
+import HomeCardMobileButton from "@/components/home/cart-mobile/home-cart-mobile-button";
 import HomeLocation from "@/components/home/home-location";
 import NavCart from "@/components/nav/cart/nav-cart";
 import NavBar from "@/components/nav/navbar";
@@ -73,9 +73,11 @@ export default function Home() {
         </div>
       </main>
       <Footer />
-      <NavCart>
-        <HomeCardMobileButton />
-      </NavCart>
+      <div className="lg:hidden">
+        <NavCart>
+          <HomeCardMobileButton />
+        </NavCart>
+      </div>
     </div>
   );
 }

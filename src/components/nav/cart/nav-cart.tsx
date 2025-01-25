@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -7,11 +9,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import { IChildren } from "../../../../@types/types";
 import NavCartItem from "./nav-cart-item";
 
-export default function NavCart({ children }: { children: React.ReactNode }) {
+export default function NavCart({ children }: IChildren) {
+  const [open, setOpen] = useState(false);
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
