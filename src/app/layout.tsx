@@ -23,9 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body className={`${montserrat.variable} antialiased`}>
-        <CartProvider>
-          <SizeProvider>{children}</SizeProvider>
-        </CartProvider>
+        <CartProvider>{children}</CartProvider>
         <Toaster closeButton={true} richColors />
       </body>
     </html>
