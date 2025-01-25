@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/carousel/cart-context";
 import NavCartItemCard from "./nav-cart-item-card";
-import formatNumber from "@/utils/format-numer";
+import formatNumber from "@/utils/format-number";
 
 export default function NavCartItem() {
   const { cart } = useCart();
@@ -15,6 +15,7 @@ export default function NavCartItem() {
           : cart.map((product, index) => (
               <NavCartItemCard
                 key={index}
+                id={index}
                 name={product.name}
                 price={product.price}
                 image={product.image}
@@ -22,7 +23,9 @@ export default function NavCartItem() {
               />
             ))}
       </div>
-      <div className="text-end text-lg underline mt-5">Total: {formatNumber(totalPrice)}</div>
+      <div className="text-end text-lg underline mt-5">
+        Total: {formatNumber(totalPrice)}
+      </div>
     </>
   );
 }

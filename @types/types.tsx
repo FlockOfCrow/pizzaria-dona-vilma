@@ -12,6 +12,7 @@ export interface IProduct {
   name: string;
   image: string;
   price: number;
+  [key: string]: any;
 }
 
 export interface IPizza extends IProduct {
@@ -48,5 +49,6 @@ export interface ICartContext {
 }
 
 export interface ICartItem extends IProduct {
+  id: number;
   quantity: number;
 }

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useCart } from "@/context/carousel/cart-context";
 import { useSize } from "@/context/carousel/size-context";
-import formatNumber from "@/utils/format-numer";
+import formatNumber from "@/utils/format-number";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -45,9 +45,10 @@ export default function CarouselAddCart({
 
   const handleAddToCart = () => {
     if (itemSize) {
-      setCart((prev) => [
-        ...prev,
+      setCart([
+        ...cart,
         {
+          id: cart.length + 1,
           name: title,
           image,
           price: itemPrice,

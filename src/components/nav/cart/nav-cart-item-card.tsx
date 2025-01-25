@@ -1,16 +1,21 @@
-import formatNumber from "@/utils/format-numer";
+import formatNumber from "@/utils/format-number";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { ICartItem } from "../../../../@types/types";
 
 export default function NavCartItemCard({
+  id,
   name,
   image,
   price,
   quantity,
 }: ICartItem) {
   return (
-    <div className="flex items-center space-x-4 border-b py-4 border-gray-200">
+    <div
+      key={id}
+      id={id.toString()}
+      className="flex items-center space-x-4 border-b py-4 border-gray-200"
+    >
       <div className="relative w-16 h-16 border-2 border-border-pizza rounded-full">
         <Image
           src={image}
