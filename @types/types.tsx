@@ -43,6 +43,10 @@ export interface ISizeContext {
 }
 
 export interface ICartContext {
-  cart: IProduct[];
-  setCart: Dispatch<SetStateAction<IProduct[]>>;
+  cart: ICartItem[];
+  setCart: Dispatch<SetStateAction<ICartItem[]>>;
+}
+
+export interface ICartItem extends IProduct {
+  quantity: number;
 }

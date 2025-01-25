@@ -12,9 +12,9 @@ import { useSize } from "@/context/carousel/size-context";
 import formatNumber from "@/utils/format-numer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { ICarouselCard, PizzaSize } from "../../../../../@types/types";
 import CarouselSizeCartButton from "./carousel-size-cart-button";
-import { toast } from "sonner";
 
 export default function CarouselAddCart({
   index,
@@ -24,7 +24,7 @@ export default function CarouselAddCart({
   price,
 }: ICarouselCard) {
   const { itemSize, setQuantity, quantity } = useSize();
-  const { setCart } = useCart();
+  const { setCart, cart } = useCart();
 
   const [itemPrice, setItemPrice] = useState<number>(0);
 

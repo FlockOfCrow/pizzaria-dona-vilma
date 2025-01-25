@@ -7,6 +7,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import NavCartItem from "./nav-cart-item";
 
 export default function NavCart() {
   return (
@@ -25,9 +26,7 @@ export default function NavCart() {
           <SheetDescription>Veja seu conteúdo no carrinho.</SheetDescription>
         </SheetHeader>
         <div className="mt-3">
-          <div>item1</div>
-          <div>item2</div>
-          <div>item3</div>
+          <NavCartItem />
           <div className="text-end mt-5">Total: R$0.00</div>
         </div>
       </SheetContent>
