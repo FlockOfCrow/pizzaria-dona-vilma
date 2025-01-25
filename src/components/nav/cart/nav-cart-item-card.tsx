@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { ICartItem } from "../../../../@types/types";
+import { nameSize, nameType } from "@/utils/type-name";
 
 export default function NavCartItemCard({
   id,
@@ -11,14 +12,13 @@ export default function NavCartItemCard({
   image,
   price,
   quantity,
+  type,
+  size,
 }: ICartItem) {
   const { cart, setCart } = useCart();
   const handleClick = () => {
-    console.log(id);
-    console.log(cart);
     const newCart = cart.filter((item) => item.id !== id);
     setCart(newCart);
-    console.log(cart);
     toast.success("Item removido do carrinho", {
       description: `Você removeu ${quantity}x ${name}`,
     });
@@ -32,15 +32,18 @@ export default function NavCartItemCard({
       <div className="relative w-16 h-16 border-2 border-border-pizza rounded-full">
         <Image
           src={image}
-          alt={`Pizza ${name}`}
+          alt={name}
           fill={true}
           className="object-cover rounded-full"
         />
       </div>
       <div className="flex-1">
-        <div className="font-bold">Pizza {name}</div>
+        <div className="font-bold">
+          {nameType(type)} {name}
+        </div>
         <div className="text-sm text-gray-500">
           {quantity} unidade{quantity > 1 ? "s" : ""}
+          {nameSize(size) && " - " + nameSize(size)}
         </div>
         <div className="text-sm text-gray-500">{formatNumber(price)}</div>
       </div>

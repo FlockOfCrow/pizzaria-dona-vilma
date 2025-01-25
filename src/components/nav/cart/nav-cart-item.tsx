@@ -20,6 +20,9 @@ export default function NavCartItem() {
                 price={product.price}
                 image={product.image}
                 quantity={product.quantity}
+                description={product.description}
+                size={product.size}
+                type={product.type}
               />
             ))}
       </div>

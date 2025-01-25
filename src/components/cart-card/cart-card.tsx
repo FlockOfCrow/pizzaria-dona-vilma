@@ -6,6 +6,7 @@ import { SizeProvider } from "@/context/carousel/size-context";
 import Image from "next/image";
 import { IProductCard } from "../../../@types/types";
 import CartAddCard from "./cart-add-card";
+import { nameType } from "@/utils/type-name";
 
 export default function CartCard({
   index,
@@ -33,7 +34,7 @@ export default function CartCard({
           </div>
           <div className="flex flex-col space-y-2 mt-2 items-center">
             <span className="text-lg font-semibold truncate w-full text-center">
-              {name}
+              {nameType(type)} {name}
             </span>
             <Separator className="bg-border-pizza" />
             <span className="font-normal truncate w-full text-center">

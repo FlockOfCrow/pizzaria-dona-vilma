@@ -1,13 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 
-export interface ICarouselCard {
-  index: number;
-  image: string;
-  title: string;
-  description: string;
-  price: number;
-}
-
 export interface IProduct {
   name: string;
   image: string;
@@ -47,8 +39,8 @@ export interface ICartSizeCardButton {
 }
 
 export interface ISizeContext {
-  itemSize: PizzaSize | null;
-  setItemSize: Dispatch<SetStateAction<Sizes | null>>;
+  itemSize: Sizes | undefined;
+  setItemSize: Dispatch<SetStateAction<Sizes | undefined>>;
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
 }
@@ -61,6 +53,7 @@ export interface ICartContext {
 export interface ICartItem extends IProduct {
   id: string;
   quantity: number;
+  size?: Sizes;
 }
 
 export interface IChildren {

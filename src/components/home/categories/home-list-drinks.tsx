@@ -1,7 +1,7 @@
 import CartCard from "@/components/cart-card/cart-card";
-import { IProductV2 } from "../../../../@types/types";
+import { IProduct } from "../../../../@types/types";
 
-const pizzas: IProductV2[] = [
+const pizzas: IProduct[] = [
   {
     name: "Coca-Cola",
     price: 13,

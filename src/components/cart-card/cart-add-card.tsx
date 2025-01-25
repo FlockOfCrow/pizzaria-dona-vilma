@@ -59,6 +59,8 @@ export default function CartAddCard({
           price: itemPrice,
           size: itemSize,
           quantity,
+          type,
+          description,
         },
       ]);
       toast.success("Item adicionado ao carrinho", {
