@@ -1,14 +1,14 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { ISizeContext, PizzaSize } from "../../../@types/types";
+import { ISizeContext, PizzaSize, Sizes } from "../../../@types/types";
 
 const SizeContext = createContext<ISizeContext | undefined>(undefined);
 
 export const SizeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [itemSize, setItemSize] = useState<PizzaSize | null>(null);
+  const [itemSize, setItemSize] = useState<Sizes | undefined>(undefined);
   const [quantity, setQuantity] = useState(1);
 
   return (

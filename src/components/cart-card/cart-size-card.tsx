@@ -1,13 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useSize } from "@/context/carousel/size-context";
-import {
-    ICarouselSizeCartButton,
-    PizzaSize,
-} from "../../../../../@types/types";
+import { ICartSizeCardButton } from "../../../@types/types";
 
-export default function CarouselSizeCartButton({
-  size,
-}: ICarouselSizeCartButton) {
+export default function CartSizeCard({ size }: ICartSizeCardButton) {
   const { itemSize, setItemSize } = useSize();
 
   return (
@@ -16,7 +11,7 @@ export default function CarouselSizeCartButton({
       className={`${
         itemSize === size ? "bg-fbg" : "bg-bg"
       } text-black border border-border-pizza hover:bg-fbg`}
-      onClick={() => setItemSize(size as PizzaSize)}
+      onClick={() => setItemSize(size)}
     >
       {size}
     </Button>

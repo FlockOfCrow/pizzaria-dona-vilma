@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChevronDown, CupSoda, IceCream, Pizza } from "lucide-react";
+import { ChevronDown, CupSoda, Pizza } from "lucide-react";
 import { useState } from "react";
 import { ICategory } from "../../../../@types/types";
 
@@ -19,11 +19,6 @@ const categories: ICategory[] = [
     value: "bebidas",
     label: "Bebidas",
     icon: CupSoda,
-  },
-  {
-    value: "sobremesas",
-    label: "Sobremesas",
-    icon: IceCream,
   },
 ];
 

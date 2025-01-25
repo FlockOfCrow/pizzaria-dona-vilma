@@ -1,21 +1,31 @@
 import Footer from "@/components/footer/footer";
 import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
 import PromotionCarousel from "@/components/home/carousel/promo-carousel";
-import HomeCategories from "@/components/home/categories/home-categories";
 import HomeCardMobileButton from "@/components/home/cart-mobile/home-cart-mobile-button";
+import HomeCategories from "@/components/home/categories/home-categories";
+import HomeListDrinks from "@/components/home/categories/home-list-drinks";
+import HomeListPizza from "@/components/home/categories/home-list-pizza";
+import HomeBanner from "@/components/home/home-banner";
 import HomeLocation from "@/components/home/home-location";
 import NavCart from "@/components/nav/cart/nav-cart";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
-import { Flame, PiggyBank, Search } from "lucide-react";
-import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
+import {
+  CupSoda,
+  Flame,
+  IceCream,
+  PiggyBank,
+  Pizza,
+  Search,
+} from "lucide-react";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-between min-h-screen bg-[url(/background2.png)] bg-repeat bg-center">
       <NavBar />
-      <main className="flex flex-col items-center justify-center w-full flex-grow">
-        <div className="flex flex-1 w-full h-full 2xl:py-20 2xl:px-28 2xl:gap-x-44 2xl:flex-row xl:px-8 py-8 px-4 ">
+      <main className="flex flex-col items-center justify-center w-full flex-grow 2xl:py-20 py-8 space-y-16">
+        <div className="flex flex-1 w-full h-full 2xl:gap-x-44 2xl:flex-row xl:px-8 px-4 2xl:px-28">
           <div className="space-y-8 lg:w-1/2 lg:h-full w-full h-full">
             <div className="flex flex-row justify-between truncate gap-x-2">
               <div className="relative w-1/2">
@@ -58,17 +68,42 @@ export default function Home() {
           </div>
           <div className="lg:w-1/2 lg:h-full lg:space-y-6 hidden lg:block">
             <HomeLocation />
-            <div className="flex justify-center">
-              <div className="relative 2xl:[90%] w-[80%] aspect-video shadow-xl rounded-md">
-                <Image
-                  src={"/cupons/super_cupom.png"}
-                  alt="Cupom de desconto"
-                  fill={true}
-                  className="object-cover rounded-md border-2 border-border-pizza"
-                  quality={100}
-                />
+            <HomeBanner href="/" src="/cupons/super_cupom.png" />
+            <HomeBanner className="pt-2" src="/cupons/super_cupom.png" />
+          </div>
+        </div>
+        <div className="w-full xl:px-8 px-4 2xl:px-28">
+          <Separator className="bg-border-pizza" />
+        </div>
+        <div className="flex flex-1 w-full h-full 2xl:gap-x-44 2xl:flex-row xl:px-8 px-4 2xl:px-28">
+          <div id="pizzas" className="space-y-5">
+            <div className="flex flex-col -space-y-2 text-[2rem]">
+              <h1>Todas as</h1>
+              <div>
+                <div className="flex items-center gap-x-1.5">
+                  <h1 className="font-bold">Pizzas</h1>
+                  <Pizza className="text-orange-pizza h-8 w-8" />
+                </div>
               </div>
             </div>
+            <HomeListPizza />
+          </div>
+        </div>
+        <div className="w-full xl:px-8 px-4 2xl:px-28">
+          <Separator className="bg-border-pizza" />
+        </div>
+        <div className="flex flex-1 w-full h-full 2xl:gap-x-44 2xl:flex-row xl:px-8 px-4 2xl:px-28">
+          <div id="bebidas" className="space-y-5">
+            <div className="flex flex-col -space-y-2 text-[2rem]">
+              <h1>Todas as</h1>
+              <div>
+                <div className="flex items-center gap-x-1.5">
+                  <h1 className="font-bold">Bebidas</h1>
+                  <CupSoda className="text-orange-pizza h-8 w-8" />
+                </div>
+              </div>
+            </div>
+            <HomeListDrinks />
           </div>
         </div>
       </main>
