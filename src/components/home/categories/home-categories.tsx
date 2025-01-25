@@ -30,6 +30,13 @@ export default function HomeCategories() {
     (category) => category.value === value
   );
 
+  const handleCategoryClick = (category: ICategory) => {
+    setValue(category.value);
+    setOpen(false);
+    const element = document.getElementById(category.value);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -57,10 +64,7 @@ export default function HomeCategories() {
             <li
               key={category.value}
               className="cursor-pointer p-2 hover:bg-fbg rounded-lg"
-              onClick={() => {
-                setValue(category.value);
-                setOpen(false);
-              }}
+              onClick={() => handleCategoryClick(category)}
             >
               <div className="flex gap-x-1">
                 <category.icon />
