@@ -49,6 +49,6 @@ export interface ICartContext {
 }
 
 export interface ICartItem extends IProduct {
-  id: number;
+  id: string;
   quantity: number;
 }

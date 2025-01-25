@@ -15,7 +15,7 @@ export default function NavCartItem() {
           : cart.map((product, index) => (
               <NavCartItemCard
                 key={index}
-                id={index}
+                id={product.id}
                 name={product.name}
                 price={product.price}
                 image={product.image}

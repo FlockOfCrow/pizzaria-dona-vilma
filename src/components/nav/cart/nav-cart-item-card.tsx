@@ -1,6 +1,8 @@
+import { useCart } from "@/context/carousel/cart-context";
 import formatNumber from "@/utils/format-number";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 import { ICartItem } from "../../../../@types/types";
 
 export default function NavCartItemCard({
@@ -10,6 +12,17 @@ export default function NavCartItemCard({
   price,
   quantity,
 }: ICartItem) {
+  const { cart, setCart } = useCart();
+  const handleClick = () => {
+    console.log(id);
+    console.log(cart);
+    const newCart = cart.filter((item) => item.id !== id);
+    setCart(newCart);
+    console.log(cart);
+    toast.success("Item removido do carrinho", {
+      description: `Você removeu ${quantity}x ${name}`,
+    });
+  };
   return (
     <div
       key={id}
@@ -31,7 +44,7 @@ export default function NavCartItemCard({
         </div>
         <div className="text-sm text-gray-500">{formatNumber(price)}</div>
       </div>
-      <button className="text-red-500 hover:text-red-700">
+      <button onClick={handleClick} className="text-red-500 hover:text-red-700">
         <Trash2 size={20} />
       </button>
     </div>

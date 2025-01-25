@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ICarouselCard, PizzaSize } from "../../../../../@types/types";
 import CarouselSizeCartButton from "./carousel-size-cart-button";
+import { v4 } from "uuid";
 
 export default function CarouselAddCart({
   index,
@@ -48,7 +49,7 @@ export default function CarouselAddCart({
       setCart([
         ...cart,
         {
-          id: cart.length + 1,
+          id: v4(),
           name: title,
           image,
           price: itemPrice,
