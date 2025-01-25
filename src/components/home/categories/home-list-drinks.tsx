@@ -1,7 +1,7 @@
 import CartCard from "@/components/cart-card/cart-card";
 import { IProduct } from "../../../../@types/types";
 
-const pizzas: IProduct[] = [
+export const drinks: IProduct[] = [
   {
     name: "Coca-Cola",
     price: 13,
@@ -31,15 +31,15 @@ const pizzas: IProduct[] = [
 export default function HomeListDrinks() {
   return (
     <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 px-8">
-      {pizzas.map((pizza, index) => (
+      {drinks.map((drink, index) => (
         <CartCard
           key={index}
           index={index}
-          image={pizza.image}
-          name={pizza.name}
-          description={pizza.description}
-          price={pizza.price}
-          type={pizza.type}
+          image={drink.image}
+          name={drink.name}
+          description={drink.description}
+          price={drink.price}
+          type={drink.type}
         />
       ))}
     </div>

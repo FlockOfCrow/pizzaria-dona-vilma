@@ -3,7 +3,7 @@
 import CartCard from "@/components/cart-card/cart-card";
 import { IProduct } from "../../../../@types/types";
 
-const pizzas: IProduct[] = [
+export const pizzas: IProduct[] = [
   {
     name: "Moda",
     description:
