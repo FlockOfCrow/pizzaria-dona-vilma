@@ -10,7 +10,15 @@ import HomeLocation from "@/components/home/home-location";
 import NavCart from "@/components/nav/cart/nav-cart";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
-import { CupSoda, Flame, PiggyBank, Pizza, Search } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import {
+  CupSoda,
+  Flame,
+  IceCream,
+  PiggyBank,
+  Pizza,
+  Search,
+} from "lucide-react";
 
 export default function Home() {
   return (
@@ -64,6 +72,9 @@ export default function Home() {
             <HomeBanner className="pt-2" src="/cupons/super_cupom.png" />
           </div>
         </div>
+        <div className="w-full xl:px-8 px-4 2xl:px-28">
+          <Separator className="bg-border-pizza" />
+        </div>
         <div className="flex flex-1 w-full h-full 2xl:gap-x-44 2xl:flex-row xl:px-8 px-4 2xl:px-28">
           <div id="pizzas" className="space-y-5">
             <div className="flex flex-col -space-y-2 text-[2rem]">
@@ -77,6 +88,9 @@ export default function Home() {
             </div>
             <HomeListPizza />
           </div>
+        </div>
+        <div className="w-full xl:px-8 px-4 2xl:px-28">
+          <Separator className="bg-border-pizza" />
         </div>
         <div className="flex flex-1 w-full h-full 2xl:gap-x-44 2xl:flex-row xl:px-8 px-4 2xl:px-28">
           <div id="bebidas" className="space-y-5">

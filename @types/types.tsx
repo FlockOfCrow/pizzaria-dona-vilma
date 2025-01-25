@@ -27,7 +27,7 @@ export type PizzaSize = "P" | "M" | "G" | "GG";
 
 export type DrinkSize = "2L" | "1L" | "Lata";
 
-export type ProductTypes = "Pizza" | "Drink" | "Dessert";
+export type ProductTypes = "Pizza" | "Drink";
 
 export type Sizes = PizzaSize | DrinkSize;
 
