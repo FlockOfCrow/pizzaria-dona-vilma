@@ -13,17 +13,18 @@ import formatNumber from "@/utils/format-number";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { ICarouselCard, PizzaSize } from "../../../../../@types/types";
-import CarouselSizeCartButton from "./carousel-size-cart-button";
 import { v4 } from "uuid";
+import { IProductCard, Sizes } from "../../../@types/types";
+import CartSizeCard from "./cart-size-card";
 
-export default function CarouselAddCart({
+export default function CartAddCard({
   index,
   description,
-  title,
   image,
   price,
-}: ICarouselCard) {
+  type,
+  name,
+}: IProductCard) {
   const { itemSize, setQuantity, quantity } = useSize();
   const { setCart, cart } = useCart();
 
@@ -35,11 +36,14 @@ export default function CarouselAddCart({
   }, [itemSize, price, quantity]);
 
   const getItemPrice = (): number => {
-    const priceMultipliers: Record<PizzaSize, number> = {
+    const priceMultipliers: Record<Sizes, number> = {
       P: 1,
       M: 55 / price,
       G: 65 / price,
       GG: 80 / price,
+      "2L": 1,
+      "1L": 0.9,
+      Lata: 0.6,
     };
     return (itemSize && price * priceMultipliers[itemSize]) || 0;
   };
@@ -50,7 +54,7 @@ export default function CarouselAddCart({
         ...cart,
         {
           id: v4(),
-          name: title,
+          name: name,
           image,
           price: itemPrice,
           size: itemSize,
@@ -58,7 +62,7 @@ export default function CarouselAddCart({
         },
       ]);
       toast.success("Item adicionado ao carrinho", {
-        description: `${quantity}x ${title} - ${itemSize}`,
+        description: `${quantity}x ${name} - ${itemSize}`,
       });
       setOpen(false);
     } else {
@@ -83,7 +87,7 @@ export default function CarouselAddCart({
       </DialogTrigger>
       <DialogContent className="bg-bg">
         <DialogHeader>
-          <DialogTitle className="text-center">{title}</DialogTitle>
+          <DialogTitle className="text-center">{name}</DialogTitle>
           <DialogDescription className="text-center">
             {description}
           </DialogDescription>
@@ -93,7 +97,7 @@ export default function CarouselAddCart({
             <div className="relative rounded-full aspect-square border-2 border-separator-pizza">
               <Image
                 src={image}
-                alt={title}
+                alt={name}
                 fill={true}
                 objectFit={"cover"}
                 className="object-cover rounded-full"
@@ -104,10 +108,20 @@ export default function CarouselAddCart({
             <div>
               <div className="font-semibold text-center">Tamanho</div>
               <div className="grid grid-cols-2 gap-4">
-                <CarouselSizeCartButton size="P" />
-                <CarouselSizeCartButton size="M" />
-                <CarouselSizeCartButton size="G" />
-                <CarouselSizeCartButton size="GG" />
+                {type === "Drink" ? (
+                  <>
+                    <CartSizeCard size="2L" />
+                    <CartSizeCard size="1L" />
+                    <CartSizeCard size="Lata" />
+                  </>
+                ) : (
+                  <>
+                    <CartSizeCard size="P" />
+                    <CartSizeCard size="M" />
+                    <CartSizeCard size="G" />
+                    <CartSizeCard size="GG" />
+                  </>
+                )}
               </div>
             </div>
             <div className="space-y-2">

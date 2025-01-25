@@ -1,5 +1,6 @@
 "use client";
 
+import CartCard from "@/components/cart-card/cart-card";
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { IPizza } from "../../../../@types/types";
-import CarouselCard from "./carousel-card";
 
 const pizzas: IPizza[] = [
   {
@@ -42,12 +42,6 @@ const pizzas: IPizza[] = [
     price: 45,
     image: "/pizzas/pizza_icon05.png",
   },
-  // {
-  //   name: "Pizza Doce",
-  //   description: "Banana, chocolate ao leite, açúcar e canela",
-  //   price: 0,
-  //   image: "",
-  // },
 ];
 
 export default function PromotionCarousel() {
@@ -71,13 +65,14 @@ export default function PromotionCarousel() {
             className="md:basis-1/3 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
           >
             <div className="p-1">
-              <CarouselCard
+              <CartCard
                 index={index}
-                title={pizza.name}
+                name={pizza.name}
                 description={pizza.description}
                 image={pizza.image}
                 price={pizza.price}
                 key={index}
+                type={pizza.type}
               />
             </div>
           </CarouselItem>

@@ -1,5 +1,6 @@
 "use client";
 
+import CartCard from "@/components/cart-card/cart-card";
 import {
   Carousel,
   CarouselContent,
@@ -9,25 +10,24 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { IPizza } from "../../../../@types/types";
-import CarouselCard from "./carousel-card";
 
 const pizzas: IPizza[] = [
   {
     name: "Margherita",
     description: "Tomate, Mussarela, Manjericão",
-    price: 12.2,
+    price: 45,
     image: "/pizzas/pizza_icon01.png",
   },
   {
     name: "Frango com Barbecue",
     description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
-    price: 16.5,
+    price: 45,
     image: "/pizzas/pizza_icon03.png",
   },
   {
     name: "Calabresa",
     description: "Tomate, Calabresa, Queijo, Orégano",
-    price: 24.3,
+    price: 45,
     image: "/pizzas/pizza_icon02.png",
   },
 ];
@@ -53,13 +53,14 @@ export default function BestSellingCarousel() {
             className="md:basis-1/3 lg:basis-1/2 xl:basis-1/2 2xl:basis-1/3 basis-2/3 w-full"
           >
             <div className="p-1">
-              <CarouselCard
+              <CartCard
                 index={index}
-                title={pizza.name}
+                name={pizza.name}
                 description={pizza.description}
                 image={pizza.image}
                 price={pizza.price}
                 key={index}
+                type={pizza.type}
               />
             </div>
           </CarouselItem>

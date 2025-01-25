@@ -1,16 +1,19 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SizeProvider } from "@/context/carousel/size-context";
 import Image from "next/image";
-import { IProductCard } from "../../../../@types/types";
-import CarouselAddCart from "./cart/carousel-add-cart";
+import { IProductCard } from "../../../@types/types";
+import CartAddCard from "./cart-add-card";
 
-export default function CarouselCard({
+export default function CartCard({
   index,
   image,
-  title,
+  name,
   description,
   price,
+  type,
 }: IProductCard) {
   return (
     <SizeProvider>
@@ -22,7 +25,7 @@ export default function CarouselCard({
           <div className="aspect-square relative w-full rounded-full">
             <Image
               src={image}
-              alt={title}
+              alt={name}
               className="object-cover rounded-full"
               fill={true}
               quality={100}
@@ -30,18 +33,19 @@ export default function CarouselCard({
           </div>
           <div className="flex flex-col space-y-2 mt-2 items-center">
             <span className="text-lg font-semibold truncate w-full text-center">
-              {title}
+              {name}
             </span>
             <Separator className="bg-border-pizza" />
             <span className="font-normal truncate w-full text-center">
               {description}
             </span>
-            <CarouselAddCart
+            <CartAddCard
               index={index}
               image={image}
-              title={title}
+              name={name}
               description={description}
               price={price}
+              type={type}
             />
           </div>
         </CardContent>

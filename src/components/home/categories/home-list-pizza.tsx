@@ -1,7 +1,7 @@
 "use client";
 
-import { IPizza } from "../../../@types/types";
-import CarouselCard from "./carousel/carousel-card";
+import CartCard from "@/components/cart-card/cart-card";
+import { IPizza } from "../../../../@types/types";
 
 const pizzas: IPizza[] = [
   {
@@ -74,14 +74,15 @@ const pizzas: IPizza[] = [
 ];
 
 export default function HomeListPizza() {
+  const sortedPizzas = pizzas.sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 px-8">
-      {pizzas.map((pizza, index) => (
-        <CarouselCard
+      {sortedPizzas.map((pizza, index) => (
+        <CartCard
           key={index}
           index={index}
           image={pizza.image}
-          title={pizza.name}
+          name={pizza.name}
           description={pizza.description}
           price={pizza.price}
         />
