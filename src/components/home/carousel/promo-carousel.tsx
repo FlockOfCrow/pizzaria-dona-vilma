@@ -13,35 +13,41 @@ import CarouselCard from "./carousel-card";
 
 const pizzas: IPizza[] = [
   {
-    name: "Margherita",
-    description: "Tomate, Mussarela, Manjericão",
-    price: 12.0,
+    name: "Baiana",
+    description: "Calabresa moída, ovos, cebola e pimenta",
+    price: 45,
     image: "/pizzas/pizza_icon01.png",
   },
   {
-    name: "Pepperoni",
-    description: "Tomate, Mussarela, Pepperoni",
-    price: 14.0,
+    name: "Frango com Catupiry",
+    description: "Frango desfiado com catupiry e orégano",
+    price: 45,
     image: "/pizzas/pizza_icon02.png",
   },
   {
-    name: "Frango com Barbecue",
-    description: "Molho Barbecue, Frango, Cebola Roxa, Coentro",
-    price: 16.0,
+    name: "Portuguesa",
+    description: "Presunto, ovo, cebola, ervilha e orégano",
+    price: 45,
     image: "/pizzas/pizza_icon03.png",
   },
   {
-    name: "Havaiana",
-    description: "Tomate, Mussarela, Presunto, Abacaxi",
-    price: 15.0,
+    name: "Quatro Queijos",
+    description: "Mussarela, provolone, catupiry e parmesão",
+    price: 45,
     image: "/pizzas/pizza_icon04.png",
   },
   {
     name: "Vegetariana",
-    description: "Tomate, Mussarela, Pimentão, Azeitonas, Cebola",
-    price: 13.0,
+    description: "Mussarela, tomate, cebola, champignon e orégano",
+    price: 45,
     image: "/pizzas/pizza_icon05.png",
   },
+  // {
+  //   name: "Pizza Doce",
+  //   description: "Banana, chocolate ao leite, açúcar e canela",
+  //   price: 0,
+  //   image: "",
+  // },
 ];
 
 export default function PromotionCarousel() {

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface ICarouselCard {
   index: number;
   image: string;
@@ -35,7 +37,12 @@ export type PizzaSize = "P" | "M" | "G" | "GG";
 
 export interface ISizeContext {
   itemSize: PizzaSize | null;
-  setItemSize: (size: PizzaSize) => void;
+  setItemSize: Dispatch<SetStateAction<PizzaSize | null>>;
   quantity: number;
-  setQuantity: (quantity: number) => void;
+  setQuantity: Dispatch<SetStateAction<number>>;
+}
+
+export interface ICartContext {
+  cart: IProduct[];
+  setCart: Dispatch<SetStateAction<IProduct[]>>;
 }

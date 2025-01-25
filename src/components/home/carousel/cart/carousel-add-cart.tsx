@@ -7,11 +7,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useCart } from "@/context/carousel/cart-context";
 import { useSize } from "@/context/carousel/size-context";
-import Image from "next/image";
-import { ICarouselCard } from "../../../../../@types/types";
-import CarouselSizeCartButton from "./carousel-size-cart-button";
 import formatNumber from "@/utils/format-numer";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ICarouselCard, PizzaSize } from "../../../../../@types/types";
+import CarouselSizeCartButton from "./carousel-size-cart-button";
+import { toast } from "sonner";
 
 export default function CarouselAddCart({
   index,
@@ -20,13 +23,51 @@ export default function CarouselAddCart({
   image,
   price,
 }: ICarouselCard) {
-  const { itemSize } = useSize();
+  const { itemSize, setQuantity, quantity } = useSize();
+  const { setCart } = useCart();
+
+  const [itemPrice, setItemPrice] = useState<number>(0);
+
+  useEffect(() => {
+    setItemPrice(getItemPrice() * (quantity || 1));
+  }, [itemSize, price, quantity]);
+
+  const getItemPrice = (): number => {
+    const priceMultipliers: Record<PizzaSize, number> = {
+      P: 1,
+      M: 55 / price,
+      G: 65 / price,
+      GG: 80 / price,
+    };
+    return (itemSize && price * priceMultipliers[itemSize]) || 0;
+  };
 
   const handleAddToCart = () => {
     if (itemSize) {
-      const price = 10; // Defina o preço com base no tamanho e quantidade
-      // adicionar carrinho
+      setCart((prev) => [
+        ...prev,
+        {
+          name: title,
+          image,
+          price: itemPrice,
+          size: itemSize,
+          quantity,
+        },
+      ]);
+      toast.success("Item adicionado ao carrinho", {
+        description: `${quantity}x ${title} - ${itemSize}`,
+      });
+    } else {
+      toast.error("Selecione um tamanho para adicionar ao carrinho");
     }
+  };
+
+  const handleAddQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleRemoveQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
   };
 
   return (
@@ -68,17 +109,23 @@ export default function CarouselAddCart({
             <div className="space-y-2">
               <div className="font-semibold text-center">Preço</div>
               <div className="grid xl:grid-cols-2 grid-cols-1 items-center gap-y-2">
-                <div className="text-2xl underline items-center xl:text-start text-center">
-                  {formatNumber(price)}
+                <div className="text-xl underline items-center xl:text-start text-center">
+                  {formatNumber(itemPrice)}
                 </div>
                 <div className="flex items-center justify-center">
-                  <Button className="rounded-r-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza">
+                  <Button
+                    onClick={handleRemoveQuantity}
+                    className="rounded-r-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza"
+                  >
                     -
                   </Button>
                   <Button className="pointer-events-none rounded-l-none rounded-r-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza">
-                    0
+                    {quantity}
                   </Button>
-                  <Button className="rounded-l-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza">
+                  <Button
+                    onClick={handleAddQuantity}
+                    className="rounded-l-none w-6 h-8 bg-fbg text-black shadow-none hover:bg-border-pizza"
+                  >
                     +
                   </Button>
                 </div>
@@ -87,7 +134,10 @@ export default function CarouselAddCart({
           </div>
         </div>
         <div className="flex justify-end gap-x-2">
-          <Button className="bg-button-pizza text-white border border-border-pizza hover:bg-separator-pizza">
+          <Button
+            onClick={handleAddToCart}
+            className="bg-button-pizza text-white border border-border-pizza hover:bg-separator-pizza"
+          >
             Confirmar
           </Button>
         </div>
