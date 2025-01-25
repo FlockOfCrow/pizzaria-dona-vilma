@@ -14,13 +14,16 @@ export default function CarouselCard({
 }: ICarouselCard) {
   return (
     <SizeProvider>
-      <Card className="bg-fbg shadow-md hover:scale-105 duration-300" key={index}>
+      <Card
+        className="bg-fbg shadow-md hover:scale-105 duration-300"
+        key={index}
+      >
         <CardContent className="items-center justify-center p-6">
-          <div className="relative w-full h-40">
+          <div className="aspect-square relative w-full rounded-full">
             <Image
               src={image}
               alt={title}
-              className="object-cover"
+              className="object-cover rounded-full"
               fill={true}
               quality={100}
             />

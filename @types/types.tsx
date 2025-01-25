@@ -55,3 +55,9 @@ export interface ICartItem extends IProduct {
 export interface IChildren {
   children: React.ReactNode;
 }
+
+export interface IHomeBanner {
+  href?: string;
+  src: string;
+  className?: string;
+}
