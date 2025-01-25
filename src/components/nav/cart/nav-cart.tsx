@@ -17,7 +17,7 @@ export default function NavCart() {
           Carrinho <ShoppingCart />
         </button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="flex gap-1.5 items-center">
             <ShoppingCart />
@@ -27,7 +27,6 @@ export default function NavCart() {
         </SheetHeader>
         <div className="mt-3">
           <NavCartItem />
-          <div className="text-end mt-5">Total: R$0.00</div>
         </div>
       </SheetContent>
     </Sheet>

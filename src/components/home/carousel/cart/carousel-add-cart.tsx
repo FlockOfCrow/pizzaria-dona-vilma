@@ -27,6 +27,7 @@ export default function CarouselAddCart({
   const { setCart, cart } = useCart();
 
   const [itemPrice, setItemPrice] = useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setItemPrice(getItemPrice() * (quantity || 1));
@@ -57,6 +58,7 @@ export default function CarouselAddCart({
       toast.success("Item adicionado ao carrinho", {
         description: `${quantity}x ${title} - ${itemSize}`,
       });
+      setOpen(false);
     } else {
       toast.error("Selecione um tamanho para adicionar ao carrinho");
     }
@@ -71,7 +73,7 @@ export default function CarouselAddCart({
   };
 
   return (
-    <Dialog key={index}>
+    <Dialog open={open} onOpenChange={setOpen} key={index}>
       <DialogTrigger asChild>
         <Button className="bg-separator-pizza text-white">
           Adicionar ao Carrinho

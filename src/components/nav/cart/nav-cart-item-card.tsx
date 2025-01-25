@@ -10,8 +10,8 @@ export default function NavCartItemCard({
   quantity,
 }: ICartItem) {
   return (
-    <div className="flex items-center space-x-4 p-4 border-b border-gray-200">
-      <div className="relative w-16 h-16">
+    <div className="flex items-center space-x-4 border-b py-4 border-gray-200">
+      <div className="relative w-16 h-16 border-2 border-border-pizza rounded-full">
         <Image
           src={image}
           alt={`Pizza ${name}`}
