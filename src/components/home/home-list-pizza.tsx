@@ -1,6 +1,5 @@
 "use client";
 
-import { useCart } from "@/context/carousel/cart-context";
 import { IPizza } from "../../../@types/types";
 import CarouselCard from "./carousel/carousel-card";
 
@@ -38,13 +37,12 @@ const pizzas: IPizza[] = [
   {
     name: "Pizza Doce",
     description: "Banana, chocolate ao leite, açúcar e canela",
-    price: 0,
+    price: 45,
     image: "/pizzas/pizza_icon03.png",
   },
 ];
 
 export default function HomeListPizza() {
-  const { cart } = useCart();
   return (
     <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 px-8">
       {pizzas.map((pizza, index) => (
