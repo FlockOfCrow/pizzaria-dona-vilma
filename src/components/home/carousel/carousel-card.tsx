@@ -14,7 +14,7 @@ export default function CarouselCard({
 }: ICarouselCard) {
   return (
     <SizeProvider>
-      <Card className="bg-fbg shadow-md" key={index}>
+      <Card className="bg-fbg shadow-md hover:scale-105 duration-300" key={index}>
         <CardContent className="items-center justify-center p-6">
           <div className="relative w-full h-40">
             <Image
