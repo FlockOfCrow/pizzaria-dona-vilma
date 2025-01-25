@@ -1,9 +1,9 @@
+import CartAddCard from "@/components/cart-card/cart-add-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SizeProvider } from "@/context/carousel/size-context";
 import Image from "next/image";
-import { IDrinkCard } from "../../../../@types/types";
-import CarouselAddCart from "../carousel/cart/carousel-add-cart";
+import { IProductCard } from "../../../../@types/types";
 
 export default function HomeListDrinkCard({
   index,
@@ -11,7 +11,7 @@ export default function HomeListDrinkCard({
   name,
   description,
   price,
-}: IDrinkCard) {
+}: IProductCard) {
   return (
     <SizeProvider>
       <Card
@@ -36,10 +36,10 @@ export default function HomeListDrinkCard({
             <span className="font-normal truncate w-full text-center">
               {description}
             </span>
-            <CarouselAddCart
+            <CartAddCard
               index={index}
               image={image}
-              title={name}
+              name={name}
               description={description}
               price={price}
             />

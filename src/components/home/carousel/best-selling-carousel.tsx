@@ -9,9 +9,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { IPizza } from "../../../../@types/types";
+import { IProduct } from "../../../../@types/types";
 
-const pizzas: IPizza[] = [
+const pizzas: IProduct[] = [
   {
     name: "Margherita",
     description: "Tomate, Mussarela, Manjericão",

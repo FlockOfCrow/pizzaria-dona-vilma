@@ -1,9 +1,9 @@
 "use client";
 
 import CartCard from "@/components/cart-card/cart-card";
-import { IPizza } from "../../../../@types/types";
+import { IProduct } from "../../../../@types/types";
 
-const pizzas: IPizza[] = [
+const pizzas: IProduct[] = [
   {
     name: "Moda",
     description:

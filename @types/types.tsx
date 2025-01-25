@@ -6,14 +6,11 @@ export interface IProduct {
   price: number;
   type?: ProductTypes;
   description?: string;
+  index?: number;
 }
 
 export interface IProductCard extends IProduct {
   index: number;
-}
-
-export interface IPizza extends IProduct {
-  description: string;
 }
 
 export interface INavItem extends IChildren {
