@@ -1,4 +1,10 @@
-import { CircleUserRound, Flame, House, PiggyBank } from "lucide-react";
+import {
+  CircleUserRound,
+  Flame,
+  House,
+  PiggyBank,
+  ShoppingCart,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import NavCart from "./cart/nav-cart";
@@ -34,7 +40,11 @@ export default function NavBar() {
         <div>Vilma</div>
       </Link>
       <div className="lg:flex lg:flex-wrap lg:gap-x-5 hidden">
-        <NavCart />
+        <NavCart>
+          <button className="bg-bg px-3 py-2 flex items-center gap-x-1 rounded-2xl border-[3px] border-border-pizza shadow-lg hover:bg-orange-pizza hover:bg-opacity-70 transition duration-300 text-center justify-center md:text-[1rem]">
+            Carrinho <ShoppingCart />
+          </button>
+        </NavCart>
         <NavItem href={"/login"}>
           Acessar Conta <CircleUserRound />
         </NavItem>

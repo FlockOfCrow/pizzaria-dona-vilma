@@ -19,8 +19,7 @@ export interface IPizza extends IProduct {
   description: string;
 }
 
-export interface INavItem {
-  children: React.ReactNode;
+export interface INavItem extends IChildren {
   href: string;
 }
 
@@ -51,4 +50,8 @@ export interface ICartContext {
 export interface ICartItem extends IProduct {
   id: string;
   quantity: number;
+}
+
+export interface IChildren {
+  children: React.ReactNode;
 }

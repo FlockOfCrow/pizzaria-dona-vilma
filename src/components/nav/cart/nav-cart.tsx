@@ -9,14 +9,10 @@ import {
 import { ShoppingCart } from "lucide-react";
 import NavCartItem from "./nav-cart-item";
 
-export default function NavCart() {
+export default function NavCart({ children }: { children: React.ReactNode }) {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <button className="bg-bg px-3 py-2 flex items-center gap-x-1 rounded-2xl border-[3px] border-border-pizza shadow-lg hover:bg-orange-pizza hover:bg-opacity-70 transition duration-300 text-center justify-center md:text-[1rem]">
-          Carrinho <ShoppingCart />
-        </button>
-      </SheetTrigger>
+      <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="flex gap-1.5 items-center">

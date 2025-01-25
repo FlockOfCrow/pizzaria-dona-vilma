@@ -4,6 +4,7 @@ import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCategories from "@/components/home/categories/home-categories";
 import HomeCardMobileButton from "@/components/home/home-cart-mobile-button";
 import HomeLocation from "@/components/home/home-location";
+import NavCart from "@/components/nav/cart/nav-cart";
 import NavBar from "@/components/nav/navbar";
 import { Input } from "@/components/ui/input";
 import { Flame, PiggyBank, Search } from "lucide-react";
@@ -72,7 +73,9 @@ export default function Home() {
         </div>
       </main>
       <Footer />
-      <HomeCardMobileButton />
+      <NavCart>
+        <HomeCardMobileButton />
+      </NavCart>
     </div>
   );
 }
