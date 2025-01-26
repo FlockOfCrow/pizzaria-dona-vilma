@@ -25,7 +25,7 @@ export default function NavMenu() {
             asChild
             className="flex items-center gap-x-1 hover:bg-fbg rounded-md"
           >
-            <Link href={"#"}>
+            <Link href={"/#"}>
               <House className="h-5 w-5" />
               <span>Inicio</span>
             </Link>
@@ -34,7 +34,7 @@ export default function NavMenu() {
             asChild
             className="flex items-center gap-x-1 hover:bg-fbg rounded-md"
           >
-            <Link href={"#promocoes"}>
+            <Link href={"/#promocoes"}>
               <PiggyBank className="h-5 w-5" />
               <span>Promoções</span>
             </Link>
@@ -43,7 +43,7 @@ export default function NavMenu() {
             asChild
             className="flex items-center gap-x-1 hover:bg-fbg rounded-md"
           >
-            <Link href={"#mais-vendidas"}>
+            <Link href={"/#mais-vendidas"}>
               <Flame className="h-5 w-5" />
               <span>Mais Vendidas</span>
             </Link>

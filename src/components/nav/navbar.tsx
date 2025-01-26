@@ -16,13 +16,13 @@ export default function NavBar() {
   return (
     <nav className="flex flex-wrap flex-row items-center bg-fbg justify-between w-full xl:py-8 xl:px-5 2xl:py-8 2xl:px-20 p-8">
       <div className="lg:flex lg:flex-wrap lg:gap-x-5 hidden">
-        <NavItem href={"#"}>
+        <NavItem href={"/#"}>
           <House /> Inicio
         </NavItem>
-        <NavItem href={"#promocoes"}>
+        <NavItem href={"/#promocoes"}>
           <PiggyBank /> Promoções
         </NavItem>
-        <NavItem href={"#mais-vendidas"}>
+        <NavItem href={"/#mais-vendidas"}>
           <Flame /> Mais Vendidas
         </NavItem>
       </div>
