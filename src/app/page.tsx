@@ -2,23 +2,15 @@ import Footer from "@/components/footer/footer";
 import BestSellingCarousel from "@/components/home/carousel/best-selling-carousel";
 import PromotionCarousel from "@/components/home/carousel/promo-carousel";
 import HomeCardMobileButton from "@/components/home/cart-mobile/home-cart-mobile-button";
-import HomeCategories from "@/components/home/categories/home-categories";
 import HomeListDrinks from "@/components/home/categories/home-list-drinks";
 import HomeListPizza from "@/components/home/categories/home-list-pizza";
 import HomeBanner from "@/components/home/home-banner";
 import HomeLocation from "@/components/home/home-location";
+import HomeSearch from "@/components/home/search/home-search";
 import NavCart from "@/components/nav/cart/nav-cart";
 import NavBar from "@/components/nav/navbar";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import {
-  CupSoda,
-  Flame,
-  IceCream,
-  PiggyBank,
-  Pizza,
-  Search,
-} from "lucide-react";
+import { CupSoda, Flame, PiggyBank, Pizza } from "lucide-react";
 
 export default function Home() {
   return (
@@ -27,17 +19,7 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center w-full flex-grow 2xl:py-20 py-8 space-y-16">
         <div className="flex flex-1 w-full h-full 2xl:gap-x-44 2xl:flex-row xl:px-8 px-4 2xl:px-28">
           <div className="space-y-8 lg:w-1/2 lg:h-full w-full h-full">
-            <div className="flex flex-row justify-between truncate gap-x-2">
-              <div className="relative w-1/2">
-                <Input
-                  type="search"
-                  className="shadow-xl bg-bg border-2 border-border-pizza rounded-lg pl-10"
-                  placeholder="Digite aqui sua pesquisa..."
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
-              </div>
-              <HomeCategories />
-            </div>
+            <HomeSearch />
             <div className="sm:w-full md:w-full h-full md:space-y-6 lg:hidden block">
               <HomeLocation />
             </div>

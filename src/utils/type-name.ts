@@ -19,11 +19,5 @@ export function nameSize(size?: Sizes) {
 }
 
 export function nameType(type?: ProductTypes) {
-  return type === "Pizza"
-    ? "Pizza"
-    : type === "Drink"
-    ? ""
-    : type === "Dessert"
-    ? "Doce"
-    : "Pizza";
+  return type === "Pizza" ? "Pizza" : type === "Drink" ? "" : "Pizza";
 }
