@@ -28,7 +28,6 @@ export default function HomeSearch() {
     product.name.toLowerCase().includes(debouncedSearch.toLowerCase())
   );
 
-  console.log(search, findProduct);
   return (
     <>
       <div className="flex flex-row justify-between truncate gap-x-2">

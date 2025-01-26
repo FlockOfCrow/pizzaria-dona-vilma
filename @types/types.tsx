@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IProduct {
@@ -62,3 +63,5 @@ export interface IHomeBanner {
   src: string;
   className?: string;
 }
+
+export type IUserUpdate = User & { newPassword: string };

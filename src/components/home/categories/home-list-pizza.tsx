@@ -52,7 +52,7 @@ export const pizzas: IProduct[] = [
     image: "/pizzas/pizza_08.png",
   },
   {
-    name: "Pizza Vegetariana",
+    name: "Vegetariana",
     description:
       "Molho de tomate, tomate, muçarela, pimentão, milho verde, cebola e orégano",
     price: 45,

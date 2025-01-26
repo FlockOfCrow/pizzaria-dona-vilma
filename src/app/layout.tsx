@@ -1,9 +1,8 @@
 import { Toaster } from "@/components/ui/sonner";
+import { CartProvider } from "@/context/carousel/cart-context";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/context/carousel/cart-context";
-import { SizeProvider } from "@/context/carousel/size-context";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",

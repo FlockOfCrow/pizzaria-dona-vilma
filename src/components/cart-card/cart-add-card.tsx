@@ -50,19 +50,28 @@ export default function CartAddCard({
 
   const handleAddToCart = () => {
     if (itemSize) {
-      setCart([
-        ...cart,
-        {
-          id: v4(),
-          name: name,
-          image,
-          price: itemPrice,
-          size: itemSize,
-          quantity,
-          type,
-          description,
-        },
-      ]);
+      const existingItemIndex = cart.findIndex(
+        (item) => item.name === name && item.size === itemSize
+      );
+      if (existingItemIndex !== -1) {
+        const updatedCart = [...cart];
+        updatedCart[existingItemIndex].quantity += quantity;
+        setCart(updatedCart);
+      } else {
+        setCart([
+          ...cart,
+          {
+            id: v4(),
+            name: name,
+            image,
+            price: itemPrice,
+            size: itemSize,
+            quantity,
+            type,
+            description,
+          },
+        ]);
+      }
       toast.success("Item adicionado ao carrinho", {
         description: `${quantity}x ${name} - ${itemSize}`,
       });
