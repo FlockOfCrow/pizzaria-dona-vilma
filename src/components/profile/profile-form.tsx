@@ -89,11 +89,12 @@ export const formSchema = z
   })
   .refine(
     (data) =>
-      (data.password && data.newPassword && data.confirmNewPassword) ||
-      (!data.password && !data.newPassword && data.confirmNewPassword),
+      (!data.newPassword && !data.confirmNewPassword) ||
+      (data.password && data.newPassword && data.confirmNewPassword),
     {
-      message: "Você precisa inserir a senha antiga e a nova senha juntas",
-      path: ["password", "newPassword"],
+      message:
+        "Você precisa inserir a senha antiga, a nova senha e confirmar a nova senha juntas",
+      path: ["password", "newPassword", "confirmNewPassword"],
     }
   );
 
@@ -211,17 +212,33 @@ export default function ProfileForm() {
       },
       body: JSON.stringify(filteredValues),
     }).then(async (res) => {
-      if (!res.ok) throw new Error("Erro ao salvar alterações do usuário.");
       const json = await res.json();
+      if (!res.ok) {
+        const resp = {
+          message: json?.message || "Erro ao salvar alterações do usuário.",
+          status: res.status,
+        };
+        throw new Error(JSON.stringify(resp));
+      }
+
       setSubmit(false);
       return json;
     });
     toast.promise(updatePromise, {
       loading: "Salvando alterações...",
       success: "Alterações salva com sucesso!",
-      error: () => {
+      error: (err) => {
         setSubmit(false);
-        return "Erro ao salvar alterações do usuário.";
+        const parse = JSON.parse(err.message);
+        switch (parse.status) {
+          case 429:
+            return "Aguarde para atualizar seu perfil novamente.";
+          case 401:
+            router.push("/login");
+            return parse.message;
+          default:
+            return "Erro ao salvar alterações do usuário.";
+        }
       },
     });
   }
