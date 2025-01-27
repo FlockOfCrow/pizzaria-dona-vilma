@@ -3,20 +3,30 @@
 import { MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const getStatus = (
-  startDay: number,
-  endDay: number,
-  openHour: number,
-  closeHour: number
-): boolean => {
-  const date = new Date();
-  const day = date.getDay();
-  const hour = date.getHours();
-
-  if (day >= startDay && day <= endDay) {
-    if (hour >= openHour && hour < closeHour) {
-      return true;
-    }
+const getStatus = () => {
+  const timeZone = "America/Sao_Paulo";
+  const now = new Date();
+  const localTime = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(now);
+  const hour = parseInt(localTime.find((p) => p.type === "hour")?.value || "0");
+  const minute = parseInt(
+    localTime.find((p) => p.type === "minute")?.value || "0"
+  );
+  const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    weekday: "short",
+  })
+    .format(now)
+    .toLowerCase();
+  if (dayOfWeek === "mon") {
+    return false;
+  }
+  if (hour > 18 || (hour === 18 && minute >= 30) || (hour >= 0 && hour < 6)) {
+    return true;
   }
   return false;
 };
@@ -25,10 +35,11 @@ export default function HomeLocation() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    setStatus(getStatus(2, 0, 18, 24));
+    setStatus(getStatus());
     const interval = setInterval(() => {
-      setStatus(getStatus(2, 0, 9, 22));
+      setStatus(getStatus());
     }, 60000);
+
     return () => clearInterval(interval);
   }, []);
 
