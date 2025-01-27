@@ -1,5 +1,6 @@
 import { verifyToken } from "@/modules/auth/auth-service";
 import { editUser, getUser } from "@/modules/user/user-service";
+import Cache from "@/utils/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { IUserUpdate } from "../../../../@types/types";
 import { userUpdateSchema } from "../../../../@types/user";
@@ -22,6 +23,8 @@ export async function GET(req: NextRequest) {
   }
 }
 
+const userCache = new Map<string, Cache>();
+
 export async function PATCH(req: NextRequest) {
   const token = req.cookies.get("session");
   try {
@@ -38,9 +41,31 @@ export async function PATCH(req: NextRequest) {
     }
     const session = await verifyToken(token?.value!);
     if (!session) throw new Error("Invalid token");
+
+    const time = 60;
+
+    const userId = session.sub as string;
+    if (!userCache.has(userId)) {
+      userCache.set(userId, new Cache(time));
+    }
+    const cache = userCache.get(userId);
+    const lastUpdate = cache?.get<number>("lastUpdate");
+    const now = Date.now();
+    if (lastUpdate && now - lastUpdate < time * 1000) {
+      return NextResponse.json(
+        {
+          message: "You can only update your profile once per hour.",
+        },
+        { status: 429 }
+      );
+    }
+
     const user = await editUser(parsedBody.data as IUserUpdate);
     if (user.error)
       return NextResponse.json({ message: user.error }, { status: 400 });
+
+    cache?.set("lastUpdate", now);
+
     return NextResponse.json(
       {
         message: "User updated successfully",
