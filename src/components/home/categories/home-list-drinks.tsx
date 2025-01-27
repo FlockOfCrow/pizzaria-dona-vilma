@@ -7,24 +7,28 @@ export const drinks: IProduct[] = [
     price: 13,
     image: "/drinks/coca_2l.png",
     type: "Drink",
+    description: "Refrigerante de Cola, Lata, 1L, 2L",
   },
   {
     name: "Fanta Laranja",
     price: 11,
     image: "/drinks/fanta_laranja_2l.png",
     type: "Drink",
+    description: "Refrigerante de Laranja, Lata, 1L, 2L",
   },
   {
     name: "Guaraná",
     price: 11,
     image: "/drinks/guarana_2l.png",
     type: "Drink",
+    description: "Refrigerante de Guaraná, Lata, 1L, 2L",
   },
   {
     name: "Sprite",
     price: 11,
     image: "/drinks/sprite_2l.png",
     type: "Drink",
+    description: "Refrigerante de Limão, Lata, 1L, 2L",
   },
 ];
 

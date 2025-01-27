@@ -36,10 +36,15 @@ export default function CartCard({
             <span className="text-lg font-semibold truncate w-full text-center">
               {nameType(type)} {name}
             </span>
-            <Separator className="bg-border-pizza" />
+            <div className="w-full">
+              <Separator className="bg-border-pizza" />
+            </div>
             <span className="font-normal truncate w-full text-center">
               {description}
             </span>
+            <div className="w-full pb-2.5">
+              <Separator className="bg-border-pizza" />
+            </div>
             <CartAddCard
               index={index}
               image={image}
