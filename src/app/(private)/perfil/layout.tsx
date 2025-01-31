@@ -1,5 +1,3 @@
-import { Toaster } from "@/components/ui/sonner";
-import { CartProvider } from "@/context/carousel/cart-context";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

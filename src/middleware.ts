@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "./modules/auth/auth-service";
 
-const SECRET_KEY = new TextEncoder().encode(process.env.SECRET_KEY);
-
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("session");
   if (
@@ -11,12 +9,17 @@ export async function middleware(request: NextRequest) {
   ) {
     try {
       const session = await verifyToken(token?.value!);
-      return NextResponse.redirect(new URL("/perfil", request.nextUrl).toString());
+      return NextResponse.redirect(
+        new URL("/perfil", request.nextUrl).toString()
+      );
     } catch (e) {
       return NextResponse.next();
     }
   }
-  if (request.nextUrl.pathname.startsWith("/perfil")) {
+  if (
+    request.nextUrl.pathname.startsWith("/perfil") ||
+    request.nextUrl.pathname.startsWith("/painel")
+  ) {
     try {
       const session = await verifyToken(token?.value!);
       return NextResponse.next();
@@ -30,5 +33,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login/:path*", "/register/:path*", "/perfil/:path*"],
+  matcher: [
+    "/login/:path*",
+    "/register/:path*",
+    "/perfil/:path*",
+    "/painel/:path*",
+  ],
 };

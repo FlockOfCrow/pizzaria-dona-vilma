@@ -30,7 +30,7 @@ export async function registerUser(
     });
     return { status: "success" };
   } catch (error: any) {
-    console.log(error.message);
+    console.log(error);
     if (error.code === "P2002") {
       throw new Error("Esse email já está cadastrado.");
     } else {

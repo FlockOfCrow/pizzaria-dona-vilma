@@ -1,0 +1,181 @@
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+} from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@radix-ui/react-collapsible";
+import {
+  ChevronDown,
+  CupSoda,
+  ListTodo,
+  Pizza,
+  User,
+  UtensilsCrossed,
+} from "lucide-react";
+import Link from "next/link";
+
+const URL_REF = "/painel";
+
+interface ISidebarItem {
+  title: string;
+  url: string;
+  icon?: any;
+  sub_group?: ISidebarItem[];
+}
+
+const items: ISidebarItem[] = [
+  {
+    title: "Pedidos",
+    url: URL_REF + "/pedidos",
+    icon: ListTodo,
+  },
+  {
+    title: "Cardápio",
+    url: URL_REF + "/cardapio",
+    icon: UtensilsCrossed,
+    sub_group: [
+      {
+        title: "Pizzas",
+        url: URL_REF + "/cardapio/pizzas",
+        icon: Pizza,
+        sub_group: [
+          {
+            title: "Cadastrar Pizza",
+            url: URL_REF + "/cardapio/pizzas/cadastrar",
+          },
+          {
+            title: "Remover Pizza",
+            url: URL_REF + "/cardapio/pizzas/remover",
+          },
+          {
+            title: "Editar Pizza",
+            url: URL_REF + "/cardapio/pizzas/editar",
+          },
+        ],
+      },
+      {
+        title: "Bebidas",
+        url: URL_REF + "/cardapio/bebidas",
+        icon: CupSoda,
+        sub_group: [
+          {
+            title: "Cadastrar Bebida",
+            url: URL_REF + "/cardapio/bebidas/cadastrar",
+          },
+          {
+            title: "Remover Bebida",
+            url: URL_REF + "/cardapio/bebidas/remover",
+          },
+          {
+            title: "Editar Bebida",
+            url: URL_REF + "/cardapio/bebidas/editar",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Membros",
+    url: URL_REF + "/membros",
+    icon: User,
+  },
+];
+
+export function AppSidebar() {
+  return (
+    <Sidebar className="">
+      <SidebarHeader className="bg-fbg" />
+      <SidebarContent className="bg-fbg p-4">
+        <SidebarMenu className="bg-bg rounded-md">
+          {items.map((item, index) =>
+            item.sub_group?.length ?? 0 > 0 ? (
+              <Collapsible
+                defaultOpen={false}
+                key={index}
+                className="group/collapsible"
+              >
+                <SidebarGroup>
+                  <SidebarGroupLabel
+                    className="text-black font-semibold text-lg"
+                    asChild
+                  >
+                    <CollapsibleTrigger className="gap-x-1 hover:bg-gray-400/25 !transition !duration-150">
+                      {item.icon && (
+                        <item.icon className="text-orange-pizza stroke-[2.5px]" />
+                      )}
+                      {item.title}
+                      <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    </CollapsibleTrigger>
+                  </SidebarGroupLabel>
+                  <CollapsibleContent>
+                    {item.sub_group?.map((sub_item, sub_index) => (
+                      <Collapsible
+                        defaultOpen={false}
+                        key={sub_index}
+                        className="group/collapsible-1"
+                      >
+                        <SidebarGroup>
+                          <SidebarGroupLabel
+                            className="text-black text-lg"
+                            asChild
+                          >
+                            <CollapsibleTrigger className="gap-x-1 hover:bg-gray-400/25 !transition !duration-150">
+                              {sub_item.icon && (
+                                <sub_item.icon className="text-orange-pizza" />
+                              )}
+                              {sub_item.title}
+                              <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible-1:rotate-180" />
+                            </CollapsibleTrigger>
+                          </SidebarGroupLabel>
+                          <CollapsibleContent>
+                            {sub_item.sub_group?.map(
+                              (sub_sub_item, sub_sub_index) => (
+                                <SidebarGroup key={sub_sub_index}>
+                                  <CollapsibleTrigger className="gap-x-1 hover:text-button-pizza transition duration-150 rounded-md">
+                                    <Link href={sub_sub_item.url}>
+                                      {sub_sub_item.icon && (
+                                        <sub_sub_item.icon />
+                                      )}
+                                      {sub_sub_item.title}
+                                    </Link>
+                                  </CollapsibleTrigger>
+                                </SidebarGroup>
+                              )
+                            )}
+                          </CollapsibleContent>
+                        </SidebarGroup>
+                      </Collapsible>
+                    ))}
+                  </CollapsibleContent>
+                </SidebarGroup>
+              </Collapsible>
+            ) : (
+              <SidebarGroup key={item.title}>
+                <SidebarGroupLabel
+                  asChild
+                  className="text-black font-semibold text-lg hover:bg-gray-400/25 transition duration-100"
+                >
+                  <Link className="gap-x-1" href={item.url}>
+                    {item.icon && (
+                      <item.icon className="text-orange-pizza stroke-[2.5px] flex" />
+                    )}
+                    {item.title}
+                  </Link>
+                </SidebarGroupLabel>
+              </SidebarGroup>
+            )
+          )}
+        </SidebarMenu>
+      </SidebarContent>
+      <SidebarFooter />
+    </Sidebar>
+  );
+}
