@@ -22,15 +22,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ISidebarItem } from "../../../@types/types";
 
 const URL_REF = "/painel";
-
-interface ISidebarItem {
-  title: string;
-  url: string;
-  icon?: any;
-  sub_group?: ISidebarItem[];
-}
 
 const items: ISidebarItem[] = [
   {
@@ -184,7 +178,7 @@ export function AppSidebar() {
           )}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter className="bg-fbg" />
     </Sidebar>
   );
 }

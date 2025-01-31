@@ -65,3 +65,10 @@ export interface IHomeBanner {
 }
 
 export type IUserUpdate = User & { newPassword: string };
+
+export interface ISidebarItem {
+  title: string;
+  url: string;
+  icon?: any;
+  sub_group?: ISidebarItem[];
+}
