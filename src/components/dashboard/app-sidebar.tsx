@@ -20,6 +20,7 @@ import {
   User,
   UtensilsCrossed,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const URL_REF = "/painel";
@@ -92,7 +93,15 @@ const items: ISidebarItem[] = [
 export function AppSidebar() {
   return (
     <Sidebar className="">
-      <SidebarHeader className="bg-fbg" />
+      <SidebarHeader className="bg-fbg justify-center items-center">
+        <Image
+          className="aspect-square"
+          src="/logo02.png"
+          alt="logo02"
+          width={500}
+          height={500}
+        />
+      </SidebarHeader>
       <SidebarContent className="bg-fbg p-4">
         <SidebarMenu className="bg-bg rounded-md">
           {items.map((item, index) =>
