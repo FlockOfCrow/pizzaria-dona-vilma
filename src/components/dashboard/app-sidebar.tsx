@@ -88,7 +88,9 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="">
       <SidebarHeader className="bg-fbg justify-center items-center">
-        <Image src="/logo02.png" alt="logo02" width={500} height={500} />
+        <Link href={"/"}>
+          <Image src="/logo02.png" alt="logo02" width={500} height={500} />
+        </Link>
       </SidebarHeader>
       <SidebarContent className="bg-fbg p-4">
         <SidebarMenu className="bg-bg rounded-md">
