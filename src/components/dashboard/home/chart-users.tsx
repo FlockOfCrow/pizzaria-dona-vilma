@@ -19,12 +19,12 @@ import {
 } from "@/components/ui/chart";
 
 const chartData = [
-  { month: "January", users: 186 },
-  { month: "February", users: 305 },
-  { month: "March", users: 237 },
-  { month: "April", users: 73 },
-  { month: "May", users: 209 },
-  { month: "June", users: 214 },
+  { month: "Janeiro", users: 186 },
+  { month: "Fevereiro", users: 305 },
+  { month: "Março", users: 237 },
+  { month: "Abril", users: 73 },
+  { month: "Maio", users: 209 },
+  { month: "Junho", users: 214 },
 ];
 
 const chartConfig = {
