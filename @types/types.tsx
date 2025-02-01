@@ -25,6 +25,12 @@ export interface ICategory {
 }
 
 export type PizzaSize = "P" | "M" | "G" | "GG";
+export enum PizzaSizeEnum {
+  P = "P",
+  M = "M",
+  G = "G",
+  GG = "GG",
+}
 
 export type DrinkSize = "2L" | "1L" | "Lata";
 

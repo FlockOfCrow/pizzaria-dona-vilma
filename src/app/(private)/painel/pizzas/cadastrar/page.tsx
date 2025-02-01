@@ -1,7 +1,6 @@
 import PizzaRegisterForm from "@/components/dashboard/pizza/pizza-register-form";
 import SidebarBreadcrumb from "@/components/dashboard/sidebar-breadcrumb";
 import { SidebarTrigger } from "@/components/dashboard/sidebar-trigger";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset } from "@/components/ui/sidebar";
 import { Pizza } from "lucide-react";
@@ -20,7 +19,7 @@ export default function PizzaRegisterPage() {
             <SidebarBreadcrumb />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 pt-4 px-8 md:p-16">
+        <div className="flex flex-1 flex-col gap-4 pb-8 pt-5 px-8 md:p-16 md:pt-9">
           <div className="text-xl border-l-2 border-orange-pizza pl-2">
             Cadastro de
             <div className="text-3xl font-semibold flex gap-x-1 items-center underline underline-offset-4">

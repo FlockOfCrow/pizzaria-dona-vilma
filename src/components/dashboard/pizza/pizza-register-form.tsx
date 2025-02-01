@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { PizzaSize } from "../../../../@types/types";
 
 const registerPizzaSchema = z.object({
   picture: z
@@ -39,6 +41,52 @@ const registerPizzaSchema = z.object({
       },
       { message: "Apenas arquivos JPEG e PNG são permitidos" }
     ),
+  name: z.string().nonempty({ message: "O nome da pizza é obrigatório" }),
+  description: z.string().nonempty({
+    message: "A descrição da pizza é obrigatória",
+  }),
+  prices: z.object({
+    P: z
+      .string()
+      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
+        message:
+          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
+      })
+      .transform((val) => parseFloat(val))
+      .refine((val) => val > 0, {
+        message: "O preço deve ser um valor positivo",
+      }),
+    M: z
+      .string()
+      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
+        message:
+          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
+      })
+      .transform((val) => parseFloat(val))
+      .refine((val) => val > 0, {
+        message: "O preço deve ser um valor positivo",
+      }),
+    G: z
+      .string()
+      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
+        message:
+          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
+      })
+      .transform((val) => parseFloat(val))
+      .refine((val) => val > 0, {
+        message: "O preço deve ser um valor positivo",
+      }),
+    GG: z
+      .string()
+      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
+        message:
+          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
+      })
+      .transform((val) => parseFloat(val))
+      .refine((val) => val > 0, {
+        message: "O preço deve ser um valor positivo",
+      }),
+  }),
 });
 
 type RegisterPizzaFormData = z.infer<typeof registerPizzaSchema>;
@@ -49,6 +97,17 @@ export default function PizzaRegisterForm() {
 
   const form = useForm<RegisterPizzaFormData>({
     resolver: zodResolver(registerPizzaSchema),
+    defaultValues: {
+      picture: undefined,
+      name: "",
+      description: "",
+      prices: {
+        P: undefined,
+        M: undefined,
+        G: undefined,
+        GG: undefined,
+      },
+    },
   });
 
   const validImageTypes = ["image/jpeg", "image/png"];
@@ -67,8 +126,12 @@ export default function PizzaRegisterForm() {
     }
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    onChange: (files: FileList | null) => void
+  ) => {
     handleFiles(event.target.files);
+    onChange(event.target.files);
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -114,6 +177,39 @@ export default function PizzaRegisterForm() {
     }
   };
 
+  const handleNumberChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    size: PizzaSize
+  ) => {
+    let { value } = event.target;
+    value = value.replace(/,/g, ".");
+    value = value.replace(/[^0-9.]/g, "");
+    const parts = value.split(".");
+    if (parts.length > 2) {
+      value = parts.shift() + "." + parts.join("");
+    }
+    form.setValue(`prices.${size}`, value as unknown as number, {
+      shouldValidate: true,
+    });
+  };
+
+  const handleNumberBlur = (
+    event: React.FocusEvent<HTMLInputElement>,
+    size: PizzaSize
+  ) => {
+    let value = event.target.value;
+    if (value.endsWith(".")) {
+      value = value.slice(0, -1);
+    }
+    const numberValue = parseFloat(value);
+    if (!isNaN(numberValue)) {
+      const formatted = numberValue.toFixed(2);
+      form.setValue(`prices.${size}`, formatted as unknown as number, {
+        shouldValidate: true,
+      });
+    }
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -121,7 +217,7 @@ export default function PizzaRegisterForm() {
           <FormField
             control={form.control}
             name="picture"
-            render={({ field, fieldState }) => (
+            render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <FormLabel
@@ -148,7 +244,7 @@ export default function PizzaRegisterForm() {
                         </div>
                       </div>
                     ) : (
-                      <div className="flex flex-col items-center">
+                      <div className="flex flex-col items-center space-y-2">
                         <span className="text-center">
                           Inserir uma imagem ou
                           <br />
@@ -163,24 +259,132 @@ export default function PizzaRegisterForm() {
                       accept="image/png,image/jpeg"
                       className="hidden"
                       ref={field.ref}
-                      onChange={(e) => {
-                        handleImageChange(e);
-                        field.onChange(e.target.files);
-                      }}
+                      onChange={(e) => handleImageChange(e, field.onChange)}
                     />
                   </FormLabel>
                 </FormControl>
-                <FormMessage>{fieldState.error?.message}</FormMessage>
+                <FormMessage />
               </FormItem>
             )}
           />
+          <div className="space-y-4 relative">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nome do Produto</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="bg-fbg border-border-pizza shadow-md"
+                      placeholder="Insira aqui o nome do Produto"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Descrição do Produto</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      className="bg-fbg border-border-pizza shadow-md h-52 resize-none"
+                      placeholder="Insira aqui a descrição do Produto"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="prices.P"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tamanho P</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      inputMode="decimal"
+                      placeholder="Ex: 49.99"
+                      {...field}
+                      onChange={(e) => handleNumberChange(e, "P")}
+                      onBlur={(e) => handleNumberBlur(e, "P")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="prices.M"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tamanho M</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      inputMode="decimal"
+                      placeholder="Ex: 59.99"
+                      {...field}
+                      onChange={(e) => handleNumberChange(e, "M")}
+                      onBlur={(e) => handleNumberBlur(e, "M")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="prices.G"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tamanho G</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      inputMode="decimal"
+                      placeholder="Ex: 69.99"
+                      {...field}
+                      onChange={(e) => handleNumberChange(e, "G")}
+                      onBlur={(e) => handleNumberBlur(e, "G")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="prices.GG"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tamanho GG</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      inputMode="decimal"
+                      placeholder="Ex: 79.99"
+                      {...field}
+                      onChange={(e) => handleNumberChange(e, "GG")}
+                      onBlur={(e) => handleNumberBlur(e, "GG")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
-        <Button
-          type="submit"
-          className="mt-4 bg-orange-pizza text-white py-2 px-4 rounded-md"
-        >
-          Enviar
-        </Button>
+        <Button type="submit">Registrar Pizza</Button>
       </form>
     </Form>
   );
