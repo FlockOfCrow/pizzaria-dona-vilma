@@ -9,6 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
+import { Fragment } from "react";
 
 export default function SidebarBreadcrumb() {
   const pathname = usePathname();
@@ -28,9 +29,9 @@ export default function SidebarBreadcrumb() {
           const href = `/${paths.slice(0, index + 1).join("/")}`;
           const isLast = index === path.length - 1;
           return (
-            <>
+            <Fragment key={index}>
               <BreadcrumbSeparator className="text-black" />
-              <BreadcrumbItem key={index}>
+              <BreadcrumbItem>
                 <BreadcrumbLink
                   className={`text-black hover:text-orange-pizza ${
                     isLast ? "font-bold" : ""
@@ -40,7 +41,7 @@ export default function SidebarBreadcrumb() {
                   {path.charAt(0).toUpperCase() + path.slice(1)}
                 </BreadcrumbLink>
               </BreadcrumbItem>
-            </>
+            </Fragment>
           );
         })}
       </BreadcrumbList>
