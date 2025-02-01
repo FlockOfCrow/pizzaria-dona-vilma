@@ -42,8 +42,8 @@ export default function SidebarBreadcrumb() {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <BreadcrumbLink className="text-black hover:text-orange-pizza cursor-pointer">
-                    <BreadcrumbEllipsis />
+                  <BreadcrumbLink className="text-black hover:text-orange-pizza cursor-pointer text-lg">
+                    ...
                   </BreadcrumbLink>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
