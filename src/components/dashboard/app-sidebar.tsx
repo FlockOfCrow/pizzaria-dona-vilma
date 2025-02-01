@@ -34,44 +34,44 @@ const items: ISidebarItem[] = [
   },
   {
     title: "Cardápio",
-    url: URL_REF + "/cardapio",
+    url: "#",
     icon: UtensilsCrossed,
     sub_group: [
       {
         title: "Pizzas",
-        url: URL_REF + "/cardapio/pizzas",
+        url: URL_REF + "/",
         icon: Pizza,
         sub_group: [
           {
             title: "Cadastrar Pizza",
-            url: URL_REF + "/cardapio/pizzas/cadastrar",
+            url: URL_REF + "/pizzas/cadastrar",
           },
           {
             title: "Remover Pizza",
-            url: URL_REF + "/cardapio/pizzas/remover",
+            url: URL_REF + "/pizzas/remover",
           },
           {
             title: "Editar Pizza",
-            url: URL_REF + "/cardapio/pizzas/editar",
+            url: URL_REF + "/pizzas/editar",
           },
         ],
       },
       {
         title: "Bebidas",
-        url: URL_REF + "/cardapio/bebidas",
+        url: URL_REF + "/",
         icon: CupSoda,
         sub_group: [
           {
             title: "Cadastrar Bebida",
-            url: URL_REF + "/cardapio/bebidas/cadastrar",
+            url: URL_REF + "/bebidas/cadastrar",
           },
           {
             title: "Remover Bebida",
-            url: URL_REF + "/cardapio/bebidas/remover",
+            url: URL_REF + "/bebidas/remover",
           },
           {
             title: "Editar Bebida",
-            url: URL_REF + "/cardapio/bebidas/editar",
+            url: URL_REF + "/bebidas/editar",
           },
         ],
       },
