@@ -39,6 +39,7 @@ model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String   @unique
   description String?
+  image       String?
   category    Category
   price       Json
   createdAt   DateTime @default(now())
