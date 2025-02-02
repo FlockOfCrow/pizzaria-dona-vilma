@@ -17,95 +17,29 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
+import { toast } from "sonner";
+import { registerPizzaSchema } from "../../../../@types/pizza";
 import { PizzaSize } from "../../../../@types/types";
-
-const registerPizzaSchema = z.object({
-  picture: z
-    .any()
-    .refine(
-      (files) => {
-        if (typeof FileList !== "undefined" && files instanceof FileList) {
-          return files.length > 0;
-        }
-        return false;
-      },
-      { message: "Você deve selecionar uma imagem" }
-    )
-    .refine(
-      (files) => {
-        if (typeof FileList !== "undefined" && files instanceof FileList) {
-          const file = files.item(0);
-          return file ? ["image/jpeg", "image/png"].includes(file.type) : false;
-        }
-        return false;
-      },
-      { message: "Apenas arquivos JPEG e PNG são permitidos" }
-    ),
-  name: z.string().nonempty({ message: "O nome da pizza é obrigatório" }),
-  description: z.string().nonempty({
-    message: "A descrição da pizza é obrigatória",
-  }),
-  prices: z.object({
-    P: z
-      .string()
-      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
-        message:
-          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
-      })
-      .transform((val) => parseFloat(val))
-      .refine((val) => val > 0, {
-        message: "O preço deve ser um valor positivo",
-      }),
-    M: z
-      .string()
-      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
-        message:
-          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
-      })
-      .transform((val) => parseFloat(val))
-      .refine((val) => val > 0, {
-        message: "O preço deve ser um valor positivo",
-      }),
-    G: z
-      .string()
-      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
-        message:
-          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
-      })
-      .transform((val) => parseFloat(val))
-      .refine((val) => val > 0, {
-        message: "O preço deve ser um valor positivo",
-      }),
-    GG: z
-      .string()
-      .refine((val) => /^\d+(\.\d{2})?$/.test(val), {
-        message:
-          "O preço deve ser um número válido com duas casas decimais (use . como separador)",
-      })
-      .transform((val) => parseFloat(val))
-      .refine((val) => val > 0, {
-        message: "O preço deve ser um valor positivo",
-      }),
-  }),
-});
 
 type RegisterPizzaFormData = z.infer<typeof registerPizzaSchema>;
 
 export default function PizzaRegisterForm() {
   const [image, setImage] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<RegisterPizzaFormData>({
     resolver: zodResolver(registerPizzaSchema),
     defaultValues: {
-      picture: undefined,
+      picture: null as unknown as File,
       name: "",
       description: "",
-      prices: {
-        P: undefined,
-        M: undefined,
-        G: undefined,
-        GG: undefined,
+      price: {
+        P: "" as unknown as number,
+        M: "" as unknown as number,
+        G: "" as unknown as number,
+        GG: "" as unknown as number,
       },
     },
   });
@@ -128,10 +62,17 @@ export default function PizzaRegisterForm() {
 
   const handleImageChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    onChange: (files: FileList | null) => void
+    onChange: (file: File | null) => void
   ) => {
-    handleFiles(event.target.files);
-    onChange(event.target.files);
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setImage(URL.createObjectURL(file));
+      onChange(file);
+    } else {
+      setImage(null);
+      onChange(null);
+    }
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -160,22 +101,32 @@ export default function PizzaRegisterForm() {
     onChange(files);
   };
 
-  const onSubmit = async (data: RegisterPizzaFormData) => {
+  async function onSubmit(values: z.infer<typeof registerPizzaSchema>) {
+    setIsSubmitting(true);
     const formData = new FormData();
-    formData.append("picture", data.picture[0]);
-    try {
-      const response = await fetch("/upload", {
-        method: "POST",
-        body: formData,
-      });
-      if (!response.ok) {
-        throw new Error("Erro ao enviar o arquivo");
-      }
-      console.log("Arquivo enviado com sucesso");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("price", JSON.stringify(values.price));
+    formData.append("picture", values.picture as File);
+    const registerPromise = fetch("/api/pizza", {
+      method: "POST",
+      body: formData,
+    });
+    toast.promise(registerPromise, {
+      loading: "Cadastrando sua pizza...",
+      success: () => {
+        setIsSubmitting(false);
+        form.reset();
+        setImage(null);
+        setDragActive(false);
+        return "Pizza cadastrada com sucesso!";
+      },
+      error: async (error) => {
+        setIsSubmitting(false);
+        return "Erro ao cadastrar pizza.";
+      },
+    });
+  }
 
   const handleNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -188,7 +139,7 @@ export default function PizzaRegisterForm() {
     if (parts.length > 2) {
       value = parts.shift() + "." + parts.join("");
     }
-    form.setValue(`prices.${size}`, value as unknown as number, {
+    form.setValue(`price.${size}`, value as unknown as number, {
       shouldValidate: true,
     });
   };
@@ -204,7 +155,7 @@ export default function PizzaRegisterForm() {
     const numberValue = parseFloat(value);
     if (!isNaN(numberValue)) {
       const formatted = numberValue.toFixed(2);
-      form.setValue(`prices.${size}`, formatted as unknown as number, {
+      form.setValue(`price.${size}`, formatted as unknown as number, {
         shouldValidate: true,
       });
     }
@@ -234,9 +185,10 @@ export default function PizzaRegisterForm() {
                   >
                     {image ? (
                       <div className="relative w-full h-full">
-                        <img
+                        <Image
                           src={image}
                           alt="Pizza"
+                          fill={true}
                           className="w-full h-full object-cover rounded-md"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-md">
@@ -304,7 +256,7 @@ export default function PizzaRegisterForm() {
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="prices.P"
+              name="price.P"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tamanho P</FormLabel>
@@ -324,7 +276,7 @@ export default function PizzaRegisterForm() {
             />
             <FormField
               control={form.control}
-              name="prices.M"
+              name="price.M"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tamanho M</FormLabel>
@@ -344,7 +296,7 @@ export default function PizzaRegisterForm() {
             />
             <FormField
               control={form.control}
-              name="prices.G"
+              name="price.G"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tamanho G</FormLabel>
@@ -364,7 +316,7 @@ export default function PizzaRegisterForm() {
             />
             <FormField
               control={form.control}
-              name="prices.GG"
+              name="price.GG"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tamanho GG</FormLabel>
@@ -384,7 +336,9 @@ export default function PizzaRegisterForm() {
             />
           </div>
         </div>
-        <Button type="submit">Registrar Pizza</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Registrar Pizza
+        </Button>
       </form>
     </Form>
   );
