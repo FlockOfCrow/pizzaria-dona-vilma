@@ -30,7 +30,7 @@ export async function registerUser(
     });
     return { status: "success" };
   } catch (error: any) {
-    console.log(error.message);
+    console.log(error);
     if (error.code === "P2002") {
       throw new Error("Esse email já está cadastrado.");
     } else {
@@ -61,6 +61,7 @@ export async function loginUser(formData: z.infer<typeof loginFormSchema>) {
       sub: user.id,
       email: user.email,
       name: user.name,
+      role: user.role,
     });
     cookies().set("session", token, {
       httpOnly: true,

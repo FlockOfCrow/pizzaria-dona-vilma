@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  email     String       @unique
+  name      String
+  password  String
+  role      Role         @default(USER)
+  address   UserAddress?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  ordersId  String[]     @default([])
+}
+
 type UserAddress {
   city         String
   country      String
@@ -17,12 +29,39 @@ type UserAddress {
   zip          String
 }
 
-model User {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  email     String      @unique
-  name      String
-  password  String
-  address   UserAddress
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+enum Role {
+  ADMIN
+  OPERATOR
+  USER
+}
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  description String?
+  image       String?
+  category    Category
+  price       Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Category {
+  PIZZA
+  DRINK
+}
+
+model Order {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  productsId String[]    @default([])
+  status     OrderStatus @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  userId     String[]    @default([])
+}
+
+enum OrderStatus {
+  PENDING
+  DELIVERED
+  CANCELED
 }

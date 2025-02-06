@@ -1,4 +1,5 @@
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
+import { JWTPayload } from "jose";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IProduct {
@@ -25,6 +26,12 @@ export interface ICategory {
 }
 
 export type PizzaSize = "P" | "M" | "G" | "GG";
+export enum PizzaSizeEnum {
+  P = "P",
+  M = "M",
+  G = "G",
+  GG = "GG",
+}
 
 export type DrinkSize = "2L" | "1L" | "Lata";
 
@@ -65,3 +72,16 @@ export interface IHomeBanner {
 }
 
 export type IUserUpdate = User & { newPassword: string };
+
+export interface ISidebarItem {
+  title: string;
+  url: string;
+  icon?: any;
+  sub_group?: ISidebarItem[];
+}
+
+export interface IUserPayload extends JWTPayload {
+  email: string;
+  name: string;
+  role: Role;
+}
