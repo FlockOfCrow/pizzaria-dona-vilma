@@ -1,13 +1,11 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -17,15 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-const chartData = [
-  { month: "Janeiro", users: 186 },
-  { month: "Fevereiro", users: 305 },
-  { month: "Março", users: 237 },
-  { month: "Abril", users: 73 },
-  { month: "Maio", users: 209 },
-  { month: "Junho", users: 214 },
-];
+import { useEffect, useState } from "react";
 
 const chartConfig = {
   users: {
@@ -34,13 +24,68 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export default function ChartUser() {
+  const [chartData, setChartData] = useState<
+    { month: string; users: number }[]
+  >([
+    { month: "Janeiro", users: 0 },
+    { month: "Fevereiro", users: 0 },
+    { month: "Março", users: 0 },
+    { month: "Abril", users: 0 },
+    { month: "Maio", users: 0 },
+    { month: "Junho", users: 0 },
+  ]);
+
+  useEffect(() => {
+    const fetchChartData = async () => {
+      try {
+        const currentDate = new Date();
+        const newChartData = [];
+
+        for (let i = 5; i >= 0; i--) {
+          const date = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() - i,
+            1
+          );
+          const monthNumber = date.getMonth() + 1;
+          const year = date.getFullYear();
+          const monthName = capitalize(
+            new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(date)
+          );
+
+          const res = await fetch(
+            `/api/users?month=${monthNumber}&year=${year}`
+          );
+          if (!res.ok) {
+            throw new Error("Falha ao buscar os dados do mês " + monthNumber);
+          }
+          const usersCount = await res.json();
+
+          newChartData.push({
+            month: monthName,
+            users: usersCount,
+          });
+        }
+        setChartData(newChartData);
+      } catch (error: any) {
+        console.error("Erro ao buscar os dados do gráfico:", error.message);
+      }
+    };
+
+    fetchChartData();
+  }, []);
+
   return (
     <Card className="shadow-lg">
       <CardHeader>
         <CardTitle>Usuários Cadastrados</CardTitle>
         <CardDescription>
-          Mostra o total de visitantes nos últimos 6 mêses
+          Mostra o total de usuários cadastrados nos últimos 6 meses
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -16,6 +16,7 @@ export async function getUser(email: string) {
         name: user.name,
         email: user.email,
         address: user.address,
+        role: user.role,
       },
     };
   } catch (error: any) {
@@ -51,6 +52,27 @@ export async function editUser(user: IUserUpdate) {
     });
     if (!updateUser) throw new Error("Error updating user");
     return { user: updateUser };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+}
+
+export async function getUsersSizeByMonth(month: string, year?: string) {
+  try {
+    const now = new Date();
+    const targetYear = year ? parseInt(year, 10) : now.getFullYear();
+    const targetMonth = parseInt(month, 10) - 1;
+    const startDate = new Date(targetYear, targetMonth, 1);
+    const endDate = new Date(targetYear, targetMonth + 1, 1);
+    const users = await prisma.user.count({
+      where: {
+        createdAt: {
+          gte: startDate,
+          lt: endDate,
+        },
+      },
+    });
+    return { users };
   } catch (error: any) {
     return { error: error.message };
   }
