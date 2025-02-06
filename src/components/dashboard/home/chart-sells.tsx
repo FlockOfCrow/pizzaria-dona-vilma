@@ -15,8 +15,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useEffect, useState } from "react";
 import formatNumber from "@/utils/format-number";
+import { useEffect, useState } from "react";
 
 const chartConfig = {
   sells: {
@@ -111,12 +111,28 @@ export default function ChartSells() {
             />
             <ChartTooltip
               cursor={false}
-              content={
-                <ChartTooltipContent
-                  indicator="line"
-                  formatter={(value) => formatNumber(value as number)}
-                />
-              }
+              content={({ active, payload, label }) => {
+                return (
+                  <ChartTooltipContent
+                    active={active}
+                    payload={payload}
+                    indicator="line"
+                    formatter={(value) => (
+                      <div className="flex gap-x-2">
+                        <div className="h-full w-1 rounded-t-md rounded-b-md bg-[#18991a]"></div>
+                        <div className="grid gap-1.5">
+                          <div className="text-foreground font-semibold">
+                            {label}
+                          </div>
+                          <div className="font-mono font-medium tabular-nums text-foreground">
+                            {formatNumber(value as number)}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  />
+                );
+              }}
             />
             <Area
               dataKey="sells"
