@@ -1,4 +1,5 @@
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
+import { JWTPayload } from "jose";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IProduct {
@@ -77,4 +78,10 @@ export interface ISidebarItem {
   url: string;
   icon?: any;
   sub_group?: ISidebarItem[];
+}
+
+export interface IUserPayload extends JWTPayload {
+  email: string;
+  name: string;
+  role: Role;
 }

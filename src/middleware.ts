@@ -22,6 +22,12 @@ export async function middleware(request: NextRequest) {
   ) {
     try {
       const session = await verifyToken(token?.value!);
+      if (
+        request.nextUrl.pathname.startsWith("/painel") &&
+        session.role !== "ADMIN"
+      ) {
+        return NextResponse.redirect(new URL("/", request.nextUrl).toString());
+      }
       return NextResponse.next();
     } catch (e) {
       return NextResponse.redirect(

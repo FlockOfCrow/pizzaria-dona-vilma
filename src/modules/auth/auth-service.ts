@@ -1,5 +1,6 @@
 import { compare, hash } from "bcryptjs";
 import { JWTPayload, jwtVerify, SignJWT } from "jose";
+import { IUserPayload } from "../../../@types/types";
 
 const SECRET_KEY = new TextEncoder().encode(process.env.SECRET_KEY);
 
@@ -25,14 +26,14 @@ export async function generateToken(payload = {}): Promise<string> {
   return token;
 }
 
-export async function verifyToken(token: string): Promise<JWTPayload> {
+export async function verifyToken(token: string): Promise<IUserPayload> {
   try {
     const { payload } = await jwtVerify(token, SECRET_KEY);
     const currentTime = Math.floor(Date.now() / 1000);
     if (payload.exp && payload.exp < currentTime) {
       throw new Error("Token expired");
     }
-    return payload;
+    return payload as IUserPayload;
   } catch (error) {
     throw new Error("Invalid token");
   }
