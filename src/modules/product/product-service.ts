@@ -76,3 +76,30 @@ export async function getProductByName(name: string) {
     return { error: error.message };
   }
 }
+
+export async function getTotalProductSoldByMonth(month: string, year?: string) {
+  try {
+    const now = new Date();
+    const targetYear = year ? parseInt(year, 10) : now.getFullYear();
+    const targetMonth = parseInt(month, 10) - 1; // meses baseados em zero
+    const startDate = new Date(targetYear, targetMonth, 1);
+    const endDate = new Date(targetYear, targetMonth + 1, 1);
+
+    const orders = await prisma.order.findMany({
+      where: {
+        createdAt: {
+          gte: startDate,
+          lt: endDate,
+        },
+      },
+    });
+    const totalSold = orders.reduce(
+      (sum, order) => sum + order.productsId.length,
+      0
+    );
+
+    return { totalSold };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+}

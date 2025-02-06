@@ -16,11 +16,12 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useEffect, useState } from "react";
+import formatNumber from "@/utils/format-number";
 
 const chartConfig = {
-  users: {
-    label: "Usuários",
-    color: "#cfbb90",
+  sells: {
+    label: "Vendas",
+    color: "#18991a",
   },
 } satisfies ChartConfig;
 
@@ -28,16 +29,16 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export default function ChartUser() {
+export default function ChartSells() {
   const [chartData, setChartData] = useState<
-    { month: string; users: number }[]
+    { month: string; sells: number }[]
   >([
-    { month: "Janeiro", users: 0 },
-    { month: "Fevereiro", users: 0 },
-    { month: "Março", users: 0 },
-    { month: "Abril", users: 0 },
-    { month: "Maio", users: 0 },
-    { month: "Junho", users: 0 },
+    { month: "Janeiro", sells: 0 },
+    { month: "Fevereiro", sells: 0 },
+    { month: "Março", sells: 0 },
+    { month: "Abril", sells: 0 },
+    { month: "Maio", sells: 0 },
+    { month: "Junho", sells: 0 },
   ]);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function ChartUser() {
           );
 
           const res = await fetch(
-            `/api/users?month=${monthNumber}&year=${year}`
+            `/api/pizza?month=${monthNumber}&year=${year}`
           );
           if (!res.ok) {
             throw new Error("Falha ao buscar os dados do mês " + monthNumber);
@@ -68,7 +69,7 @@ export default function ChartUser() {
 
           newChartData.push({
             month: monthName,
-            users: usersCount,
+            sells: usersCount,
           });
         }
         setChartData(newChartData);
@@ -81,11 +82,11 @@ export default function ChartUser() {
   }, []);
 
   return (
-    <Card className="flex flex-col shadow-lg border-border-pizza">
+    <Card className="shadow-lg border-border-pizza">
       <CardHeader className="text-center">
-        <CardTitle>Usuários Cadastrados</CardTitle>
+        <CardTitle>Vendas</CardTitle>
         <CardDescription>
-          Mostra o total de usuários cadastrados nos últimos 6 meses
+          Mostra o total de vendas realizadas nos últimos 6 meses
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -110,14 +111,19 @@ export default function ChartUser() {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
+              content={
+                <ChartTooltipContent
+                  indicator="line"
+                  formatter={(value) => formatNumber(value as number)}
+                />
+              }
             />
             <Area
-              dataKey="users"
+              dataKey="sells"
               type="natural"
-              fill="#cfbb90"
+              fill="#18991a"
               fillOpacity={0.4}
-              stroke="#cfbb90"
+              stroke="#18991a"
             />
           </AreaChart>
         </ChartContainer>

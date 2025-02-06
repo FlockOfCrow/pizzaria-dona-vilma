@@ -49,8 +49,8 @@ export function ChartOrder() {
   }, []);
 
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
+    <Card className="shadow-lg border-border-pizza">
+      <CardHeader className="text-center pb-0">
         <CardTitle>Pedidos</CardTitle>
         <CardDescription>Janeiro - Fevereiro 2025</CardDescription>
       </CardHeader>
@@ -62,7 +62,12 @@ export function ChartOrder() {
           <PieChart>
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={
+                <ChartTooltipContent
+                  hideLabel
+                  className="px-1.5 items-center"
+                />
+              }
             />
             <Pie
               data={chartData}
@@ -83,14 +88,14 @@ export function ChartOrder() {
                       >
                         <tspan
                           x={viewBox.cx}
-                          y={viewBox.cy}
+                          y={(viewBox.cy || 0) - 6}
                           className="fill-foreground text-3xl font-bold"
                         >
                           {totalVisitors.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
+                          y={(viewBox.cy || 0) + 14}
                           className="fill-muted-foreground"
                         >
                           Pedidos

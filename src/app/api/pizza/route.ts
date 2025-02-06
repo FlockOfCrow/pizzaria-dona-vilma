@@ -1,15 +1,62 @@
 import { verifyToken } from "@/modules/auth/auth-service";
-import { createPizza } from "@/modules/product/product-service";
+import {
+  createPizza,
+  getTotalProductSoldByMonth,
+} from "@/modules/product/product-service";
+import { getUser } from "@/modules/user/user-service";
 import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { registerPizzaSchema } from "../../../../@types/pizza";
+import { dateQuerySchema } from "../../../../@types/query";
 
 function sanitizeFileName(fileName: string): string {
   return path.basename(fileName).replace(/[^\w\d\-.]/g, "_");
 }
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+export async function GET(req: NextRequest) {
+  const token = req.cookies.get("session");
+  try {
+    const session = await verifyToken(token?.value!);
+    if (!session) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    }
+    const user = await getUser(session.email as string);
+    if (!user) throw new Error("Usuário não encontrado");
+    if (user.user?.role !== "ADMIN") {
+      return NextResponse.json(
+        { message: "Você não tem permissão para acessar esta rota" },
+        { status: 403 }
+      );
+    }
+
+    const { searchParams } = new URL(req.url);
+    const queryParams = {
+      month: searchParams.get("month") ?? "",
+      year: searchParams.get("year") ?? undefined,
+    };
+
+    const parsedQuery = dateQuerySchema.safeParse(queryParams);
+    if (!parsedQuery.success) {
+      const errorMessage = parsedQuery.error.errors
+        .map((err) => err.message)
+        .join(", ");
+      return NextResponse.json({ message: errorMessage }, { status: 400 });
+    }
+
+    const { month, year } = parsedQuery.data;
+
+    const result = await getTotalProductSoldByMonth(month, year);
+    if (result.error) {
+      return NextResponse.json({ message: result.error }, { status: 400 });
+    }
+    return NextResponse.json(result.totalSold, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {

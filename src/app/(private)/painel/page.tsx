@@ -1,4 +1,5 @@
 import { ChartOrder } from "@/components/dashboard/home/chart-orders";
+import ChartSells from "@/components/dashboard/home/chart-sells";
 import ChartUser from "@/components/dashboard/home/chart-users";
 import SidebarBreadcrumb from "@/components/dashboard/sidebar-breadcrumb";
 import { SidebarTrigger } from "@/components/dashboard/sidebar-trigger";
@@ -23,7 +24,7 @@ export default async function Dashboard() {
           <div className="grid auto-rows-min gap-4 md:grid-cols-3 p-4">
             <ChartUser />
             <ChartOrder />
-            <ChartUser />
+            <ChartSells />
           </div>
         </div>
       </SidebarInset>

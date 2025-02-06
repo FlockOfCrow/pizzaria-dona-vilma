@@ -1,7 +1,7 @@
 import { verifyToken } from "@/modules/auth/auth-service";
 import { getUser, getUsersSizeByMonth } from "@/modules/user/user-service";
 import { NextRequest, NextResponse } from "next/server";
-import { userQuerySchema } from "../../../../@types/users";
+import { dateQuerySchema } from "../../../../@types/query";
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("session");
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
       year: searchParams.get("year") ?? undefined,
     };
 
-    const parsedQuery = userQuerySchema.safeParse(queryParams);
+    const parsedQuery = dateQuerySchema.safeParse(queryParams);
     if (!parsedQuery.success) {
       const errorMessage = parsedQuery.error.errors
         .map((err) => err.message)
