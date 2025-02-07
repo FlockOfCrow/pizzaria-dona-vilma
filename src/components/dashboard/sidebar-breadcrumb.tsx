@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 import {
   Breadcrumb,
-  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
@@ -31,7 +30,7 @@ export default function SidebarBreadcrumb() {
         <BreadcrumbItem>
           <BreadcrumbLink
             className="text-black hover:text-orange-pizza"
-            href="/"
+            href={pathname === "/painel" ? "/" : "/painel"}
           >
             <HomeIcon className="w-4 h-4" />
           </BreadcrumbLink>
