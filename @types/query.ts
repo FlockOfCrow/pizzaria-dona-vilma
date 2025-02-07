@@ -12,11 +12,7 @@ export const totalUserQuerySchema = z.object({
     }),
 });
 
-export type IDateQuerySchema = z.infer<typeof totalUserQuerySchema>;
-
 export const userQuerySchema = z.object({
   limit: z.number().int().positive(),
   page: z.number().int().positive(),
 });
-
-export type IUserQuerySchema = z.infer<typeof userQuerySchema>;

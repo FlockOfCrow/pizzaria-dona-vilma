@@ -162,8 +162,6 @@ export const columns: ColumnDef<ITable>[] = [
 export default function MemberTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const [data, setData] = useState<ITable[]>([]);
   const [totalCount, setTotalCount] = useState(0);
