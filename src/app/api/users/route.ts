@@ -1,7 +1,14 @@
 import { verifyToken } from "@/modules/auth/auth-service";
-import { getUser, getUsersSizeByMonth } from "@/modules/user/user-service";
+import {
+  getUser,
+  getUsers,
+  getUsersSizeByMonth,
+} from "@/modules/user/user-service";
 import { NextRequest, NextResponse } from "next/server";
-import { dateQuerySchema } from "../../../../@types/query";
+import {
+  totalUserQuerySchema,
+  userQuerySchema,
+} from "../../../../@types/query";
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("session");
@@ -19,12 +26,39 @@ export async function GET(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const queryParams = {
+    let queryParams = {
       month: searchParams.get("month") ?? "",
       year: searchParams.get("year") ?? undefined,
+      limit: Number.parseInt(searchParams.get("limit") as string) ?? 10,
+      page: Number.parseInt(searchParams.get("page") as string) ?? 1,
     };
 
-    const parsedQuery = dateQuerySchema.safeParse(queryParams);
+    if (!queryParams.month && !queryParams.year) {
+      const parsedQuery = userQuerySchema.safeParse({
+        limit: queryParams.limit,
+        page: queryParams.page,
+      });
+      if (!parsedQuery.success) {
+        const errorMessage = parsedQuery.error.errors
+          .map((err) => err.message)
+          .join(", ");
+        return NextResponse.json({ message: errorMessage }, { status: 400 });
+      }
+
+      const { limit, page } = parsedQuery.data;
+
+      const result = await getUsers(limit, page);
+      if (result.error) {
+        return NextResponse.json({ message: result.error }, { status: 400 });
+      }
+      return NextResponse.json(result, { status: 200 });
+    }
+
+    const parsedQuery = totalUserQuerySchema.safeParse({
+      month: queryParams.month,
+      year: queryParams.year,
+    });
+
     if (!parsedQuery.success) {
       const errorMessage = parsedQuery.error.errors
         .map((err) => err.message)

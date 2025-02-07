@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const dateQuerySchema = z.object({
+export const totalUserQuerySchema = z.object({
   month: z
     .string()
     .regex(/^(0?[1-9]|1[0-2])$/, "O mês deve estar entre 1 e 12"),
@@ -12,4 +12,11 @@ export const dateQuerySchema = z.object({
     }),
 });
 
-export type IDateQuerySchema = z.infer<typeof dateQuerySchema>;
+export type IDateQuerySchema = z.infer<typeof totalUserQuerySchema>;
+
+export const userQuerySchema = z.object({
+  limit: z.number().int().positive(),
+  page: z.number().int().positive(),
+});
+
+export type IUserQuerySchema = z.infer<typeof userQuerySchema>;

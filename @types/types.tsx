@@ -85,3 +85,9 @@ export interface IUserPayload extends JWTPayload {
   name: string;
   role: Role;
 }
+
+export const UserRoleLabel = {
+  ADMIN: "Administrador",
+  USER: "Usuário",
+  OPERATOR: "Operador",
+} as const;
