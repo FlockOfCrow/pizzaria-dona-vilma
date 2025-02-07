@@ -28,7 +28,8 @@ export async function getUser(email: string) {
 
 export async function editUser(user: IUserUpdate) {
   try {
-    const { id, email, newPassword, ...userRest } = user;
+    const { id, email, newPassword, type, ...userRest } =
+      user as IUserUpdate & { type?: string };
     const findUser = await prisma.user.findUnique({
       where: { id },
     });

@@ -44,8 +44,14 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { ITableUser, UserRoleLabel } from "../../../../@types/types";
+import {
+  ITableUser,
+  UserRoleLabel,
+  UserTableColum,
+} from "../../../../@types/types";
+import MemberTableEditor from "./editor/member-table-editor";
 import MemberTableOrders from "./member-table-orders";
+import { Role } from "@prisma/client";
 
 export default function MemberTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -61,6 +67,8 @@ export default function MemberTable() {
 
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<ITableUser | null>(null);
+
+  const [isEditMode, setEditMode] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,6 +90,14 @@ export default function MemberTable() {
     };
     fetchData();
   }, [pagination.pageIndex, pagination.pageSize]);
+
+  const updateUserRoleLocally = (userId: string, newRole: Role) => {
+    setData((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, role: newRole } : user
+      )
+    );
+  };
 
   const columns: ColumnDef<ITableUser>[] = [
     {
@@ -120,11 +136,14 @@ export default function MemberTable() {
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {UserRoleLabel[row.getValue("role") as keyof typeof UserRoleLabel]}
-        </div>
-      ),
+      cell: ({ row }) =>
+        isEditMode === true ? (
+          <MemberTableEditor row={row} onRoleUpdate={updateUserRoleLocally} />
+        ) : (
+          <div className="capitalize">
+            {UserRoleLabel[row.getValue("role") as keyof typeof UserRoleLabel]}
+          </div>
+        ),
     },
     {
       accessorKey: "email",
@@ -187,10 +206,6 @@ export default function MemberTable() {
                 <NotepadText />
                 Visualizar pedidos
               </DropdownMenuItem>
-              <DropdownMenuItem className="focus:bg-border-pizza">
-                <Pencil />
-                Editar membro
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -215,6 +230,15 @@ export default function MemberTable() {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
+
+  const changeEditMode = () => {
+    setEditMode(!isEditMode);
+    if (!isEditMode) {
+      toast.success("Modo de edição ativado.");
+    } else {
+      toast.error("Modo de edição desativado.");
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -256,12 +280,19 @@ export default function MemberTable() {
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {column.id}
+                      {UserTableColum[column.id as keyof typeof UserTableColum]}
                     </DropdownMenuCheckboxItem>
                   );
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Button
+            variant={"outline"}
+            className="bg-fbg border-separator-pizza hover:bg-border-pizza text-black"
+            onClick={changeEditMode}
+          >
+            <Pencil />
+          </Button>
         </div>
         <div className="rounded-md border bg-fbg border-separator-pizza px-2">
           <Table>

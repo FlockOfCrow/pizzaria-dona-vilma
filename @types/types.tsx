@@ -102,3 +102,8 @@ export type ITableUser = Pick<
   User,
   "id" | "name" | "email" | "role" | "createdAt" | "address" | "ordersId"
 >;
+
+export const UserTableColum = {
+  role: "Cargo",
+  email: "Email",
+} as const;
