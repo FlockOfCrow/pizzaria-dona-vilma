@@ -91,3 +91,14 @@ export const UserRoleLabel = {
   USER: "Usuário",
   OPERATOR: "Operador",
 } as const;
+
+export const StatusOrderLabel = {
+  PENDING: "Pendente",
+  DELIVERED: "Entregue",
+  CANCELED: "Cancelado",
+} as const;
+
+export type ITableUser = Pick<
+  User,
+  "id" | "name" | "email" | "role" | "createdAt" | "address" | "ordersId"
+>;
