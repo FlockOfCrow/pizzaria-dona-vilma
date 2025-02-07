@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "@/lib/prisma";
 import { IUserUpdate } from "../../../@types/types";
 import { comparePassword, cryptoPassword } from "../auth/auth-service";
