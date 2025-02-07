@@ -32,53 +32,7 @@ export async function PATCH(req: NextRequest) {
   const token = req.cookies.get("session");
   try {
     const body = await req.json();
-
-    if (body.type) {
-      const session = await verifyToken(token?.value!);
-      if (!session) throw new Error("Invalid token");
-      if (session.role !== "ADMIN") {
-        return NextResponse.json(
-          { message: "Você não tem permissão para acessar esta rota" },
-          { status: 403 }
-        );
-      }
-
-      const user = await getUser(session.email as string);
-      if (!user) throw new Error("Usuário não encontrado");
-      if (user.user?.role !== "ADMIN") {
-        return NextResponse.json(
-          { message: "Você não tem permissão para acessar esta rota" },
-          { status: 403 }
-        );
-      }
-
-      const parsedBody = userUpdateSchemaAdmin.safeParse(body);
-      if (!parsedBody.success) {
-        return NextResponse.json(
-          {
-            message: "Invalid request body",
-            errors: parsedBody.error.errors,
-          },
-          { status: 400 }
-        );
-      }
-
-      const newUser = await editUser(parsedBody.data as unknown as IUserUpdate);
-      if (newUser.error) {
-        return NextResponse.json({ message: newUser.error }, { status: 400 });
-      }
-      return NextResponse.json(
-        {
-          message: "User updated successfully",
-          user: {
-            id: newUser.user?.id,
-            role: newUser.user?.role,
-          },
-        },
-        { status: 200 }
-      );
-    }
-
+    
     const parsedBody = userUpdateSchema.safeParse(body);
     if (!parsedBody.success) {
       return NextResponse.json(
