@@ -1,4 +1,4 @@
-import { Role, User } from "@prisma/client";
+import { Order, Role, User } from "@prisma/client";
 import { JWTPayload } from "jose";
 import { Dispatch, SetStateAction } from "react";
 
@@ -83,7 +83,6 @@ export interface ISidebarItem {
 export interface IUserPayload extends JWTPayload {
   email: string;
   name: string;
-  role: Role;
 }
 
 export const UserRoleLabel = {
@@ -102,6 +101,8 @@ export type ITableUser = Pick<
   User,
   "id" | "name" | "email" | "role" | "createdAt" | "address" | "ordersId"
 >;
+
+export type ITableOrder = Omit<Order, "updatedAt">;
 
 export const UserTableColum = {
   role: "Cargo",

@@ -37,8 +37,6 @@ export default function MemberOrderScrollArea({
     }
   }
 
-  console.log(orders);
-
   return (
     <ScrollArea
       ref={scrollRef}

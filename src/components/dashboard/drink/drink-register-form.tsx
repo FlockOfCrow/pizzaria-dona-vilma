@@ -19,27 +19,26 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { toast } from "sonner";
-import { registerPizzaSchema } from "../../../../@types/pizza";
-import { PizzaSize } from "../../../../@types/types";
+import { registerDrinkSchema } from "../../../../@types/drink";
+import { DrinkSize } from "../../../../@types/types";
 
-type RegisterPizzaFormData = z.infer<typeof registerPizzaSchema>;
+type RegisterDrinkFormData = z.infer<typeof registerDrinkSchema>;
 
-export default function PizzaRegisterForm() {
+export default function DrinkRegisterForm() {
   const [image, setImage] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<RegisterPizzaFormData>({
-    resolver: zodResolver(registerPizzaSchema),
+  const form = useForm<RegisterDrinkFormData>({
+    resolver: zodResolver(registerDrinkSchema),
     defaultValues: {
       picture: null as unknown as File,
       name: "",
       description: "",
       price: {
-        P: "" as unknown as number,
-        M: "" as unknown as number,
-        G: "" as unknown as number,
-        GG: "" as unknown as number,
+        Lata: "" as unknown as number,
+        "1L": "" as unknown as number,
+        "2L": "" as unknown as number,
       },
     },
   });
@@ -101,36 +100,36 @@ export default function PizzaRegisterForm() {
     onChange(files);
   };
 
-  async function onSubmit(values: z.infer<typeof registerPizzaSchema>) {
+  async function onSubmit(values: z.infer<typeof registerDrinkSchema>) {
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", JSON.stringify(values.price));
     formData.append("picture", values.picture as File);
-    const registerPromise = fetch("/api/pizza", {
+    const registerPromise = fetch("/api/drink", {
       method: "POST",
       body: formData,
     });
     toast.promise(registerPromise, {
-      loading: "Cadastrando sua pizza...",
+      loading: "Cadastrando sua bebida...",
       success: () => {
         setIsSubmitting(false);
         form.reset();
         setImage(null);
         setDragActive(false);
-        return "Pizza cadastrada com sucesso!";
+        return "Bebida cadastrada com sucesso!";
       },
       error: async (error) => {
         setIsSubmitting(false);
-        return "Erro ao cadastrar pizza.";
+        return "Erro ao cadastrar bebida.";
       },
     });
   }
 
   const handleNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    size: PizzaSize
+    size: DrinkSize
   ) => {
     let { value } = event.target;
     value = value.replace(/,/g, ".");
@@ -146,7 +145,7 @@ export default function PizzaRegisterForm() {
 
   const handleNumberBlur = (
     event: React.FocusEvent<HTMLInputElement>,
-    size: PizzaSize
+    size: DrinkSize
   ) => {
     let value = event.target.value;
     if (value.endsWith(".")) {
@@ -187,7 +186,7 @@ export default function PizzaRegisterForm() {
                       <div className="relative w-full h-full">
                         <Image
                           src={image}
-                          alt="Pizza"
+                          alt="Bebida"
                           fill={true}
                           className="w-full h-full object-cover rounded-md"
                         />
@@ -225,11 +224,11 @@ export default function PizzaRegisterForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome da Pizza</FormLabel>
+                  <FormLabel>Nome da Bebida</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-fbg border-border-pizza shadow-md"
-                      placeholder="Insira aqui o nome da Pizza"
+                      placeholder="Insira aqui o nome da Bebida"
                       {...field}
                     />
                   </FormControl>
@@ -241,11 +240,11 @@ export default function PizzaRegisterForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição do Pizza</FormLabel>
+                  <FormLabel>Descrição da Bebida</FormLabel>
                   <FormControl>
                     <Textarea
                       className="bg-fbg border-border-pizza shadow-md h-52 resize-none"
-                      placeholder="Insira aqui a descrição da Pizza"
+                      placeholder="Insira aqui a descrição da Bebida"
                       {...field}
                     />
                   </FormControl>
@@ -256,18 +255,18 @@ export default function PizzaRegisterForm() {
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="price.P"
+              name="price.Lata"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tamanho P</FormLabel>
+                  <FormLabel>Tamanho Lata</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
                       inputMode="decimal"
                       placeholder="Ex: 49.99"
                       {...field}
-                      onChange={(e) => handleNumberChange(e, "P")}
-                      onBlur={(e) => handleNumberBlur(e, "P")}
+                      onChange={(e) => handleNumberChange(e, "Lata")}
+                      onBlur={(e) => handleNumberBlur(e, "Lata")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -276,18 +275,18 @@ export default function PizzaRegisterForm() {
             />
             <FormField
               control={form.control}
-              name="price.M"
+              name="price.1L"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tamanho M</FormLabel>
+                  <FormLabel>Tamanho 1 Litro</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
                       inputMode="decimal"
                       placeholder="Ex: 59.99"
                       {...field}
-                      onChange={(e) => handleNumberChange(e, "M")}
-                      onBlur={(e) => handleNumberBlur(e, "M")}
+                      onChange={(e) => handleNumberChange(e, "1L")}
+                      onBlur={(e) => handleNumberBlur(e, "1L")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -296,38 +295,18 @@ export default function PizzaRegisterForm() {
             />
             <FormField
               control={form.control}
-              name="price.G"
+              name="price.2L"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tamanho G</FormLabel>
+                  <FormLabel>Tamanho 2 Litros</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
                       inputMode="decimal"
                       placeholder="Ex: 69.99"
                       {...field}
-                      onChange={(e) => handleNumberChange(e, "G")}
-                      onBlur={(e) => handleNumberBlur(e, "G")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="price.GG"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tamanho GG</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      inputMode="decimal"
-                      placeholder="Ex: 79.99"
-                      {...field}
-                      onChange={(e) => handleNumberChange(e, "GG")}
-                      onBlur={(e) => handleNumberBlur(e, "GG")}
+                      onChange={(e) => handleNumberChange(e, "2L")}
+                      onBlur={(e) => handleNumberBlur(e, "2L")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -337,7 +316,7 @@ export default function PizzaRegisterForm() {
           </div>
         </div>
         <Button type="submit" disabled={isSubmitting}>
-          Registrar Pizza
+          Registrar Bebida
         </Button>
       </form>
     </Form>

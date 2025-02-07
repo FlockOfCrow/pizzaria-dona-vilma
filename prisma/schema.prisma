@@ -57,6 +57,7 @@ model Order {
   status     OrderStatus @default(PENDING)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  totalPrice Int
   userId     String
 }
 

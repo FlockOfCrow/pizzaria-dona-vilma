@@ -22,12 +22,6 @@ export async function PATCH(
 
     const session = await verifyToken(token?.value!);
     if (!session) throw new Error("Invalid token");
-    if (session.role !== "ADMIN") {
-      return NextResponse.json(
-        { message: "Você não tem permissão para acessar esta rota" },
-        { status: 403 }
-      );
-    }
 
     const user = await getUser(session.email as string);
     if (!user) throw new Error("Usuário não encontrado");

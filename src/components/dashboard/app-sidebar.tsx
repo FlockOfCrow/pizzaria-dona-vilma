@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +17,7 @@ import {
 import {
   ChevronDown,
   CupSoda,
-  ListTodo,
+  NotepadText,
   Pizza,
   User,
   UtensilsCrossed,
@@ -23,6 +25,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ISidebarItem } from "../../../@types/types";
+import { usePathname } from "next/navigation";
 
 const URL_REF = "/painel";
 
@@ -30,7 +33,7 @@ const items: ISidebarItem[] = [
   {
     title: "Pedidos",
     url: URL_REF + "/pedidos",
-    icon: ListTodo,
+    icon: NotepadText,
   },
   {
     title: "Cardápio",
@@ -85,6 +88,8 @@ const items: ISidebarItem[] = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
+  const currentPath = pathname.split("/")[2];
   return (
     <Sidebar collapsible="icon" className="">
       <SidebarHeader className="bg-fbg justify-center items-center">
@@ -106,7 +111,13 @@ export function AppSidebar() {
                     className="text-black font-semibold text-lg"
                     asChild
                   >
-                    <CollapsibleTrigger className="gap-x-1 hover:bg-gray-400/25 !transition !duration-150">
+                    <CollapsibleTrigger
+                      className={`gap-x-1 hover:bg-gray-400/25 !transition !duration-150 ${
+                        currentPath === item.title.toLowerCase()
+                          ? "bg-gray-400/25"
+                          : ""
+                      }`}
+                    >
                       {item.icon && (
                         <item.icon className="text-orange-pizza stroke-[2.5px]" />
                       )}
@@ -126,7 +137,13 @@ export function AppSidebar() {
                             className="text-black text-lg"
                             asChild
                           >
-                            <CollapsibleTrigger className="gap-x-1 hover:bg-gray-400/25 !transition !duration-150">
+                            <CollapsibleTrigger
+                              className={`gap-x-1 hover:bg-gray-400/25 !transition !duration-150 ${
+                                currentPath === sub_item.title.toLowerCase()
+                                  ? "bg-gray-400/25"
+                                  : ""
+                              }`}
+                            >
                               {sub_item.icon && (
                                 <sub_item.icon className="text-orange-pizza" />
                               )}
@@ -138,7 +155,14 @@ export function AppSidebar() {
                             {sub_item.sub_group?.map(
                               (sub_sub_item, sub_sub_index) => (
                                 <SidebarGroup key={sub_sub_index}>
-                                  <CollapsibleTrigger className="gap-x-1 hover:text-button-pizza transition duration-150 rounded-md">
+                                  <CollapsibleTrigger
+                                    className={`gap-x-1 hover:text-button-pizza transition duration-150 rounded-md ${
+                                      currentPath ===
+                                      sub_sub_item.title.toLowerCase()
+                                        ? "bg-gray-400/25"
+                                        : ""
+                                    }`}
+                                  >
                                     <Link href={sub_sub_item.url}>
                                       {sub_sub_item.icon && (
                                         <sub_sub_item.icon />
@@ -160,13 +184,17 @@ export function AppSidebar() {
               <SidebarGroup key={item.title}>
                 <SidebarGroupLabel
                   asChild
-                  className="text-black font-semibold text-lg hover:bg-gray-400/25 transition duration-100"
+                  className={`text-black font-semibold text-lg hover:bg-gray-400/25 transition duration-100 ${
+                    currentPath === item.title.toLowerCase()
+                      ? "bg-gray-400/25"
+                      : ""
+                  }`}
                 >
                   <Link className="gap-x-1" href={item.url}>
                     {item.icon && (
                       <item.icon className="text-orange-pizza stroke-[2.5px] flex" />
                     )}
-                    {item.title}
+                    {item.title}{" "}
                   </Link>
                 </SidebarGroupLabel>
               </SidebarGroup>

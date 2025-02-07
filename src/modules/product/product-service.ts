@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { z } from "zod";
 import { registerPizzaSchema } from "../../../@types/pizza";
+import { registerDrinkSchema } from "../../../@types/drink";
 
 export async function createPizza(
   pizza: Omit<z.infer<typeof registerPizzaSchema>, "picture"> & {
@@ -43,6 +44,33 @@ export async function getPizzas() {
     }
     return { pizzas };
   } catch (error: any) {
+    return { error: error.message };
+  }
+}
+
+export async function createDrink(
+  drink: Omit<z.infer<typeof registerDrinkSchema>, "picture"> & {
+    image: string;
+  }
+) {
+  try {
+    const newDrink = await prisma.product.create({
+      data: {
+        name: drink.name,
+        description: drink.description,
+        price: drink.price,
+        image: drink.image,
+        category: "DRINK",
+      },
+    });
+    if (!newDrink) {
+      throw new Error("Drink has already been created");
+    }
+    return { drink: newDrink };
+  } catch (error: any) {
+    if (error.code === "P2002") {
+      return { error: "Esse email já está cadastrado" };
+    }
     return { error: error.message };
   }
 }
