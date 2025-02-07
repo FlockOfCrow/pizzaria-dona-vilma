@@ -22,7 +22,7 @@ const nonClickablePaths = ["/painel/pizzas"];
 export default function SidebarBreadcrumb() {
   const pathname = usePathname();
   const paths = pathname.split("/").filter(Boolean);
-  const maxVisibleItems = 1;
+  const maxVisibleItems = 2;
   const isNonClickablePath = (path: string) => nonClickablePaths.includes(path);
   return (
     <Breadcrumb>
