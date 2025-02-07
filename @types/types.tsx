@@ -85,3 +85,25 @@ export interface IUserPayload extends JWTPayload {
   name: string;
   role: Role;
 }
+
+export const UserRoleLabel = {
+  ADMIN: "Administrador",
+  USER: "Usuário",
+  OPERATOR: "Operador",
+} as const;
+
+export const StatusOrderLabel = {
+  PENDING: "Pendente",
+  DELIVERED: "Entregue",
+  CANCELED: "Cancelado",
+} as const;
+
+export type ITableUser = Pick<
+  User,
+  "id" | "name" | "email" | "role" | "createdAt" | "address" | "ordersId"
+>;
+
+export const UserTableColum = {
+  role: "Cargo",
+  email: "Email",
+} as const;

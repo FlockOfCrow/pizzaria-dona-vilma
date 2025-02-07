@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "@/lib/prisma";
 import { IUserUpdate } from "../../../@types/types";
 import { comparePassword, cryptoPassword } from "../auth/auth-service";
@@ -26,7 +28,8 @@ export async function getUser(email: string) {
 
 export async function editUser(user: IUserUpdate) {
   try {
-    const { id, email, newPassword, ...userRest } = user;
+    const { id, email, newPassword, type, ...userRest } =
+      user as IUserUpdate & { type?: string };
     const findUser = await prisma.user.findUnique({
       where: { id },
     });
@@ -73,6 +76,32 @@ export async function getUsersSizeByMonth(month: string, year?: string) {
       },
     });
     return { users };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+}
+
+export async function getUsers(limit: number, page: number) {
+  try {
+    const users = await prisma.user.findMany({
+      skip: limit * (page - 1),
+      take: limit,
+    });
+    const userMap = users.map(
+      ({ id, name, email, role, address, createdAt, ordersId }) => ({
+        id,
+        name,
+        email,
+        role,
+        address,
+        createdAt,
+        ordersId,
+      })
+    );
+    return {
+      users: userMap,
+      total: userMap.length,
+    };
   } catch (error: any) {
     return { error: error.message };
   }

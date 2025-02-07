@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { z } from "zod";
 
 export const userUpdateSchema = z
@@ -28,3 +29,17 @@ export const userUpdateSchema = z
   );
 
 export type IUserUpdate = z.infer<typeof userUpdateSchema>;
+
+export const userUpdateSchemaAdmin = z.object({
+  id: z.string().nonempty("ID is required"),
+  role: z.nativeEnum(Role),
+  type: z
+    .string()
+    .nonempty("Type is required")
+    .refine(
+      (data) => {
+        return data === "edit" || data === "delete";
+      },
+      { message: "Invalid type" }
+    ),
+});

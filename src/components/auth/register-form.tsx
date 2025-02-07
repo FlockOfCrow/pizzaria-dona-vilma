@@ -86,6 +86,8 @@ export default function RegisterForm() {
     state: false,
     neighborhood: false,
   });
+  const [isLoadingCEP, setIsLoadingCEP] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -110,6 +112,7 @@ export default function RegisterForm() {
 
   const handleZipChange = async (zip: string) => {
     if (zip.length === 9) {
+      setIsLoadingCEP(true);
       try {
         const response = await fetch(
           `https://brasilapi.com.br/api/cep/v2/${zip}`
@@ -127,8 +130,10 @@ export default function RegisterForm() {
             state: !!data.state,
             neighborhood: !!data.neighborhood,
           });
+          setIsLoadingCEP(false);
         }
       } catch (error) {
+        setIsLoadingCEP(false);
         console.error("Erro ao buscar o endereço:", error);
       }
     } else if (zip.length == 0) {
@@ -276,8 +281,8 @@ export default function RegisterForm() {
                     className="bg-bg"
                     placeholder="Ex: São Paulo"
                     {...field}
-                    readOnly={isAutoFilled.city}
-                    disabled={isAutoFilled.city}
+                    readOnly={isAutoFilled.city || isLoadingCEP}
+                    disabled={isAutoFilled.city || isLoadingCEP}
                   />
                 </FormControl>
               </FormItem>
@@ -295,8 +300,8 @@ export default function RegisterForm() {
                     className="bg-bg"
                     placeholder="Ex: Centro"
                     {...field}
-                    readOnly={isAutoFilled.neighborhood}
-                    disabled={isAutoFilled.neighborhood}
+                    readOnly={isAutoFilled.neighborhood || isLoadingCEP}
+                    disabled={isAutoFilled.neighborhood || isLoadingCEP}
                   />
                 </FormControl>
               </FormItem>
@@ -314,8 +319,8 @@ export default function RegisterForm() {
                     className="bg-bg"
                     placeholder="Ex: São Paulo"
                     {...field}
-                    readOnly={isAutoFilled.state}
-                    disabled={isAutoFilled.state}
+                    readOnly={isAutoFilled.state || isLoadingCEP}
+                    disabled={isAutoFilled.state || isLoadingCEP}
                   />
                 </FormControl>
               </FormItem>
@@ -333,8 +338,8 @@ export default function RegisterForm() {
                     className="bg-bg"
                     placeholder="Ex: Avenida 9 de Julho"
                     {...field}
-                    readOnly={isAutoFilled.street}
-                    disabled={isAutoFilled.street}
+                    readOnly={isAutoFilled.street || isLoadingCEP}
+                    disabled={isAutoFilled.street || isLoadingCEP}
                   />
                 </FormControl>
               </FormItem>
