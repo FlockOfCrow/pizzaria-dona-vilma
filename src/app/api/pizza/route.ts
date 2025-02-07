@@ -8,7 +8,7 @@ import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { registerPizzaSchema } from "../../../../@types/pizza";
-import { dateQuerySchema } from "../../../../@types/query";
+import { totalUserQuerySchema } from "../../../../@types/query";
 
 function sanitizeFileName(fileName: string): string {
   return path.basename(fileName).replace(/[^\w\d\-.]/g, "_");
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
       year: searchParams.get("year") ?? undefined,
     };
 
-    const parsedQuery = dateQuerySchema.safeParse(queryParams);
+    const parsedQuery = totalUserQuerySchema.safeParse(queryParams);
     if (!parsedQuery.success) {
       const errorMessage = parsedQuery.error.errors
         .map((err) => err.message)
