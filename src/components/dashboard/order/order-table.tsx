@@ -57,7 +57,12 @@ export default function OrderTable() {
         const res = await fetch(
           `/api/orders?limit=${pagination.pageSize}&page=${
             pagination.pageIndex + 1
-          }`
+          }`,
+          {
+            next: {
+              revalidate: 15,
+            },
+          }
         );
         if (!res.ok) throw new Error("Falha ao buscar dados.");
         const result = await res.json();

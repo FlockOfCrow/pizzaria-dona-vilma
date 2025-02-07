@@ -61,7 +61,6 @@ export async function loginUser(formData: z.infer<typeof loginFormSchema>) {
       sub: user.id,
       email: user.email,
       name: user.name,
-      role: user.role,
     });
     cookies().set("session", token, {
       httpOnly: true,

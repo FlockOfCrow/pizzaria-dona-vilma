@@ -15,7 +15,6 @@ export async function getOrderById(
         userId,
       },
     });
-    console.log(orders);
     return { orders };
   } catch (error: any) {
     console.log(error.message);

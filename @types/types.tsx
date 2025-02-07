@@ -83,7 +83,6 @@ export interface ISidebarItem {
 export interface IUserPayload extends JWTPayload {
   email: string;
   name: string;
-  role: Role;
 }
 
 export const UserRoleLabel = {

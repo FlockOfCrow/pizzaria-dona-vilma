@@ -6,7 +6,7 @@ import { SidebarTrigger } from "@/components/dashboard/sidebar-trigger";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset } from "@/components/ui/sidebar";
 
-export default async function Dashboard() {
+export default function Dashboard() {
   return (
     <>
       <SidebarInset className="bg-bg">
