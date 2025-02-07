@@ -220,7 +220,7 @@ export default function MemberTable() {
     <Dialog open={open} onOpenChange={setOpen}>
       <MemberTableOrders selectedUser={selectedUser as ITableUser} />
       <div className="w-full">
-        <div className="flex items-center py-4">
+        <div className="flex items-center py-4 gap-x-2">
           {/* Adicionar outros filtros */}
           <Input
             placeholder="Filtrar por: email"
