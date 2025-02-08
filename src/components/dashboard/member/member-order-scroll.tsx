@@ -18,7 +18,12 @@ export default function MemberOrderScrollArea({
   async function fetchOrders(nextPage: number) {
     setIsLoading(true);
     const res = await fetch(
-      `/api/orders?userId=${selectedUser.id}&limit=10&page=${nextPage}`
+      `/api/orders?userId=${selectedUser.id}&limit=10&page=${nextPage}`,
+      {
+        next: {
+          revalidate: 5,
+        },
+      }
     );
     const data = await res.json();
     data?.orders && setOrders((prev) => [...prev, ...data?.orders]);

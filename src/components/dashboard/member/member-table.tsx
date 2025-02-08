@@ -61,8 +61,10 @@ export default function MemberTable() {
   const [totalCount, setTotalCount] = useState(0);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
+  const totalPages = Math.ceil(totalCount / pagination.pageSize);
+  const [search, setSearch] = useState("");
   const [isLoading, setLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
@@ -77,7 +79,7 @@ export default function MemberTable() {
         const res = await fetch(
           `/api/users?limit=${pagination.pageSize}&page=${
             pagination.pageIndex + 1
-          }`,
+          }&search=${encodeURIComponent(search)}`,
           {
             next: {
               revalidate: 15,
@@ -94,7 +96,7 @@ export default function MemberTable() {
       }
     };
     fetchData();
-  }, [pagination.pageIndex, pagination.pageSize]);
+  }, [pagination.pageIndex, pagination.pageSize, search]);
 
   const updateUserRoleLocally = (userId: string, newRole: Role) => {
     setData((prev) =>
@@ -253,10 +255,11 @@ export default function MemberTable() {
           {/* Adicionar outros filtros */}
           <Input
             placeholder="Filtrar por: email"
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
-            }
+            value={search}
+            onChange={(e) => {
+              setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+              setSearch(e.target.value);
+            }}
             className="max-w-sm bg-fbg border-separator-pizza"
           />
           <DropdownMenu>

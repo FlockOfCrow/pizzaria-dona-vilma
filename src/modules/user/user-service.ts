@@ -81,11 +81,25 @@ export async function getUsersSizeByMonth(month: string, year?: string) {
   }
 }
 
-export async function getUsers(limit: number, page: number) {
+export async function getUsers(limit: number, page: number, search?: string) {
   try {
     const users = await prisma.user.findMany({
       skip: limit * (page - 1),
       take: limit,
+      where: {
+        OR: [
+          { email: { contains: search, mode: "insensitive" } },
+          { name: { contains: search, mode: "insensitive" } },
+        ],
+      },
+    });
+    const totalUsers = await prisma.user.count({
+      where: {
+        OR: [
+          { email: { contains: search, mode: "insensitive" } },
+          { name: { contains: search, mode: "insensitive" } },
+        ],
+      },
     });
     const userMap = users.map(
       ({ id, name, email, role, address, createdAt, ordersId }) => ({
@@ -100,7 +114,7 @@ export async function getUsers(limit: number, page: number) {
     );
     return {
       users: userMap,
-      total: userMap.length,
+      total: totalUsers,
     };
   } catch (error: any) {
     return { error: error.message };

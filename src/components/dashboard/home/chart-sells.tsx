@@ -60,7 +60,12 @@ export default function ChartSells() {
           );
 
           const res = await fetch(
-            `/api/pizza?month=${monthNumber}&year=${year}`
+            `/api/pizza?month=${monthNumber}&year=${year}`,
+            {
+              next: {
+                revalidate: 60,
+              },
+            }
           );
           if (!res.ok) {
             throw new Error("Falha ao buscar os dados do mês " + monthNumber);
