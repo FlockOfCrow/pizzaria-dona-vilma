@@ -37,6 +37,7 @@ export async function GET(req: NextRequest) {
       const parsedQuery = userQuerySchema.safeParse({
         limit: queryParams.limit,
         page: queryParams.page,
+        search: searchParams.get("search") ?? "",
       });
       if (!parsedQuery.success) {
         const errorMessage = parsedQuery.error.errors
@@ -45,9 +46,9 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ message: errorMessage }, { status: 400 });
       }
 
-      const { limit, page } = parsedQuery.data;
+      const { limit, page, search } = parsedQuery.data;
 
-      const result = await getUsers(limit, page);
+      const result = await getUsers(limit, page, search);
       if (result.error) {
         return NextResponse.json({ message: result.error }, { status: 400 });
       }

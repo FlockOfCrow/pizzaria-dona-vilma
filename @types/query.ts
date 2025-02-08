@@ -15,6 +15,7 @@ export const totalUserQuerySchema = z.object({
 export const userQuerySchema = z.object({
   limit: z.number().int().positive(),
   page: z.number().int(),
+  search: z.string().optional(),
 });
 
 export const userQuerySchemaWithUserId = userQuerySchema.extend({
