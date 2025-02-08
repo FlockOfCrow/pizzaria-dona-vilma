@@ -87,6 +87,7 @@ export async function getUsers(limit: number, page: number) {
       skip: limit * (page - 1),
       take: limit,
     });
+    const totalUsers = await prisma.user.count();
     const userMap = users.map(
       ({ id, name, email, role, address, createdAt, ordersId }) => ({
         id,
@@ -100,7 +101,7 @@ export async function getUsers(limit: number, page: number) {
     );
     return {
       users: userMap,
-      total: userMap.length,
+      total: totalUsers,
     };
   } catch (error: any) {
     return { error: error.message };

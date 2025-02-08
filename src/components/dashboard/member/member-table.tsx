@@ -61,8 +61,9 @@ export default function MemberTable() {
   const [totalCount, setTotalCount] = useState(0);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
+  const totalPages = Math.ceil(totalCount / pagination.pageSize);
   const [isLoading, setLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
