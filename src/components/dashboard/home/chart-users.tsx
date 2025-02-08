@@ -59,7 +59,12 @@ export default function ChartUser() {
           );
 
           const res = await fetch(
-            `/api/users?month=${monthNumber}&year=${year}`
+            `/api/users?month=${monthNumber}&year=${year}`,
+            {
+              next: {
+                revalidate: 60,
+              },
+            }
           );
           if (!res.ok) {
             throw new Error("Falha ao buscar os dados do mês " + monthNumber);

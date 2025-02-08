@@ -134,7 +134,11 @@ export default function ProfileForm() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/api/user");
+        const response = await fetch("/api/user", {
+          next: {
+            revalidate: 0,
+          },
+        });
         const data = await response.json();
         if (!data) return router.push("/login");
         form.reset({
