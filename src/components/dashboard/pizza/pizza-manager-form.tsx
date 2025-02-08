@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search, Upload } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import { toast } from "sonner";
 import { registerPizzaSchema } from "../../../../@types/pizza";
@@ -24,8 +25,12 @@ import { PizzaSize } from "../../../../@types/types";
 
 type RegisterPizzaFormData = z.infer<typeof registerPizzaSchema>;
 
-export default function PizzaManagerForm() {
-  const [image, setImage] = useState<string | null>(null);
+export default function PizzaManagerForm({
+  selected,
+}: {
+  selected: (Product & { price: Record<PizzaSize, number> }) | null;
+}) {
+  const [image, setImage] = useState<string | null>(selected?.image || null);
   const [dragActive, setDragActive] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -43,6 +48,21 @@ export default function PizzaManagerForm() {
       },
     },
   });
+
+  useEffect(() => {
+    if (selected) {
+      setImage(selected.image);
+      form.setValue("name", selected.name);
+      form.setValue("description", selected?.description!);
+      form.setValue("price.P", selected.price.P || ("" as unknown as number));
+      form.setValue("price.M", selected?.price?.M || ("" as unknown as number));
+      form.setValue("price.G", selected?.price?.G || ("" as unknown as number));
+      form.setValue(
+        "price.GG",
+        selected?.price?.GG || ("" as unknown as number)
+      );
+    }
+  }, [selected]);
 
   const validImageTypes = ["image/jpeg", "image/png"];
 
@@ -177,24 +197,51 @@ export default function PizzaManagerForm() {
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
                     onDrop={(e) => handleDrop(e, field.onChange)}
-                    className={`relative cursor-pointer flex flex-col items-center gap-2 bg-fbg rounded-md border-2 border-dashed ${
+                    className={`relative ${
+                      selected
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-50"
+                    } flex flex-col items-center gap-2 bg-fbg rounded-md border-2 border-dashed ${
                       dragActive
                         ? "border-blue-500 animate-pulse"
                         : "border-border-pizza"
                     } aspect-square md:w-80 w-full shadow-lg justify-center transition-all duration-300 text-black`}
                   >
-                    {image ? (
-                      <div className="relative w-full h-full">
-                        <Image
-                          src={image}
-                          alt="Pizza"
-                          fill={true}
-                          className="w-full h-full object-cover rounded-md"
+                    {selected ? (
+                      <>
+                        {image ? (
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={
+                                image.startsWith("blob:") ? image : `${image}`
+                              }
+                              alt="Pizza"
+                              fill={true}
+                              className="w-full h-full object-cover rounded-md"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-md">
+                              <span className="text-white">Trocar imagem</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center space-y-2">
+                            <span className="text-center">
+                              Inserir uma imagem ou
+                              <br />
+                              <strong>Arraste a imagem aqui</strong>
+                            </span>
+                            <Upload className="text-4xl" />
+                          </div>
+                        )}
+                        <Input
+                          id="picture"
+                          type="file"
+                          accept="image/png,image/jpeg"
+                          className="hidden"
+                          ref={field.ref}
+                          onChange={(e) => handleImageChange(e, field.onChange)}
                         />
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-md">
-                          <span className="text-white">Trocar imagem</span>
-                        </div>
-                      </div>
+                      </>
                     ) : (
                       <div className="flex flex-col items-center space-y-2">
                         <span className="text-center">
@@ -205,14 +252,6 @@ export default function PizzaManagerForm() {
                         <Upload className="text-4xl" />
                       </div>
                     )}
-                    <Input
-                      id="picture"
-                      type="file"
-                      accept="image/png,image/jpeg"
-                      className="hidden"
-                      ref={field.ref}
-                      onChange={(e) => handleImageChange(e, field.onChange)}
-                    />
                   </FormLabel>
                 </FormControl>
                 <FormMessage />
@@ -230,6 +269,7 @@ export default function PizzaManagerForm() {
                     <Input
                       className="bg-fbg border-border-pizza shadow-md"
                       placeholder="Insira aqui o nome da Pizza"
+                      disabled={selected ? false : true}
                       {...field}
                     />
                   </FormControl>
@@ -246,6 +286,7 @@ export default function PizzaManagerForm() {
                     <Textarea
                       className="bg-fbg border-border-pizza shadow-md h-52 resize-none"
                       placeholder="Insira aqui a descrição da Pizza"
+                      disabled={selected ? false : true}
                       {...field}
                     />
                   </FormControl>
@@ -268,6 +309,7 @@ export default function PizzaManagerForm() {
                       {...field}
                       onChange={(e) => handleNumberChange(e, "P")}
                       onBlur={(e) => handleNumberBlur(e, "P")}
+                      disabled={selected ? false : true}
                     />
                   </FormControl>
                   <FormMessage />
@@ -288,6 +330,7 @@ export default function PizzaManagerForm() {
                       {...field}
                       onChange={(e) => handleNumberChange(e, "M")}
                       onBlur={(e) => handleNumberBlur(e, "M")}
+                      disabled={selected ? false : true}
                     />
                   </FormControl>
                   <FormMessage />
@@ -308,6 +351,7 @@ export default function PizzaManagerForm() {
                       {...field}
                       onChange={(e) => handleNumberChange(e, "G")}
                       onBlur={(e) => handleNumberBlur(e, "G")}
+                      disabled={selected ? false : true}
                     />
                   </FormControl>
                   <FormMessage />
@@ -328,6 +372,7 @@ export default function PizzaManagerForm() {
                       {...field}
                       onChange={(e) => handleNumberChange(e, "GG")}
                       onBlur={(e) => handleNumberBlur(e, "GG")}
+                      disabled={selected ? false : true}
                     />
                   </FormControl>
                   <FormMessage />
@@ -336,7 +381,10 @@ export default function PizzaManagerForm() {
             />
           </div>
         </div>
-        <Button type="submit" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          disabled={isSubmitting || (selected ? false : true)}
+        >
           <Search /> Editar Pizza
         </Button>
       </form>
