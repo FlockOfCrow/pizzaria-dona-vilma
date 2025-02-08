@@ -1,0 +1,111 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { DialogTitle } from "@/components/ui/dialog";
+import { Product } from "@prisma/client";
+import { Search } from "lucide-react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import PizzaManagerForm from "./pizza-manager-form";
+
+export default function PizzaManagerComponent() {
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState<Product[]>([]);
+
+  const debounce = (func: (...args: any[]) => void, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: any[]) => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  const fetchData = useCallback(
+    debounce(async (searchTerm: string) => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `/api/pizza?search=${encodeURIComponent(searchTerm)}`,
+          {
+            next: {
+              revalidate: 5,
+            },
+          }
+        );
+        if (!res.ok) throw new Error("Falha ao buscar dados.");
+        const result = await res.json();
+        console.log(result.pizzas);
+        setData(result.pizzas);
+        setIsLoading(false);
+      } catch (e) {
+        console.error(e);
+        setIsLoading(false);
+      }
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    fetchData(search);
+  }, [search, fetchData]);
+
+  return (
+    <>
+      <div className="flex pt-5 justify-end">
+        <Button
+          onClick={() => setOpen(!open)}
+          className="w-[50%] lg:w-[20%] bg-fbg border border-separator-pizza text-black hover:bg-border-pizza"
+        >
+          <Search />
+          Procurar
+        </Button>
+      </div>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <DialogTitle className="hidden" />
+        <CommandInput
+          value={search}
+          onValueChange={(e) => setSearch(e)}
+          placeholder="Digite o nome da pizza..."
+        />
+        <CommandList>
+          {isLoading ? (
+            <CommandEmpty>Procurando pizzas no sistema...</CommandEmpty>
+          ) : data.length === 0 ? (
+            <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
+          ) : (
+            <CommandGroup heading="Resultados">
+              {data.map((pizza) => (
+                <CommandItem key={pizza.id} value={pizza.name}>
+                  <div className="h-10 w-10 relative rounded-full">
+                    {pizza.image && (
+                      <Image
+                        src={pizza.image}
+                        alt={pizza.name}
+                        fill
+                        className="rounded-full object-cover"
+                      />
+                    )}
+                  </div>
+                  <span>{pizza.name}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          )}
+        </CommandList>
+      </CommandDialog>
+      <PizzaManagerForm />
+    </>
+  );
+}
