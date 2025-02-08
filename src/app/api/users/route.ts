@@ -5,10 +5,7 @@ import {
   getUsersSizeByMonth,
 } from "@/modules/user/user-service";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  totalUserQuerySchema,
-  userQuerySchema,
-} from "../../../../@types/query";
+import { monthQuerySchema, querySchema } from "../../../../@types/query";
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("session");
@@ -31,13 +28,14 @@ export async function GET(req: NextRequest) {
       year: searchParams.get("year") ?? undefined,
       limit: Number.parseInt(searchParams.get("limit") as string) ?? 10,
       page: Number.parseInt(searchParams.get("page") as string) ?? 1,
+      search: searchParams.get("search") ?? "",
     };
 
     if (!queryParams.month && !queryParams.year) {
-      const parsedQuery = userQuerySchema.safeParse({
+      const parsedQuery = querySchema.safeParse({
         limit: queryParams.limit,
         page: queryParams.page,
-        search: searchParams.get("search") ?? "",
+        search: queryParams.search,
       });
       if (!parsedQuery.success) {
         const errorMessage = parsedQuery.error.errors
@@ -55,7 +53,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(result, { status: 200 });
     }
 
-    const parsedQuery = totalUserQuerySchema.safeParse({
+    const parsedQuery = monthQuerySchema.safeParse({
       month: queryParams.month,
       year: queryParams.year,
     });

@@ -2,8 +2,8 @@
 
 import prisma from "@/lib/prisma";
 import { z } from "zod";
-import { registerPizzaSchema } from "../../../@types/pizza";
 import { registerDrinkSchema } from "../../../@types/drink";
+import { registerPizzaSchema } from "../../../@types/pizza";
 
 export async function createPizza(
   pizza: Omit<z.infer<typeof registerPizzaSchema>, "picture"> & {
@@ -32,17 +32,30 @@ export async function createPizza(
   }
 }
 
-export async function getPizzas() {
+export async function getPizzas(search?: string) {
   try {
     const pizzas = await prisma.product.findMany({
       where: {
         category: "PIZZA",
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { description: { contains: search, mode: "insensitive" } },
+        ],
+      },
+    });
+    const totalPizzas = await prisma.product.count({
+      where: {
+        category: "PIZZA",
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { description: { contains: search, mode: "insensitive" } },
+        ],
       },
     });
     if (!pizzas) {
       throw new Error("No pizzas found");
     }
-    return { pizzas };
+    return { pizzas, total: totalPizzas };
   } catch (error: any) {
     return { error: error.message };
   }

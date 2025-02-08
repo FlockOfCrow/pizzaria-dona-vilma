@@ -50,12 +50,8 @@ const items: ISidebarItem[] = [
             url: URL_REF + "/pizzas/cadastrar",
           },
           {
-            title: "Remover Pizza",
-            url: URL_REF + "/pizzas/remover",
-          },
-          {
-            title: "Editar Pizza",
-            url: URL_REF + "/pizzas/editar",
+            title: "Gerenciar Pizza",
+            url: URL_REF + "/pizzas/gerenciar",
           },
         ],
       },
@@ -69,12 +65,8 @@ const items: ISidebarItem[] = [
             url: URL_REF + "/bebidas/cadastrar",
           },
           {
-            title: "Remover Bebida",
-            url: URL_REF + "/bebidas/remover",
-          },
-          {
-            title: "Editar Bebida",
-            url: URL_REF + "/bebidas/editar",
+            title: "Gerenciar Bebida",
+            url: URL_REF + "/bebidas/gerenciar",
           },
         ],
       },

@@ -1,6 +1,7 @@
 import { verifyToken } from "@/modules/auth/auth-service";
 import {
   createPizza,
+  getPizzas,
   getTotalProductSoldByMonth,
 } from "@/modules/product/product-service";
 import { getUser } from "@/modules/user/user-service";
@@ -8,7 +9,7 @@ import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { registerPizzaSchema } from "../../../../@types/pizza";
-import { totalUserQuerySchema } from "../../../../@types/query";
+import { monthQuerySchema, searchSchema } from "../../../../@types/query";
 
 function sanitizeFileName(fileName: string): string {
   return path.basename(fileName).replace(/[^\w\d\-.]/g, "_");
@@ -19,6 +20,33 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("session");
   try {
+    const { searchParams } = new URL(req.url);
+    const queryParams = {
+      month: searchParams.get("month") ?? "",
+      year: searchParams.get("year") ?? undefined,
+      limit: Number.parseInt(searchParams.get("limit") as string) ?? 10,
+      page: Number.parseInt(searchParams.get("page") as string) ?? 1,
+      search: searchParams.get("search") ?? "",
+    };
+
+    if (!queryParams.month && !queryParams.year) {
+      const parsedQuery = searchSchema.safeParse({
+        search: queryParams.search,
+      });
+      if (!parsedQuery.success) {
+        const errorMessage = parsedQuery.error.errors
+          .map((err) => err.message)
+          .join(", ");
+        return NextResponse.json({ message: errorMessage }, { status: 400 });
+      }
+      const { search } = parsedQuery.data;
+      const result = await getPizzas(search);
+      if (result.error) {
+        return NextResponse.json({ message: result.error }, { status: 400 });
+      }
+      return NextResponse.json(result, { status: 200 });
+    }
+
     const session = await verifyToken(token?.value!);
     if (!session) {
       return NextResponse.json({ message: "Invalid token" }, { status: 401 });
@@ -32,13 +60,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const { searchParams } = new URL(req.url);
-    const queryParams = {
-      month: searchParams.get("month") ?? "",
-      year: searchParams.get("year") ?? undefined,
-    };
-
-    const parsedQuery = totalUserQuerySchema.safeParse(queryParams);
+    const parsedQuery = monthQuerySchema.safeParse(queryParams);
     if (!parsedQuery.success) {
       const errorMessage = parsedQuery.error.errors
         .map((err) => err.message)

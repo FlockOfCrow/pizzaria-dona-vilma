@@ -8,7 +8,7 @@ import { promises as fs } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { registerDrinkSchema } from "../../../../@types/drink";
-import { totalUserQuerySchema } from "../../../../@types/query";
+import { monthQuerySchema } from "../../../../@types/query";
 
 function sanitizeFileName(fileName: string): string {
   return path.basename(fileName).replace(/[^\w\d\-.]/g, "_");
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
       year: searchParams.get("year") ?? undefined,
     };
 
-    const parsedQuery = totalUserQuerySchema.safeParse(queryParams);
+    const parsedQuery = monthQuerySchema.safeParse(queryParams);
     if (!parsedQuery.success) {
       const errorMessage = parsedQuery.error.errors
         .map((err) => err.message)
