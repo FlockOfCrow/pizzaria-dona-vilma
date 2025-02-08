@@ -25,10 +25,21 @@ import { PizzaSize } from "../../../../@types/types";
 
 type RegisterPizzaFormData = z.infer<typeof registerPizzaSchema>;
 
+async function convertUrlToFile(imageUrl: string): Promise<File> {
+  const response = await fetch(imageUrl);
+  const blob = await response.blob();
+  const fileName = imageUrl.split("/").pop() || "existing-image.jpg";
+  return new File([blob], fileName, { type: blob.type });
+}
+
 export default function PizzaManagerForm({
   selected,
+  handlePizzaUpdated,
 }: {
   selected: (Product & { price: Record<PizzaSize, number> }) | null;
+  handlePizzaUpdated: (
+    updatedPizza: Product & { price: Record<PizzaSize, number> }
+  ) => void;
 }) {
   const [image, setImage] = useState<string | null>(selected?.image || null);
   const [dragActive, setDragActive] = useState(false);
@@ -50,18 +61,30 @@ export default function PizzaManagerForm({
   });
 
   useEffect(() => {
-    if (selected) {
-      setImage(selected.image);
-      form.setValue("name", selected.name);
-      form.setValue("description", selected?.description!);
-      form.setValue("price.P", selected.price.P || ("" as unknown as number));
-      form.setValue("price.M", selected?.price?.M || ("" as unknown as number));
-      form.setValue("price.G", selected?.price?.G || ("" as unknown as number));
-      form.setValue(
-        "price.GG",
-        selected?.price?.GG || ("" as unknown as number)
-      );
-    }
+    const changeValues = async () => {
+      if (selected) {
+        setImage(selected.image);
+        form.setValue("name", selected.name);
+        if (selected.image) {
+          form.setValue("picture", await convertUrlToFile(selected.image));
+        }
+        form.setValue("description", selected?.description!);
+        form.setValue("price.P", selected.price.P || ("" as unknown as number));
+        form.setValue(
+          "price.M",
+          selected?.price?.M || ("" as unknown as number)
+        );
+        form.setValue(
+          "price.G",
+          selected?.price?.G || ("" as unknown as number)
+        );
+        form.setValue(
+          "price.GG",
+          selected?.price?.GG || ("" as unknown as number)
+        );
+      }
+    };
+    changeValues();
   }, [selected]);
 
   const validImageTypes = ["image/jpeg", "image/png"];
@@ -124,26 +147,31 @@ export default function PizzaManagerForm({
   async function onSubmit(values: z.infer<typeof registerPizzaSchema>) {
     setIsSubmitting(true);
     const formData = new FormData();
+    formData.append("id", (selected?.id as string) || "");
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("price", JSON.stringify(values.price));
     formData.append("picture", values.picture as File);
-    const registerPromise = fetch("/api/pizza", {
-      method: "POST",
+    const updatePromise = fetch("/api/pizza", {
+      method: "PATCH",
       body: formData,
     });
-    toast.promise(registerPromise, {
-      loading: "Cadastrando sua pizza...",
-      success: () => {
+    toast.promise(updatePromise, {
+      loading: "Atualizando sua pizza...",
+      success: async (data) => {
+        const resp = await data.json();
         setIsSubmitting(false);
         form.reset();
         setImage(null);
         setDragActive(false);
-        return "Pizza cadastrada com sucesso!";
+        handlePizzaUpdated(
+          resp.pizza as Product & { price: Record<PizzaSize, number> }
+        );
+        return "Pizza atualizada com sucesso!";
       },
       error: async (error) => {
         setIsSubmitting(false);
-        return "Erro ao cadastrar pizza.";
+        return "Erro ao atualizar pizza.";
       },
     });
   }

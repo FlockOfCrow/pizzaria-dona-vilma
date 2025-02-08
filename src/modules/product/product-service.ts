@@ -61,6 +61,31 @@ export async function getPizzas(search?: string) {
   }
 }
 
+export async function editPizza(
+  pizza: Omit<z.infer<typeof registerPizzaSchema>, "picture"> & {
+    image: string;
+  }
+) {
+  try {
+    const updatedPizza = await prisma.product.update({
+      where: {
+        name: pizza.name,
+      },
+      data: {
+        description: pizza.description,
+        price: pizza.price,
+        image: pizza.image,
+      },
+    });
+    if (!updatedPizza) {
+      throw new Error("Pizza not found");
+    }
+    return { pizza: updatedPizza };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+}
+
 export async function createDrink(
   drink: Omit<z.infer<typeof registerDrinkSchema>, "picture"> & {
     image: string;

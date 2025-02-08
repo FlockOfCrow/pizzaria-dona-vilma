@@ -34,6 +34,18 @@ export default function PizzaManagerComponent() {
     };
   };
 
+  const handlePizzaUpdated = (
+    updatedPizza: Product & { price: Record<PizzaSize, number> }
+  ) => {
+    setData((prevData) => {
+      const index = prevData.findIndex((p) => p.id === updatedPizza.id);
+      if (index === -1) return prevData;
+      const newData = [...prevData];
+      newData[index] = updatedPizza;
+      return newData;
+    });
+  };
+
   const fetchData = useCallback(
     debounce(async (searchTerm: string) => {
       setIsLoading(true);
@@ -138,6 +150,7 @@ export default function PizzaManagerComponent() {
       </CommandDialog>
       <PizzaManagerForm
         selected={selected as Product & { price: Record<PizzaSize, number> }}
+        handlePizzaUpdated={handlePizzaUpdated}
       />
     </>
   );
