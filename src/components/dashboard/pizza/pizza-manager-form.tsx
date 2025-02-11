@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Search, Upload } from "lucide-react";
+import { Pencil, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -413,7 +413,7 @@ export default function PizzaManagerForm({
           type="submit"
           disabled={isSubmitting || (selected ? false : true)}
         >
-          <Search /> Editar Pizza
+          <Pencil /> Editar Pizza
         </Button>
       </form>
     </Form>

@@ -42,6 +42,7 @@ export default function PizzaManagerComponent() {
       if (index === -1) return prevData;
       const newData = [...prevData];
       newData[index] = updatedPizza;
+      setSelected(null);
       return newData;
     });
   };

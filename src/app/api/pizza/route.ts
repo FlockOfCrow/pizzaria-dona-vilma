@@ -225,7 +225,8 @@ export async function PATCH(req: NextRequest) {
       await fs.mkdir(uploadDir, { recursive: true });
     }
 
-    const safeFileName = sanitizeFileName(pictureFile.name);
+    const fileName = sanitizeFileName(pictureFile.name).split("-");
+    const safeFileName = sanitizeFileName(fileName[fileName.length - 1]);
     const uniqueName = `${Date.now()}-${safeFileName}`;
     const filePath = path.join(uploadDir, uniqueName);
 
