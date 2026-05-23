@@ -74,5 +74,5 @@ Nós utilizamos a [Vercel](https://vercel.com) para hospedar e gerenciar nosso a
 
 ## Desenvolvedores
 
-| [<img src="https://github.com/wfabi0.png" width="100px;"/><br /><sub><b>Fábio Milagres</b></sub>](https://github.com/wfabi0) | [<img src="https://github.com/JoaoPedroDupim.png" width="100px;"/><br /><sub><b>João Pedro</b></sub>](https://github.com/JoaoPedroDupim) |
+| [<img src="https://github.com/wfabi0.png" width="100px;"/><br /><sub><b>Fábio Milagres</b></sub>](https://github.com/wfabi0) | [<img src="https://github.com/jp-dupim.png" width="100px;"/><br /><sub><b>João Pedro</b></sub>](https://github.com/jp-dupim) |
 | :---: | :---: |
